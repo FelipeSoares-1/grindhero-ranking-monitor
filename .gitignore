@@ -1,8 +1,5 @@
-# Dados locais - não versionar
-ranking.db
-ranking_latest.json
-dashboard.html
-logs/
+# Claude Code
+.claude/
 
 # Python
 __pycache__/

@@ -26,9 +26,9 @@ SERVERS = {
 }
 RANKING_TYPES = ["Experience", "Melee", "Shielding", "Magic", "Distance", "Taming"]
 
-DELAY_ENTRE_REQUISICOES = 6  # segundos — respeitar rate limit
-MAX_RETRIES = 3
-RETRY_DELAY = 30  # segundos
+DELAY_ENTRE_REQUISICOES = 10  # segundos entre rankings — evitar rate limit acumulado
+MAX_RETRIES = 5
+RETRY_BASE_DELAY = 45  # backoff exponencial: 45s, 90s, 180s, 360s...
 
 # ─── Logging ────────────────────────────────────────────────────────────────
 os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
@@ -119,12 +119,13 @@ def fetch_ranking(server_id: int, ranking_type: str) -> list:
     }
 
     for attempt in range(1, MAX_RETRIES + 1):
+        wait = RETRY_BASE_DELAY * (2 ** (attempt - 1))  # 45, 90, 180, 360, 720s
         try:
             r = requests.get(url, headers=headers, timeout=20)
 
             if r.status_code == 429:
-                log.warning(f"Rate limit em {ranking_type} (tentativa {attempt}/{MAX_RETRIES}). Aguardando {RETRY_DELAY}s...")
-                time.sleep(RETRY_DELAY)
+                log.warning(f"Rate limit em {ranking_type} (tentativa {attempt}/{MAX_RETRIES}). Aguardando {wait}s...")
+                time.sleep(wait)
                 continue
 
             r.raise_for_status()
@@ -139,9 +140,9 @@ def fetch_ranking(server_id: int, ranking_type: str) -> list:
         except requests.exceptions.RequestException as e:
             log.error(f"Erro de rede em {ranking_type} (tentativa {attempt}): {e}")
             if attempt < MAX_RETRIES:
-                time.sleep(RETRY_DELAY)
+                time.sleep(wait)
 
-    log.error(f"Falha após {MAX_RETRIES} tentativas para {ranking_type}")
+    log.error(f"Falha apos {MAX_RETRIES} tentativas para {ranking_type}")
     return []
 
 

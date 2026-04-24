@@ -56,6 +56,11 @@ def load(conn) -> pd.DataFrame:
         "SELECT * FROM snapshots ORDER BY collected_at, ranking_type, rank",
         conn, parse_dates=["collected_at"],
     )
+    # Deduplicar: manter apenas o snapshot mais recente por dia calendario
+    df["_date"] = df["collected_at"].dt.date
+    latest_per_day = df.groupby("_date")["collected_at"].max().rename("_keep")
+    df = df.join(latest_per_day, on="_date")
+    df = df[df["collected_at"] == df["_keep"]].drop(columns=["_date", "_keep"]).reset_index(drop=True)
     return df
 
 
@@ -64,6 +69,7 @@ def latest(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def prev(df: pd.DataFrame) -> pd.DataFrame:
+    # Retorna snapshot do dia anterior (não do penultimo timestamp do mesmo dia)
     dates = sorted(df["collected_at"].unique())
     if len(dates) < 2:
         return pd.DataFrame()
@@ -151,35 +157,50 @@ def fmt_rank_delta(v):
 
 # ── charts ─────────────────────────────────────────────────────────────────
 def chart_radar(df_latest: pd.DataFrame, watched: list) -> str:
+    """Barras horizontais agrupadas por skill — muito mais legível que radar."""
     skills = ["Experience","Melee","Shielding","Magic","Distance","Taming"]
-    fig = go.Figure()
-    colors = [CLR["cyan"], CLR["pink"], CLR["green"], CLR["yellow"]]
+    colors = [CLR["cyan"], CLR["pink"], CLR["green"], CLR["yellow"], CLR["purple"], "#ff9f43"]
 
+    fig = go.Figure()
     for i, name in enumerate(watched):
-        vals = []
+        ranks, labels = [], []
         for sk in skills:
-            sub = df_latest[(df_latest["name"].str.lower()==name.lower()) & (df_latest["ranking_type"]==sk)]
-            vals.append(51 - int(sub.iloc[0]["rank"]) if not sub.empty else 0)
-        fig.add_trace(go.Scatterpolar(
-            r=vals + [vals[0]],
-            theta=skills + [skills[0]],
-            fill="toself",
-            fillcolor=colors[i % len(colors)].replace("ff","22") if colors[i % len(colors)].startswith("#") else colors[i % len(colors)],
-            line=dict(color=colors[i % len(colors)], width=2),
+            sub = df_latest[(df_latest["name"].str.lower() == name.lower()) & (df_latest["ranking_type"] == sk)]
+            rank = int(sub.iloc[0]["rank"]) if not sub.empty else None
+            ranks.append(rank)
+            labels.append(f"#{rank}" if rank else "—")
+
+        color = colors[i % len(colors)]
+        fig.add_trace(go.Bar(
             name=name,
+            x=skills,
+            y=[51 - r if r else 0 for r in ranks],
+            text=labels,
+            textposition="outside",
+            textfont=dict(color=color, size=12, family="Fira Code, monospace"),
+            marker=dict(
+                color=hex_to_rgba(color, 0.25),
+                line=dict(color=color, width=2),
+            ),
+            hovertemplate="<b>%{x}</b><br>" + name + ": %{text}<extra></extra>",
         ))
 
     fig.update_layout(
         **PLOTLY_THEME,
-        polar=dict(
-            bgcolor="rgba(0,0,0,0)",
-            radialaxis=dict(visible=True, range=[0,50], color=CLR["muted"], gridcolor="rgba(255,255,255,0.06)"),
-            angularaxis=dict(color=CLR["text"], gridcolor="rgba(255,255,255,0.06)"),
+        title=dict(text="Posição por Skill  (barra maior = melhor rank)", font=dict(color=CLR["cyan"], size=13)),
+        barmode="group",
+        bargap=0.25,
+        bargroupgap=0.08,
+        xaxis=dict(showgrid=False, tickfont=dict(size=12)),
+        yaxis=dict(
+            showgrid=True, gridcolor="rgba(255,255,255,0.05)",
+            tickvals=list(range(0, 52, 10)),
+            ticktext=[str(51-v) if v > 0 else "" for v in range(0, 52, 10)],
+            title="Posição no ranking",
+            title_font=dict(color=CLR["muted"]),
         ),
-        title=dict(text="Perfil de Rankings (50 = rank #1)", font=dict(color=CLR["cyan"], size=13)),
-        showlegend=True,
         legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color=CLR["text"])),
-        height=350,
+        height=380,
     )
     return fig.to_html(full_html=False, include_plotlyjs=False, div_id="chart-radar")
 
@@ -221,27 +242,80 @@ def chart_gap(df_latest: pd.DataFrame, name: str, rt: str) -> str:
 
 
 def chart_evolution(df: pd.DataFrame, name: str, rt: str) -> str:
+    """Dois gráficos empilhados: XP acumulado em cima, posição no ranking embaixo."""
     sub = df[(df["name"].str.lower() == name.lower()) & (df["ranking_type"] == rt)].sort_values("collected_at")
     if len(sub) < 2:
         return ""
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    color = CLR[rt]
+    dates = sub["collected_at"].tolist()
+    xp_vals = sub["experience"].tolist()
+    rank_vals = sub["rank"].tolist()
+
+    # XP delta entre snapshots
+    xp_delta = [0] + [xp_vals[i] - xp_vals[i-1] for i in range(1, len(xp_vals))]
+    hover_xp = [
+        f"<b>{d}</b><br>XP: {fmt_xp(x)}<br>Ganho: {'+' if dx>=0 else ''}{fmt_xp(dx)}"
+        for d, x, dx in zip(dates, xp_vals, xp_delta)
+    ]
+    hover_rank = [f"<b>{d}</b><br>Posição: #{r}" for d, r in zip(dates, rank_vals)]
+
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        row_heights=[0.6, 0.4],
+        vertical_spacing=0.08,
+        subplot_titles=["XP Acumulado", "Posição no Ranking"],
+    )
+
+    # XP — área preenchida
     fig.add_trace(go.Scatter(
-        x=sub["collected_at"], y=sub["experience"],
-        name="XP", line=dict(color=CLR[rt], width=2),
-        fill="tozeroy", fillcolor=hex_to_rgba(CLR[rt], 0.08),
-    ), secondary_y=False)
-    fig.add_trace(go.Scatter(
-        x=sub["collected_at"], y=sub["rank"],
-        name="Rank", line=dict(color=CLR["yellow"], width=2, dash="dot"),
+        x=dates, y=xp_vals,
         mode="lines+markers",
-    ), secondary_y=True)
-    fig.update_yaxes(secondary_y=True, autorange="reversed", showgrid=False, title_text="Posição", title_font=dict(color=CLR["yellow"]))
-    fig.update_yaxes(secondary_y=False, title_text="XP", title_font=dict(color=CLR[rt]))
+        line=dict(color=color, width=2.5),
+        marker=dict(size=7, color=color, line=dict(color=CLR["bg"], width=1.5)),
+        fill="tozeroy",
+        fillcolor=hex_to_rgba(color, 0.12),
+        hovertemplate="%{customdata}<extra></extra>",
+        customdata=hover_xp,
+        showlegend=False,
+    ), row=1, col=1)
+
+    # Rank — linha com marcadores, eixo invertido
+    fig.add_trace(go.Scatter(
+        x=dates, y=rank_vals,
+        mode="lines+markers",
+        line=dict(color=CLR["yellow"], width=2),
+        marker=dict(size=8, color=CLR["yellow"], symbol="diamond", line=dict(color=CLR["bg"], width=1.5)),
+        hovertemplate="%{customdata}<extra></extra>",
+        customdata=hover_rank,
+        showlegend=False,
+    ), row=2, col=1)
+
+    fig.update_yaxes(
+        title_text="XP Total", title_font=dict(color=color, size=11),
+        gridcolor="rgba(255,255,255,0.05)", row=1, col=1,
+    )
+    fig.update_yaxes(
+        title_text="Posição", title_font=dict(color=CLR["yellow"], size=11),
+        autorange="reversed",
+        gridcolor="rgba(255,255,255,0.05)",
+        tickformat="d",
+        row=2, col=1,
+    )
+    fig.update_xaxes(showgrid=False, tickfont=dict(size=10))
+
+    # Ajustar títulos dos subplots
+    fig.layout.annotations[0].font.color = color
+    fig.layout.annotations[0].font.size = 12
+    fig.layout.annotations[1].font.color = CLR["yellow"]
+    fig.layout.annotations[1].font.size = 12
+
     fig.update_layout(
         **PLOTLY_THEME,
-        title=dict(text=f"Evolução — {rt}", font=dict(color=CLR[rt], size=13)),
-        legend=dict(bgcolor="rgba(0,0,0,0)"),
-        height=280,
+        title=dict(text=f"Evolução — {rt}", font=dict(color=color, size=14)),
+        height=420,
+        hovermode="x unified",
     )
     return fig.to_html(full_html=False, include_plotlyjs=False)
 
@@ -646,6 +720,24 @@ def build_css() -> str:
       }
       .no-data strong { display: block; font-size: 1rem; color: var(--text); margin-bottom: 8px; }
 
+      /* ── period selector ── */
+      .period-bar {
+        display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+      }
+      .period-label {
+        font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
+        letter-spacing: 0.8px; margin-right: 4px;
+      }
+      .period-btn {
+        background: var(--card); color: var(--muted);
+        border: 1px solid rgba(255,255,255,0.06);
+        padding: 5px 12px; border-radius: 6px; cursor: pointer;
+        font-family: 'Fira Code', monospace; font-size: 0.75rem;
+        transition: all 0.15s;
+      }
+      .period-btn:hover { border-color: var(--border); color: var(--text); }
+      .period-btn.active { background: rgba(0,212,255,0.1); border-color: var(--cyan); color: var(--cyan); }
+
       /* ── responsive ── */
       @media (max-width: 900px) {
         .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
@@ -675,7 +767,7 @@ def build_html(
     statbar = f"""
     <div class="statbar">
       <div class="stat"><div class="stat-label">Servidor</div><div class="stat-value" style="font-size:1rem">{cfg['server']['name']}</div></div>
-      <div class="stat"><div class="stat-label">Dias coletando</div><div class="stat-value">{dias_coletando}</div><div class="stat-sub">snapshots acumulados</div></div>
+      <div class="stat"><div class="stat-label">Dias coletando</div><div class="stat-value">{dias_coletando}</div><div class="stat-sub">dia(s) com dados</div></div>
       <div class="stat"><div class="stat-label">Jogadores únicos</div><div class="stat-value">{total_jogadores}</div><div class="stat-sub">já monitorados</div></div>
       <div class="stat"><div class="stat-label">Registros totais</div><div class="stat-value">{fmt_xp(total_registros)}</div><div class="stat-sub">no banco</div></div>
       <div class="stat"><div class="stat-label">Última coleta</div><div class="stat-value" style="font-size:0.85rem">{ultima_coleta}</div></div>
@@ -717,7 +809,7 @@ def build_html(
             for rt in cfg["ranking_types"]:
                 e = chart_evolution(df, name, rt)
                 if e:
-                    evo_parts.append(f'<div class="chart-box">{e}</div>')
+                    evo_parts.append(f'<div class="chart-box evo-chart-box">{e}</div>')
         if evo_parts:
             evo_html = f'<div class="chart-grid-2">{"".join(evo_parts)}</div>'
 
@@ -805,13 +897,21 @@ def build_html(
   </section>
 
   <!-- EVOLUTION (multi-day) -->
-  {(
-    '<section class="section">'
-    '<div class="section-title">' + svg_activity() + ' <span class="st-accent">Evolução Temporal</span></div>'
-    + evo_html
-    + ('<div class="chart-box chart-box--full">' + hist_html + '</div>' if hist_html else "")
-    + '</section>'
-  ) if df["collected_at"].nunique() >= 2 else no_evo}
+  <section class="section">
+    <div class="section-title">{svg_activity()} <span class="st-accent">Evolução Temporal</span></div>
+    <div class="period-bar">
+      <span class="period-label">Período:</span>
+      <button class="period-btn" onclick="setEvoPeriod(1,this)">24h</button>
+      <button class="period-btn" onclick="setEvoPeriod(7,this)">7d</button>
+      <button class="period-btn" onclick="setEvoPeriod(15,this)">15d</button>
+      <button class="period-btn" onclick="setEvoPeriod(30,this)">30d</button>
+      <button class="period-btn" onclick="setEvoPeriod(90,this)">3 meses</button>
+      <button class="period-btn" onclick="setEvoPeriod(180,this)">6 meses</button>
+      <button class="period-btn" onclick="setEvoPeriod(365,this)">1 ano</button>
+      <button class="period-btn active" onclick="setEvoPeriod(0,this)">Tudo</button>
+    </div>
+    {('<div id="evo-charts">' + evo_html + '</div>' + ('<div class="chart-box chart-box--full evo-chart-box">' + hist_html + '</div>' if hist_html else "")) if df["collected_at"].nunique() >= 2 else no_evo}
+  </section>
 
   <!-- RANKINGS -->
   <section class="section">
@@ -835,6 +935,26 @@ def build_html(
     if (panel)  panel.classList.add('active');
     if (button) button.classList.add('active');
   }}
+
+  function setEvoPeriod(days, btn) {{
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const charts = document.querySelectorAll('.evo-chart-box .js-plotly-plot');
+    if (days === 0) {{
+      charts.forEach(c => Plotly.relayout(c, {{'xaxis.autorange': true, 'xaxis2.autorange': true}}));
+    }} else {{
+      const end = new Date();
+      const start = new Date(end - days * 864e5);
+      const fmt = d => d.toISOString().split('T')[0];
+      charts.forEach(c => {{
+        const update = {{'xaxis.range': [fmt(start), fmt(end)]}};
+        // subplots compartilham xaxis — basta o xaxis principal
+        if (c.layout && c.layout.xaxis2) update['xaxis2.range'] = [fmt(start), fmt(end)];
+        Plotly.relayout(c, update);
+      }});
+    }}
+  }}
 </script>
 </body>
 </html>"""
@@ -851,6 +971,7 @@ def gerar():
 
     conn = sqlite3.connect(DB_PATH)
     df   = load(conn)
+    total_registros = conn.execute("SELECT COUNT(*) FROM snapshots").fetchone()[0]
     conn.close()
 
     if df.empty:
@@ -861,11 +982,10 @@ def gerar():
     df_prv = prev(df)
 
     ultima_coleta   = df_lat["collected_at"].iloc[0].strftime("%d/%m/%Y %H:%M")
-    dias_coletando  = df["collected_at"].nunique()
+    dias_coletando  = df["collected_at"].nunique()  # 1 por dia apos dedup
     total_jogadores = df["player_id"].nunique()
-    total_registros = len(df)
 
-    print(f"Gerando dashboard — {dias_coletando} snapshots, {total_jogadores} jogadores unicos...")
+    print(f"Gerando dashboard — {dias_coletando} dia(s), {total_jogadores} jogadores unicos...")
 
     html = build_html(
         cfg, df, df_lat, df_prv,

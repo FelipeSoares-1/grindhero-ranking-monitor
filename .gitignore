@@ -1,0 +1,11 @@
+# Dados locais - não versionar
+ranking.db
+ranking_latest.json
+dashboard.html
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env

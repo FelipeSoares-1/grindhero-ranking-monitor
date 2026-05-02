@@ -1,0 +1,81 @@
+name: Coleta Ranking GrindHero
+
+on:
+  schedule:
+    # Horarios em UTC (servidor BRT = UTC-3)
+    - cron: '0 12 * * *'   # 09:00 BRT - manha
+    - cron: '0 17 * * *'   # 14:00 BRT - tarde
+    - cron: '0 23 * * *'   # 20:00 BRT - noite
+    - cron: '55 2 * * *'   # 23:55 BRT - fechamento canonico (dia anterior em BRT)
+  workflow_dispatch:        # permite rodar manualmente pela aba Actions
+
+# Permitir que o workflow faca commit+push de volta no repo
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Garantir que apenas 1 coleta roda por vez (evita conflito de commits)
+concurrency:
+  group: coleta-ranking
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/Sao_Paulo
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Mostrar timezone
+        run: |
+          date
+          echo "TZ=$TZ"
+          python -c "from datetime import datetime; print('Hora atual no script:', datetime.now())"
+
+      - name: Coletar ranking
+        run: python coletor_ranking.py
+
+      - name: Gerar dashboard
+        run: python gerar_dashboard.py
+
+      - name: Commit e push das atualizacoes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ranking.db ranking_latest.json dashboard.html logs/coleta.log || true
+          if git diff --staged --quiet; then
+            echo "Nada para commitar."
+          else
+            git commit -m "coleta automatica: $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M BRT')"
+            git push
+          fi
+
+      - name: Upload do dashboard como artefato Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+          name: github-pages
+
+  publicar-pages:
+    needs: coletar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

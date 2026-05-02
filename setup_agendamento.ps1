@@ -4,8 +4,8 @@
 $NomeTarefa = "GrindHero_Ranking_Coleta"
 $Descricao  = "Coleta diária de dados de ranking do GrindHero Online às meia-noite"
 
-# Caminho do projeto
-$PastaBase  = "C:\Users\FelipeSoares\OneDrive - Grupo Dreamers\Documentos\Monitoramento de Ranking"
+# Caminho do projeto (detectado automaticamente a partir do local do script)
+$PastaBase  = Split-Path -Parent $MyInvocation.MyCommand.Path
 $ScriptPy   = Join-Path $PastaBase "coletor_ranking.py"
 $DashboardPy = Join-Path $PastaBase "gerar_dashboard.py"
 $LogDir     = Join-Path $PastaBase "logs"

@@ -14,25 +14,28 @@ DB_PATH        = os.path.join(BASE_DIR, "ranking.db")
 CONFIG_PATH    = os.path.join(BASE_DIR, "config.json")
 DASHBOARD_PATH = os.path.join(BASE_DIR, "dashboard.html")
 
-# ── design tokens ──────────────────────────────────────────────────────────
+# ── design tokens (Glassmorphism Premium) ──────────────────────────────────
 CLR = {
-    "bg":        "#080810",
-    "surface":   "#0e0e1c",
-    "card":      "#12121f",
-    "border":    "rgba(0,212,255,0.15)",
-    "cyan":      "#00d4ff",
-    "pink":      "#ff2d55",
-    "green":     "#00ff88",
-    "yellow":    "#ffd60a",
-    "purple":    "#bf5af2",
-    "text":      "#e0e0f0",
-    "muted":     "#6b6b8a",
-    "Experience":"#00d4ff",
-    "Melee":     "#ff6b35",
-    "Shielding": "#ff2d55",
-    "Magic":     "#bf5af2",
-    "Distance":  "#00ff88",
-    "Taming":    "#ffd60a",
+    "bg":        "#0a0e27",   # azul-noite profundo
+    "bg2":       "#1a0f2e",   # roxo escuro
+    "surface":   "rgba(255,255,255,0.03)",
+    "card":      "rgba(255,255,255,0.04)",
+    "border":    "rgba(255,255,255,0.08)",
+    "cyan":      "#5eb3ff",
+    "pink":      "#ff6b9d",
+    "green":     "#5eead4",
+    "gold":      "#f5c518",   # destaque premium
+    "amber":     "#fbbf24",
+    "yellow":    "#fde047",
+    "purple":    "#c4b5fd",
+    "text":      "#f1f5f9",
+    "muted":     "#94a3b8",
+    "Experience":"#fbbf24",   # dourado pra XP (premium)
+    "Melee":     "#fb7185",
+    "Shielding": "#f472b6",
+    "Magic":     "#c4b5fd",
+    "Distance":  "#5eead4",
+    "Taming":    "#fde047",
 }
 
 def hex_to_rgba(hex_color: str, alpha: float = 0.08) -> str:
@@ -428,13 +431,14 @@ def build_player_card(name: str, df_latest: pd.DataFrame, df_prev: pd.DataFrame)
     presence = len(rows)
     best_rank = int(rows["rank"].min())
 
+    safe_name = name.replace('"', '&quot;')
     return f"""
-    <div class="player-card">
+    <div class="player-card" data-player="{safe_name}" onclick="openPlayerDrawer('{safe_name}')">
       <div class="pc-header">
         <span class="pc-name">{name}</span>
         <div class="pc-badges">
           <span class="badge badge--blue">{presence} rankings</span>
-          <span class="badge badge--cyan">Melhor #{best_rank}</span>
+          <span class="badge badge--gold">★ #{best_rank}</span>
         </div>
       </div>
       <div class="skill-list">{skills_html}</div>
@@ -443,16 +447,19 @@ def build_player_card(name: str, df_latest: pd.DataFrame, df_prev: pd.DataFrame)
 
 def build_ranking_table(df_latest: pd.DataFrame, df_prev: pd.DataFrame, rt: str, watched: list) -> str:
     sub = df_latest[df_latest["ranking_type"] == rt].sort_values("rank")
-    clr = CLR.get(rt, CLR["cyan"])
+    clr = CLR.get(rt, CLR["gold"])
     icon = SKILL_ICONS.get(rt, "")
     rows_html = ""
     for _, r in sub.iterrows():
         is_watched = any(r["name"].lower() == w.lower() for w in watched)
         xp_d, rk_d, _ = xp_delta(df_latest, df_prev, r["name"], rt) if not df_prev.empty else (None, None, None)
         hl = ' class="tr-highlight"' if is_watched else ""
-        badge = f'<span class="badge badge--cyan">monitorado</span>' if is_watched else ""
-        rows_html += f"""<tr{hl}>
-          <td class="td-rank">#{int(r['rank'])}</td>
+        badge = f'<span class="badge badge--gold">★</span>' if is_watched else ""
+        rk = int(r["rank"])
+        rk_class = "td-rank top1" if rk == 1 else ("td-rank top3" if rk <= 3 else "td-rank")
+        safe_name = r["name"].replace('"', '&quot;')
+        rows_html += f"""<tr{hl} data-player="{safe_name}" onclick="openPlayerDrawer('{safe_name}')">
+          <td class="{rk_class}">#{rk}</td>
           <td class="td-name">{r['name']}{badge}</td>
           <td class="td-num">Lv {int(r['level'])}</td>
           <td class="td-num">{fmt_xp(r['experience'])}</td>
@@ -476,6 +483,91 @@ def build_ranking_table(df_latest: pd.DataFrame, df_prev: pd.DataFrame, rt: str,
     </div>"""
 
 
+def build_players_data(df: pd.DataFrame, df_lat: pd.DataFrame, df_prv: pd.DataFrame) -> dict:
+    """Gera JSON com dados completos de cada jogador para o drawer interativo."""
+    data = {}
+    skill_icons_map = {
+        "Experience": "★", "Melee": "⚔", "Shielding": "🛡",
+        "Magic": "✦", "Distance": "🏹", "Taming": "🐾",
+    }
+
+    # Pré-calcula ranking de XP ganho no dia por skill (posição no "velocity farm")
+    velocity_rank = {}  # {rt: {player_id: posicao}}
+    if not df_prv.empty:
+        for rt in df_lat["ranking_type"].unique():
+            lat_rt  = df_lat[df_lat["ranking_type"] == rt].set_index("player_id")[["name","experience"]]
+            prev_rt = df_prv[df_prv["ranking_type"] == rt].set_index("player_id")[["name","experience"]]
+            comuns  = lat_rt.index.intersection(prev_rt.index)
+            if len(comuns) == 0:
+                continue
+            gains = (lat_rt.loc[comuns, "experience"] - prev_rt.loc[comuns, "experience"]).astype(int)
+            gains_sorted = gains.sort_values(ascending=False)
+            velocity_rank[rt] = {pid: pos+1 for pos, pid in enumerate(gains_sorted.index)}
+
+    for name in df_lat["name"].unique():
+        rows_now = df_lat[df_lat["name"].str.lower() == name.lower()]
+        if rows_now.empty:
+            continue
+        # Todos os registros históricos do jogador (snapshots dedupados)
+        all_rows = df[df["name"].str.lower() == name.lower()]
+
+        # Rankings atuais + histórico diário de posição
+        rankings = []
+        for _, r in rows_now.sort_values("rank").iterrows():
+            rt = r["ranking_type"]
+            xp_d, rk_d, _ = xp_delta(df_lat, df_prv, name, rt) if not df_prv.empty else (None, None, None)
+
+            # Histórico de posição por dia (todos os snapshots dedupados)
+            hist_rt = all_rows[all_rows["ranking_type"] == rt].sort_values("collected_at")
+            rank_history = []
+            for _, hr in hist_rt.iterrows():
+                rank_history.append({
+                    "date": hr["collected_at"].strftime("%d/%m"),
+                    "rank": int(hr["rank"]),
+                    "xp":   int(hr["experience"]),
+                })
+
+            # Posição no ranking de farm do dia
+            pid = r["player_id"]
+            farm_pos = velocity_rank.get(rt, {}).get(pid, None)
+            total_farm = len(velocity_rank.get(rt, {}))
+
+            rankings.append({
+                "type": rt,
+                "rank": int(r["rank"]),
+                "level": int(r["level"]),
+                "xp": int(r["experience"]),
+                "xp_delta": int(xp_d) if xp_d is not None else None,
+                "rank_delta": int(rk_d) if rk_d is not None else None,
+                "farm_pos": farm_pos,
+                "farm_total": total_farm,
+                "color": CLR.get(rt, CLR["gold"]),
+                "icon": skill_icons_map.get(rt, "•"),
+                "history": rank_history,
+            })
+        # Melhor rank histórico
+        all_rows = df[df["name"].str.lower() == name.lower()]
+        best_rank = int(all_rows["rank"].min()) if not all_rows.empty else None
+        best_rt = all_rows.loc[all_rows["rank"].idxmin(), "ranking_type"] if not all_rows.empty else None
+        # XP médio diário (Experience)
+        xp_exp = all_rows[all_rows["ranking_type"] == "Experience"].sort_values("collected_at")
+        avg_xp_day = None
+        if len(xp_exp) >= 2:
+            total_xp_gain = int(xp_exp.iloc[-1]["experience"]) - int(xp_exp.iloc[0]["experience"])
+            days = (xp_exp.iloc[-1]["collected_at"] - xp_exp.iloc[0]["collected_at"]).days or 1
+            avg_xp_day = total_xp_gain // days
+        data[name] = {
+            "name": name,
+            "rankings": rankings,
+            "best_rank": best_rank,
+            "best_rank_type": best_rt,
+            "presence": len(rankings),
+            "avg_xp_day": avg_xp_day,
+            "days_tracked": all_rows["collected_at"].nunique(),
+        }
+    return data
+
+
 def build_digest(df_latest, df_prev, watched):
     if df_prev.empty:
         return '<p class="digest-empty">Digest disponível a partir da segunda coleta (amanhã).</p>'
@@ -493,7 +585,8 @@ def build_digest(df_latest, df_prev, watched):
             rk_str = f"pos {'+' if rk_d and rk_d>0 else ''}{rk_d}" if rk_d else "pos ±0"
             parts.append(f"<span style='color:{CLR[rt]}'>{rt} #{int(r['rank'])} ({rk_str}, {fmt_xp(xp_d)} XP)</span>")
         if parts:
-            lines.append(f"<li><b>{name}</b>: {' &bull; '.join(parts)}</li>")
+            safe_name = name.replace('"', '&quot;')
+            lines.append(f"<li><b onclick=\"openPlayerDrawer('{safe_name}')\">{name}</b>: {' &bull; '.join(parts)}</li>")
     return f"<ul class='digest-list'>{''.join(lines)}</ul>"
 
 
@@ -501,110 +594,211 @@ def build_digest(df_latest, df_prev, watched):
 def build_css() -> str:
     return """
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
       :root {
-        --bg:      #080810;
-        --surface: #0e0e1c;
-        --card:    #12121f;
-        --border:  rgba(0,212,255,0.15);
-        --cyan:    #00d4ff;
-        --pink:    #ff2d55;
-        --green:   #00ff88;
-        --yellow:  #ffd60a;
-        --purple:  #bf5af2;
-        --text:    #e0e0f0;
-        --muted:   #6b6b8a;
-        --radius:  12px;
+        --bg:      #0a0e27;
+        --bg2:     #1a0f2e;
+        --surface: rgba(255,255,255,0.03);
+        --card:    rgba(255,255,255,0.04);
+        --card-hi: rgba(255,255,255,0.07);
+        --border:  rgba(255,255,255,0.08);
+        --border-hi: rgba(255,255,255,0.16);
+        --cyan:    #5eb3ff;
+        --pink:    #ff6b9d;
+        --green:   #5eead4;
+        --gold:    #f5c518;
+        --amber:   #fbbf24;
+        --yellow:  #fde047;
+        --purple:  #c4b5fd;
+        --text:    #f1f5f9;
+        --muted:   #94a3b8;
+        --radius:  16px;
+        --radius-sm: 10px;
+        --blur:    blur(20px) saturate(140%);
       }
 
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+      html, body { min-height: 100vh; }
       body {
-        background: var(--bg);
+        position: relative;
         color: var(--text);
-        font-family: 'Fira Sans', sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
         font-size: 14px;
         line-height: 1.6;
-        min-height: 100vh;
+        background: linear-gradient(180deg, #0a0e27 0%, #1a0f2e 50%, #0a0e27 100%);
+        overflow-x: hidden;
       }
+      /* glow orbs no fundo */
+      body::before {
+        content: ""; position: fixed; pointer-events: none; z-index: 0;
+        width: 60vw; height: 60vw; border-radius: 50%;
+        filter: blur(120px); opacity: 0.30;
+        background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+        top: -20vw; left: -20vw;
+      }
+      .page { position: relative; z-index: 1; }
 
       /* ── scrollbar ── */
-      ::-webkit-scrollbar { width: 6px; height: 6px; }
-      ::-webkit-scrollbar-track { background: var(--surface); }
-      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--border-hi); }
 
       /* ── layout ── */
-      .page { max-width: 1400px; margin: 0 auto; padding: 24px 20px; }
+      .page { max-width: 1440px; margin: 0 auto; padding: 28px 24px 80px; }
+
+      /* glass utility */
+      .glass {
+        background: var(--card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
 
       /* ── header ── */
       .header {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 20px 28px;
-        background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(0,0,0,0) 60%);
+        position: relative; z-index: 50;
+        display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+        gap: 24px;
+        padding: 22px 28px;
+        background: linear-gradient(135deg, rgba(245,197,24,0.06) 0%, rgba(196,181,253,0.04) 100%);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        margin-bottom: 28px;
-        backdrop-filter: blur(12px);
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       }
-      .header-brand { display: flex; align-items: center; gap: 14px; }
+      .header-brand { display: flex; align-items: center; gap: 16px; }
       .header-logo {
-        width: 48px; height: 48px; border-radius: 10px;
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
+        width: 52px; height: 52px; border-radius: 14px;
+        background: linear-gradient(135deg, var(--gold), var(--purple));
         display: flex; align-items: center; justify-content: center;
-        font-family: 'Fira Code', monospace; font-size: 22px; font-weight: 700;
-        color: #080810; flex-shrink: 0;
+        font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 800;
+        color: #0a0e27; flex-shrink: 0;
+        box-shadow: 0 8px 24px rgba(245,197,24,0.25);
       }
-      .header-title { font-family: 'Fira Code', monospace; font-size: 1.4rem; font-weight: 700; color: var(--cyan); letter-spacing: -0.5px; }
-      .header-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-      .header-meta { text-align: right; font-size: 0.78rem; color: var(--muted); line-height: 1.8; }
-      .header-meta strong { color: var(--text); }
+      .header-title { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+      .header-title .accent { background: linear-gradient(135deg, var(--gold), var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .header-sub { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+      .header-meta { text-align: right; font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+      .header-meta strong { color: var(--text); font-weight: 500; }
+
+      /* ── search bar ── */
+      .search-wrap { position: relative; max-width: 520px; width: 100%; }
+      .search-input {
+        width: 100%;
+        padding: 12px 16px 12px 44px;
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        font-size: 0.92rem;
+        font-family: inherit;
+        transition: all 0.2s;
+      }
+      .search-input::placeholder { color: var(--muted); }
+      .search-input:focus {
+        outline: none;
+        border-color: var(--gold);
+        background: rgba(0,0,0,0.35);
+        box-shadow: 0 0 0 3px rgba(245,197,24,0.12);
+      }
+      .search-icon {
+        position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+        color: var(--muted); pointer-events: none;
+      }
+      .search-results {
+        position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+        background: rgba(15,15,30,0.98);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        border: 1px solid var(--border-hi);
+        border-radius: 12px;
+        max-height: 360px; overflow-y: auto;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+        z-index: 999;
+        display: none;
+      }
+      .search-results.open { display: block; }
+      .search-result-item {
+        padding: 10px 16px; cursor: pointer;
+        border-bottom: 1px solid var(--border);
+        display: flex; justify-content: space-between; align-items: center;
+        transition: background 0.15s;
+      }
+      .search-result-item:last-child { border-bottom: none; }
+      .search-result-item:hover, .search-result-item.active { background: rgba(245,197,24,0.08); }
+      .search-result-name { font-weight: 500; color: var(--text); }
+      .search-result-meta { font-size: 0.75rem; color: var(--muted); }
 
       /* ── stat bar ── */
       .statbar {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px; margin-bottom: 28px;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 14px; margin-bottom: 28px;
       }
       .stat {
         background: var(--card);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: var(--radius);
-        padding: 14px 16px;
-        transition: border-color 0.2s;
-      }
-      .stat:hover { border-color: var(--border); cursor: default; }
-      .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
-      .stat-value { font-family: 'Fira Code', monospace; font-size: 1.4rem; font-weight: 700; color: var(--cyan); }
-      .stat-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-
-      /* ── section ── */
-      .section { margin-bottom: 32px; }
-      .section-title {
-        font-family: 'Fira Code', monospace; font-size: 0.85rem; font-weight: 600;
-        color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px;
-        display: flex; align-items: center; gap: 10px;
-        margin-bottom: 16px; padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-      .section-title svg { color: var(--cyan); }
-      .section-title .st-accent { color: var(--cyan); }
-
-      /* ── player card ── */
-      .player-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 16px; }
-      .player-card {
-        background: linear-gradient(135deg, rgba(0,212,255,0.03) 0%, var(--card) 50%);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        padding: 20px;
-        transition: border-color 0.25s, box-shadow 0.25s;
+        padding: 18px 20px;
+        transition: all 0.25s;
+      }
+      .stat:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+      .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+      .stat-value { font-family: 'Inter', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+      .stat-sub { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+
+      /* ── section ── */
+      .section { margin-bottom: 36px; }
+      .section-title {
+        font-size: 0.78rem; font-weight: 700;
+        color: var(--muted); text-transform: uppercase; letter-spacing: 1.8px;
+        display: flex; align-items: center; gap: 12px;
+        margin-bottom: 18px; padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section-title svg { color: var(--gold); }
+      .section-title .st-accent { color: var(--text); font-weight: 600; }
+
+      /* ── player card ── */
+      .player-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 18px; }
+      .player-card {
+        background: linear-gradient(135deg, rgba(245,197,24,0.04) 0%, var(--card) 60%);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 22px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        position: relative; overflow: hidden;
+      }
+      .player-card::before {
+        content: ""; position: absolute; inset: 0;
+        background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(245,197,24,0.08), transparent 40%);
+        opacity: 0; transition: opacity 0.3s; pointer-events: none;
       }
       .player-card:hover {
-        border-color: rgba(0,212,255,0.4);
-        box-shadow: 0 0 24px rgba(0,212,255,0.08);
+        border-color: rgba(245,197,24,0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 24px rgba(245,197,24,0.08);
       }
-      .player-card--absent { border-color: rgba(255,255,255,0.05); opacity: 0.6; }
-      .pc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-      .pc-name { font-family: 'Fira Code', monospace; font-size: 1.1rem; font-weight: 700; color: var(--cyan); text-shadow: 0 0 12px rgba(0,212,255,0.4); }
+      .player-card:hover::before { opacity: 1; }
+      .player-card--absent { opacity: 0.55; cursor: default; }
+      .player-card--absent:hover { transform: none; box-shadow: none; }
+      .pc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 12px; }
+      .pc-name {
+        font-size: 1.15rem; font-weight: 700; color: var(--text);
+        background: linear-gradient(135deg, var(--gold), var(--amber));
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        letter-spacing: -0.3px;
+      }
       .pc-badges { display: flex; gap: 6px; flex-wrap: wrap; }
       .pc-absent-msg { color: var(--muted); font-size: 0.85rem; }
 
@@ -613,45 +807,52 @@ def build_css() -> str:
         display: grid;
         grid-template-columns: 20px 90px 52px 52px 80px 90px 70px 1fr;
         align-items: center; gap: 8px;
-        padding: 8px 10px;
-        border-radius: 8px;
-        background: rgba(255,255,255,0.02);
-        border-left: 2px solid var(--skill-clr);
-        transition: background 0.15s;
+        padding: 9px 12px;
+        border-radius: var(--radius-sm);
+        background: rgba(0,0,0,0.18);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--skill-clr);
+        transition: all 0.2s;
       }
-      .skill-row:hover { background: rgba(255,255,255,0.04); }
+      .skill-row:hover { background: rgba(0,0,0,0.3); border-color: var(--border-hi); border-left-color: var(--skill-clr); }
       .skill-icon { display: flex; align-items: center; }
       .skill-name { font-size: 0.78rem; font-weight: 500; color: var(--muted); }
-      .skill-rank { font-family: 'Fira Code', monospace; font-weight: 700; font-size: 0.9rem; color: var(--skill-clr); }
+      .skill-rank { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--skill-clr); }
       .skill-lv   { font-size: 0.75rem; color: var(--muted); }
       .skill-xp   { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--text); }
       .skill-delta, .skill-rank-delta { font-size: 0.75rem; }
-      .proj { font-size: 0.7rem; color: var(--yellow); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .proj { font-size: 0.7rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
       /* ── badges ── */
       .badge {
-        font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
-        padding: 2px 7px; border-radius: 20px; letter-spacing: 0.6px;
+        font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+        padding: 3px 9px; border-radius: 999px; letter-spacing: 0.7px;
+        display: inline-flex; align-items: center; gap: 4px;
       }
-      .badge--cyan   { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); }
-      .badge--blue   { background: rgba(100,130,255,0.1); color: #8899ff; border: 1px solid rgba(100,130,255,0.25); }
-      .badge--yellow { background: rgba(255,214,10,0.1);  color: var(--yellow); border: 1px solid rgba(255,214,10,0.3); }
-      .badge--pink   { background: rgba(255,45,85,0.1);   color: var(--pink); border: 1px solid rgba(255,45,85,0.3); }
+      .badge--gold   { background: rgba(245,197,24,0.12); color: var(--gold);  border: 1px solid rgba(245,197,24,0.35); }
+      .badge--cyan   { background: rgba(94,179,255,0.12); color: var(--cyan);  border: 1px solid rgba(94,179,255,0.3); }
+      .badge--blue   { background: rgba(100,130,255,0.1); color: #a4b8ff;     border: 1px solid rgba(100,130,255,0.25); }
+      .badge--yellow { background: rgba(253,224,71,0.1);  color: var(--yellow); border: 1px solid rgba(253,224,71,0.3); }
+      .badge--pink   { background: rgba(255,107,157,0.1); color: var(--pink); border: 1px solid rgba(255,107,157,0.3); }
+      .badge--green  { background: rgba(94,234,212,0.1);  color: var(--green); border: 1px solid rgba(94,234,212,0.3); }
 
       /* ── delta ── */
-      .delta-up   { color: var(--green); display: inline-flex; align-items: center; gap: 2px; }
-      .delta-down { color: var(--pink);  display: inline-flex; align-items: center; gap: 2px; }
-      .delta-neutral { color: var(--muted); display: inline-flex; align-items: center; gap: 2px; }
+      .delta-up   { color: var(--green); display: inline-flex; align-items: center; gap: 3px; font-weight: 600; }
+      .delta-down { color: var(--pink);  display: inline-flex; align-items: center; gap: 3px; font-weight: 600; }
+      .delta-neutral { color: var(--muted); display: inline-flex; align-items: center; gap: 3px; }
 
       /* ── chart grid ── */
-      .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-      .chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
       .chart-box {
-        background: var(--card); border: 1px solid rgba(255,255,255,0.05);
-        border-radius: var(--radius); padding: 4px;
-        transition: border-color 0.2s;
+        background: var(--card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 8px;
+        transition: all 0.25s;
       }
-      .chart-box:hover { border-color: var(--border); }
+      .chart-box:hover { border-color: var(--border-hi); }
       .chart-box--full { grid-column: 1 / -1; }
       .chart-empty {
         display: flex; align-items: center; justify-content: center;
@@ -660,83 +861,191 @@ def build_css() -> str:
       }
 
       /* ── tabs ── */
-      .tabs-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+      .tabs-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
       .tab-btn {
         background: var(--card); color: var(--muted);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 6px 14px; border-radius: 6px; cursor: pointer;
-        font-family: 'Fira Code', monospace; font-size: 0.78rem;
-        transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid var(--border);
+        padding: 8px 16px; border-radius: 10px; cursor: pointer;
+        font-family: inherit; font-size: 0.8rem; font-weight: 500;
+        transition: all 0.2s; display: flex; align-items: center; gap: 6px;
       }
-      .tab-btn:hover { border-color: var(--border); color: var(--text); }
-      .tab-btn.active { background: rgba(0,212,255,0.1); border-color: var(--cyan); color: var(--cyan); }
+      .tab-btn:hover { border-color: var(--border-hi); color: var(--text); transform: translateY(-1px); }
+      .tab-btn.active { background: rgba(245,197,24,0.12); border-color: var(--gold); color: var(--gold); box-shadow: 0 4px 16px rgba(245,197,24,0.15); }
       .tab-panel { display: none; }
       .tab-panel.active { display: block; }
 
       /* ── ranking table ── */
       .rank-table-wrap {
-        background: var(--card); border: 1px solid rgba(255,255,255,0.05);
+        background: var(--card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid var(--border);
         border-radius: var(--radius); overflow: hidden;
       }
       .rank-table-header {
         display: flex; justify-content: space-between; align-items: center;
-        padding: 12px 16px;
-        background: linear-gradient(90deg, rgba(var(--rt-clr-rgb),0.08) 0%, transparent 100%);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        font-family: 'Fira Code', monospace; font-size: 0.85rem; font-weight: 600;
+        padding: 14px 18px;
+        background: linear-gradient(90deg, rgba(245,197,24,0.06) 0%, transparent 100%);
+        border-bottom: 1px solid var(--border);
+        font-size: 0.92rem; font-weight: 700;
       }
-      .rt-count { font-size: 0.72rem; color: var(--muted); }
+      .rt-count { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
       .rank-table { width: 100%; border-collapse: collapse; }
       .rank-table th {
-        padding: 8px 12px; text-align: left; font-size: 0.7rem;
-        text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        padding: 10px 14px; text-align: left; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
+        border-bottom: 1px solid var(--border); font-weight: 600;
       }
-      .rank-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle; }
+      .rank-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
       .rank-table tr:last-child td { border-bottom: none; }
-      .rank-table tr:hover td { background: rgba(255,255,255,0.02); }
-      .tr-highlight td { background: rgba(0,212,255,0.04) !important; }
-      .tr-highlight .td-name { color: var(--cyan) !important; font-weight: 600; }
+      .rank-table tbody tr { cursor: pointer; transition: background 0.15s; }
+      .rank-table tbody tr:hover td { background: rgba(245,197,24,0.05); }
+      .tr-highlight td { background: rgba(245,197,24,0.07) !important; }
+      .tr-highlight .td-name { color: var(--gold) !important; font-weight: 600; }
       .td-rank { font-family: 'Fira Code', monospace; font-weight: 700; color: var(--muted); width: 50px; }
-      .td-name { display: flex; align-items: center; gap: 6px; font-weight: 500; }
+      .td-rank.top1 { color: var(--gold); }
+      .td-rank.top3 { color: var(--amber); }
+      .td-name { display: flex; align-items: center; gap: 8px; font-weight: 500; }
       .td-num  { font-family: 'Fira Code', monospace; font-size: 0.82rem; }
       .td-delta { font-size: 0.78rem; }
 
       /* ── digest ── */
       .digest-box {
-        background: var(--card); border: 1px solid rgba(255,214,10,0.15);
-        border-radius: var(--radius); padding: 18px 20px;
+        background: linear-gradient(135deg, rgba(245,197,24,0.05), rgba(196,181,253,0.03));
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px solid rgba(245,197,24,0.18);
+        border-radius: var(--radius); padding: 20px 24px;
       }
       .digest-empty { color: var(--muted); font-size: 0.83rem; }
-      .digest-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-      .digest-list li { font-size: 0.85rem; line-height: 1.7; }
-      .digest-list b  { color: var(--text); }
+      .digest-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+      .digest-list li { font-size: 0.88rem; line-height: 1.7; }
+      .digest-list b  { color: var(--gold); font-weight: 600; cursor: pointer; }
+      .digest-list b:hover { text-decoration: underline; }
 
       /* ── no data placeholder ── */
       .no-data {
-        background: var(--card); border: 1px dashed rgba(255,255,255,0.08);
-        border-radius: var(--radius); padding: 32px;
-        text-align: center; color: var(--muted); font-size: 0.83rem;
+        background: var(--card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        border: 1px dashed var(--border);
+        border-radius: var(--radius); padding: 36px;
+        text-align: center; color: var(--muted); font-size: 0.85rem;
       }
-      .no-data strong { display: block; font-size: 1rem; color: var(--text); margin-bottom: 8px; }
+      .no-data strong { display: block; font-size: 1.05rem; color: var(--text); margin-bottom: 8px; font-weight: 600; }
 
       /* ── period selector ── */
-      .period-bar {
-        display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
-      }
-      .period-label {
-        font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
-        letter-spacing: 0.8px; margin-right: 4px;
-      }
+      .period-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+      .period-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-right: 6px; font-weight: 600; }
       .period-btn {
-        background: var(--card); color: var(--muted);
-        border: 1px solid rgba(255,255,255,0.06);
-        padding: 5px 12px; border-radius: 6px; cursor: pointer;
-        font-family: 'Fira Code', monospace; font-size: 0.75rem;
-        transition: all 0.15s;
+        background: var(--card);
+        backdrop-filter: var(--blur);
+        -webkit-backdrop-filter: var(--blur);
+        color: var(--muted);
+        border: 1px solid var(--border);
+        padding: 6px 14px; border-radius: 8px; cursor: pointer;
+        font-family: inherit; font-size: 0.75rem; font-weight: 500;
+        transition: all 0.2s;
       }
-      .period-btn:hover { border-color: var(--border); color: var(--text); }
-      .period-btn.active { background: rgba(0,212,255,0.1); border-color: var(--cyan); color: var(--cyan); }
+      .period-btn:hover { border-color: var(--border-hi); color: var(--text); }
+      .period-btn.active { background: rgba(245,197,24,0.12); border-color: var(--gold); color: var(--gold); }
+
+      /* ── DRAWER (player detail) ── */
+      .drawer-backdrop {
+        position: fixed; inset: 0; background: rgba(5,8,20,0.7);
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+        opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200;
+      }
+      .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+      .drawer {
+        position: fixed; top: 0; right: 0; bottom: 0;
+        width: min(860px, 100%);
+        background: linear-gradient(180deg, #0e1230 0%, #1a0f2e 100%);
+        border-left: 1px solid var(--border-hi);
+        box-shadow: -24px 0 64px rgba(0,0,0,0.5);
+        transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        z-index: 201; display: flex; flex-direction: column;
+        overflow: hidden;
+      }
+      .drawer.open { transform: translateX(0); }
+      .drawer-header {
+        padding: 18px 28px 16px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(245,197,24,0.08), transparent 60%);
+        position: relative; flex-shrink: 0;
+      }
+      .drawer-close {
+        position: absolute; top: 20px; right: 20px;
+        width: 36px; height: 36px; border-radius: 10px;
+        background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+        color: var(--muted); cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s; font-size: 18px; line-height: 1;
+      }
+      .drawer-close:hover { background: rgba(255,107,157,0.15); border-color: var(--pink); color: var(--pink); }
+      .drawer-name {
+        font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;
+        background: linear-gradient(135deg, var(--gold), var(--amber));
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        margin-bottom: 4px;
+      }
+      .drawer-sub { color: var(--muted); font-size: 0.82rem; }
+      .drawer-body { padding: 16px 28px 20px; overflow-y: auto; flex: 1; }
+      .drawer-section { margin-bottom: 16px; }
+      .drawer-section-title {
+        font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px;
+        color: var(--muted); font-weight: 700; margin-bottom: 10px;
+      }
+      .drawer-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .drawer-stat {
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 10px 12px;
+      }
+      .drawer-stat-label { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+      .drawer-stat-value { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-top: 3px; }
+      .drawer-stat-value.gold { color: var(--gold); }
+      .drawer-stat-sub { font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+
+      .drawer-skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .drawer-skill {
+        padding: 12px 14px;
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--skill-clr);
+        border-radius: var(--radius-sm);
+      }
+      .drawer-skill-top { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+      .drawer-skill-icon { color: var(--skill-clr); font-size: 18px; display: flex; }
+      .drawer-skill-info .name { font-weight: 700; font-size: 0.88rem; color: var(--skill-clr); }
+      .drawer-skill-info .meta { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+      .drawer-skill-rank {
+        font-size: 1.4rem; font-weight: 800; color: var(--skill-clr);
+        font-variant-numeric: tabular-nums; line-height: 1;
+      }
+      .drawer-skill-gain {
+        display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+        margin-top: 10px; padding-top: 10px;
+        border-top: 1px dashed var(--border);
+      }
+      .drawer-skill-gain-cell { display: flex; flex-direction: column; gap: 2px; }
+      .drawer-skill-gain-label {
+        font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;
+      }
+      .drawer-skill-gain-value {
+        font-size: 0.92rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      }
+      .drawer-skill-gain-value.up   { color: var(--green); }
+      .drawer-skill-gain-value.down { color: var(--pink); }
+      .drawer-skill-gain-value.flat { color: var(--muted); }
+
+
+      /* clickable name */
+      .clickable-name { cursor: pointer; transition: color 0.15s; }
+      .clickable-name:hover { color: var(--gold); }
 
       /* ── responsive ── */
       @media (max-width: 900px) {
@@ -761,6 +1070,9 @@ def build_html(
     cfg, df, df_lat, df_prv,
     watched, ultima_coleta, dias_coletando, total_jogadores, total_registros,
 ) -> str:
+
+    players_data = build_players_data(df, df_lat, df_prv)
+    players_json = json.dumps(players_data, ensure_ascii=False)
 
     # ── statbar ──
     total_snapshots = df["collected_at"].nunique()
@@ -849,9 +1161,14 @@ def build_html(
     <div class="header-brand">
       <div class="header-logo">GH</div>
       <div>
-        <div class="header-title">GrindHero Monitor</div>
+        <div class="header-title"><span class="accent">GrindHero</span> Monitor</div>
         <div class="header-sub">Ranking competitivo &mdash; {cfg['server']['name']}</div>
       </div>
+    </div>
+    <div class="search-wrap">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="player-search" class="search-input" placeholder="Buscar qualquer jogador..." autocomplete="off" />
+      <div id="search-results" class="search-results"></div>
     </div>
     <div class="header-meta">
       <div>Última coleta: <strong>{ultima_coleta}</strong></div>
@@ -926,7 +1243,189 @@ def build_html(
 
 </div>
 
+<!-- DRAWER (player detail) -->
+<div id="drawer-backdrop" class="drawer-backdrop" onclick="closePlayerDrawer()"></div>
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true">
+  <div class="drawer-header">
+    <button class="drawer-close" onclick="closePlayerDrawer()" aria-label="Fechar">×</button>
+    <div id="drawer-name" class="drawer-name">—</div>
+    <div id="drawer-sub" class="drawer-sub">—</div>
+  </div>
+  <div id="drawer-body" class="drawer-body"></div>
+</aside>
+
 <script>
+  // ── dados dos jogadores ──
+  const PLAYERS = {players_json};
+
+  // ── helpers ──
+  function fmtXP(v) {{
+    if (v == null) return '—';
+    const a = Math.abs(v);
+    if (a >= 1e6) return (v/1e6).toFixed(2) + 'M';
+    if (a >= 1e3) return (v/1e3).toFixed(1) + 'K';
+    return String(v);
+  }}
+  function fmtDelta(v) {{
+    if (v == null || v === 0) return '<span class="delta-neutral">—</span>';
+    const cls = v > 0 ? 'delta-up' : 'delta-down';
+    const sign = v > 0 ? '+' : '';
+    const arrow = v > 0 ? '▲' : '▼';
+    return `<span class="${{cls}}">${{arrow}} ${{sign}}${{fmtXP(v)}}</span>`;
+  }}
+  function fmtRankDelta(v) {{
+    if (v == null || v === 0) return '<span class="delta-neutral">—</span>';
+    const cls = v > 0 ? 'delta-up' : 'delta-down';
+    const sign = v > 0 ? '+' : '';
+    const arrow = v > 0 ? '▲' : '▼';
+    return `<span class="${{cls}}">${{arrow}} ${{sign}}${{v}}</span>`;
+  }}
+
+  // ── drawer ──
+  function openPlayerDrawer(name) {{
+    if (!name) return;
+    const data = PLAYERS[name] || Object.values(PLAYERS).find(p => p.name.toLowerCase() === name.toLowerCase());
+    if (!data) return;
+    document.getElementById('drawer-name').textContent = data.name;
+    document.getElementById('drawer-sub').textContent =
+      `Em ${{data.presence}} ranking(s) · Acompanhado há ${{data.days_tracked}} dia(s)`;
+
+    let stats = '';
+    if (data.best_rank != null) stats += `
+      <div class="drawer-stat">
+        <div class="drawer-stat-label">Melhor Posição</div>
+        <div class="drawer-stat-value gold">#${{data.best_rank}}</div>
+        <div class="drawer-stat-sub">em ${{data.best_rank_type || ''}}</div>
+      </div>`;
+    if (data.avg_xp_day != null) stats += `
+      <div class="drawer-stat">
+        <div class="drawer-stat-label">XP médio / dia</div>
+        <div class="drawer-stat-value">${{fmtXP(data.avg_xp_day)}}</div>
+        <div class="drawer-stat-sub">Experience</div>
+      </div>`;
+    stats += `
+      <div class="drawer-stat">
+        <div class="drawer-stat-label">Rankings ativos</div>
+        <div class="drawer-stat-value">${{data.presence}} / 6</div>
+      </div>
+      <div class="drawer-stat">
+        <div class="drawer-stat-label">Dias monitorado</div>
+        <div class="drawer-stat-value">${{data.days_tracked}}</div>
+      </div>`;
+
+    let skills = '';
+    for (const s of data.rankings) {{
+      const gainCls  = s.xp_delta == null || s.xp_delta === 0 ? 'flat' : (s.xp_delta > 0 ? 'up' : 'down');
+      const gainSign = s.xp_delta != null && s.xp_delta > 0 ? '+' : '';
+      const gainTxt  = s.xp_delta == null ? '—' : `${{gainSign}}${{fmtXP(s.xp_delta)}}`;
+      // Para variação de posição: subir (rank_delta > 0) é VERDE, descer é VERMELHO
+      const rkCls    = s.rank_delta == null || s.rank_delta === 0 ? 'flat' : (s.rank_delta > 0 ? 'up' : 'down');
+
+
+      skills += `
+        <div class="drawer-skill" style="--skill-clr:${{s.color}}">
+          <div class="drawer-skill-top">
+            <div class="drawer-skill-icon">${{s.icon}}</div>
+            <div class="drawer-skill-info">
+              <div class="name">${{s.type}}</div>
+              <div class="meta">Lv ${{s.level}} · ${{fmtXP(s.xp)}} XP total</div>
+            </div>
+            <div class="drawer-skill-rank">#${{s.rank}}</div>
+          </div>
+          <div class="drawer-skill-gain">
+            <div class="drawer-skill-gain-cell">
+              <span class="drawer-skill-gain-label">Ganhou no dia</span>
+              <span class="drawer-skill-gain-value ${{gainCls}}">${{gainTxt}} XP</span>
+            </div>
+            <div class="drawer-skill-gain-cell">
+              <span class="drawer-skill-gain-label">Variação de posição</span>
+              <span class="drawer-skill-gain-value ${{rkCls}}">${{s.rank_delta == null ? '—' : (s.rank_delta > 0 ? '▲ +' : s.rank_delta < 0 ? '▼ ' : '') + (s.rank_delta !== 0 ? Math.abs(s.rank_delta) + ' pos' : '· sem mudança')}}</span>
+            </div>
+            <div class="drawer-skill-gain-cell">
+              <span class="drawer-skill-gain-label">🔥 Rank farm do dia</span>
+              <span class="drawer-skill-gain-value ${{s.farm_pos != null && s.farm_pos <= 3 ? 'up' : ''}}">${{s.farm_pos != null ? '#' + s.farm_pos + ' de ' + s.farm_total : '—'}}</span>
+            </div>
+          </div>
+        </div>`;
+    }}
+
+    document.getElementById('drawer-body').innerHTML = `
+      <div class="drawer-section">
+        <div class="drawer-section-title">Visão geral</div>
+        <div class="drawer-stats">${{stats}}</div>
+      </div>
+      <div class="drawer-section">
+        <div class="drawer-section-title">Posições atuais</div>
+        <div class="drawer-skill-list">${{skills}}</div>
+      </div>`;
+
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('drawer-backdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }}
+  function closePlayerDrawer() {{
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('drawer-backdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }}
+  document.addEventListener('keydown', e => {{ if (e.key === 'Escape') closePlayerDrawer(); }});
+
+  // ── search ──
+  const searchInput = document.getElementById('player-search');
+  const searchResults = document.getElementById('search-results');
+  const allPlayerNames = Object.keys(PLAYERS);
+  let activeIdx = -1;
+
+  function renderSearch(query) {{
+    if (!query) {{ searchResults.classList.remove('open'); return; }}
+    const q = query.toLowerCase();
+    const matches = allPlayerNames
+      .filter(n => n.toLowerCase().includes(q))
+      .slice(0, 12);
+    if (matches.length === 0) {{
+      searchResults.innerHTML = '<div class="search-result-item" style="color:var(--muted);justify-content:center">Nenhum jogador encontrado</div>';
+      searchResults.classList.add('open');
+      return;
+    }}
+    searchResults.innerHTML = matches.map((n, i) => {{
+      const p = PLAYERS[n];
+      const exp = p.rankings.find(r => r.type === 'Experience');
+      const meta = exp ? `Lv ${{exp.level}} · #${{exp.rank}} XP` : `${{p.presence}} ranking(s)`;
+      return `<div class="search-result-item${{i === activeIdx ? ' active' : ''}}" onclick="selectSearchResult('${{n.replace(/'/g, "\\\\'")}}')"><span class="search-result-name">${{n}}</span><span class="search-result-meta">${{meta}}</span></div>`;
+    }}).join('');
+    searchResults.classList.add('open');
+  }}
+  function selectSearchResult(name) {{
+    searchInput.value = '';
+    searchResults.classList.remove('open');
+    openPlayerDrawer(name);
+  }}
+  searchInput.addEventListener('input', e => {{ activeIdx = -1; renderSearch(e.target.value); }});
+  searchInput.addEventListener('keydown', e => {{
+    const items = searchResults.querySelectorAll('.search-result-item');
+    if (e.key === 'ArrowDown') {{ e.preventDefault(); activeIdx = Math.min(activeIdx + 1, items.length - 1); renderSearch(searchInput.value); }}
+    else if (e.key === 'ArrowUp') {{ e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); renderSearch(searchInput.value); }}
+    else if (e.key === 'Enter' && activeIdx >= 0) {{
+      e.preventDefault();
+      const name = items[activeIdx].querySelector('.search-result-name').textContent;
+      selectSearchResult(name);
+    }}
+    else if (e.key === 'Escape') {{ searchInput.value = ''; searchResults.classList.remove('open'); }}
+  }});
+  document.addEventListener('click', e => {{
+    if (!e.target.closest('.search-wrap')) searchResults.classList.remove('open');
+  }});
+
+  // ── glow follow no player-card ──
+  document.querySelectorAll('.player-card').forEach(card => {{
+    card.addEventListener('mousemove', e => {{
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }});
+  }});
+
+  // ── tabs ──
   function switchTab(group, id, btn) {{
     document.querySelectorAll('[id^="' + group + '-panel-"]').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('[id^="' + group + '-btn-"]').forEach(b => b.classList.remove('active'));

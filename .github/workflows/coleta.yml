@@ -3,10 +3,12 @@ name: Coleta Ranking GrindHero
 on:
   schedule:
     # Horarios em UTC (servidor BRT = UTC-3)
-    - cron: '0 12 * * *'   # 09:00 BRT - manha
-    - cron: '0 17 * * *'   # 14:00 BRT - tarde
-    - cron: '0 23 * * *'   # 20:00 BRT - noite
-    - cron: '55 2 * * *'   # 23:55 BRT - fechamento canonico (dia anterior em BRT)
+    # IMPORTANTE: crons no minuto :00 sao MUITO atrasados pelo GitHub (alta carga).
+    # Usamos minutos quebrados (off-peak) para reduzir delay.
+    - cron: '7 12 * * *'    # 09:07 BRT - manha
+    - cron: '7 17 * * *'    # 14:07 BRT - tarde
+    - cron: '7 23 * * *'    # 20:07 BRT - noite
+    - cron: '57 2 * * *'    # 23:57 BRT - fechamento canonico (dia anterior em BRT)
   workflow_dispatch:        # permite rodar manualmente pela aba Actions
 
 # Permitir que o workflow faca commit+push de volta no repo

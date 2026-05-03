@@ -108,14 +108,22 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin master
           git add ranking.db ranking_latest.json dashboard.html logs/coleta.log || true
           if git diff --staged --quiet; then
             echo "Nada para commitar."
-          else
-            git commit -m "coleta automatica: $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M BRT')"
-            git push
+            exit 0
           fi
+          git commit -m "coleta automatica: $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M BRT')"
+          # Push com retry (caso outro job tenha pushado entre o commit e push)
+          for i in 1 2 3; do
+            if git push; then
+              echo "Push OK na tentativa $i"
+              break
+            fi
+            echo "Push falhou tentativa $i, sincronizando..."
+            git pull --rebase origin master || true
+            sleep 3
+          done
 
       - name: Upload do dashboard como artefato Pages
         if: steps.skip_check.outputs.skip != 'true'

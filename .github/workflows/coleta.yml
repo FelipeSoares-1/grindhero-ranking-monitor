@@ -3,13 +3,26 @@ name: Coleta Ranking GrindHero
 on:
   schedule:
     # Horarios em UTC (servidor BRT = UTC-3)
-    # IMPORTANTE: crons no minuto :00 sao MUITO atrasados pelo GitHub (alta carga).
-    # Usamos minutos quebrados (off-peak) para reduzir delay.
-    - cron: '7 12 * * *'    # 09:07 BRT - manha
-    - cron: '7 17 * * *'    # 14:07 BRT - tarde
-    - cron: '7 23 * * *'    # 20:07 BRT - noite
-    - cron: '57 2 * * *'    # 23:57 BRT - fechamento canonico (dia anterior em BRT)
+    # GitHub Actions cron e NOTORIAMENTE NAO CONFIAVEL — atrasa ou pula crons sob carga.
+    # Estrategia: AGENDAR REDUNDANCIAS proximas. O job tem skip-se-recente
+    # (so coleta se o ultimo snapshot tem >2h), entao varios disparos nao geram lixo.
+    - cron: '7 12 * * *'    # 09:07 BRT
+    - cron: '17 12 * * *'   # 09:17 BRT (redundancia)
+    - cron: '7 17 * * *'    # 14:07 BRT
+    - cron: '17 17 * * *'   # 14:17 BRT (redundancia)
+    - cron: '7 23 * * *'    # 20:07 BRT
+    - cron: '17 23 * * *'   # 20:17 BRT (redundancia)
+    - cron: '47 2 * * *'    # 23:47 BRT (canonico - 1a tentativa)
+    - cron: '57 2 * * *'    # 23:57 BRT (canonico - 2a tentativa)
+    - cron: '7 3 * * *'     # 00:07 BRT (canonico - 3a tentativa)
   workflow_dispatch:        # permite rodar manualmente pela aba Actions
+    inputs:
+      force:
+        description: 'Forcar coleta mesmo se ja teve uma recente'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false','true']
 
 # Permitir que o workflow faca commit+push de volta no repo
 permissions:
@@ -28,6 +41,8 @@ jobs:
     timeout-minutes: 20
     env:
       TZ: America/Sao_Paulo
+    outputs:
+      skipped: ${{ steps.skip_check.outputs.skip }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -47,16 +62,53 @@ jobs:
           echo "TZ=$TZ"
           python -c "from datetime import datetime; print('Hora atual no script:', datetime.now())"
 
+      - name: Verificar se ja teve coleta recente
+        id: skip_check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            echo "Forcado pelo usuario - rodando."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ ! -f ranking.db ]; then
+            echo "Sem banco - primeira coleta."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Pega timestamp da ultima coleta e compara com agora (BRT)
+          MIN_AGO=$(python -c "
+          import sqlite3
+          from datetime import datetime
+          c = sqlite3.connect('ranking.db')
+          ts = c.execute('SELECT MAX(collected_at) FROM snapshots').fetchone()[0]
+          c.close()
+          if ts is None: print(9999); exit()
+          last = datetime.strptime(ts,'%Y-%m-%d %H:%M:%S')
+          diff_min = (datetime.now() - last).total_seconds() / 60
+          print(int(diff_min))
+          ")
+          echo "Ultima coleta foi ha $MIN_AGO minutos."
+          if [ "$MIN_AGO" -lt 120 ]; then
+            echo "Pulando: coleta recente (<2h). Redundancia ja cobriu."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Coletar ranking
+        if: steps.skip_check.outputs.skip != 'true'
         run: python coletor_ranking.py
 
       - name: Gerar dashboard
+        if: steps.skip_check.outputs.skip != 'true'
         run: python gerar_dashboard.py
 
       - name: Commit e push das atualizacoes
+        if: steps.skip_check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin master
           git add ranking.db ranking_latest.json dashboard.html logs/coleta.log || true
           if git diff --staged --quiet; then
             echo "Nada para commitar."
@@ -66,6 +118,7 @@ jobs:
           fi
 
       - name: Upload do dashboard como artefato Pages
+        if: steps.skip_check.outputs.skip != 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./
@@ -73,6 +126,7 @@ jobs:
 
   publicar-pages:
     needs: coletar
+    if: needs.coletar.result == 'success' && needs.coletar.outputs.skipped != 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

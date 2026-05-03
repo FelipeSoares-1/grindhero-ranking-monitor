@@ -1,20 +1,11 @@
 name: Coleta Ranking GrindHero
 
 on:
-  schedule:
-    # Horarios em UTC (servidor BRT = UTC-3)
-    # GitHub Actions cron e NOTORIAMENTE NAO CONFIAVEL — atrasa ou pula crons sob carga.
-    # Estrategia: AGENDAR REDUNDANCIAS proximas. O job tem skip-se-recente
-    # (so coleta se o ultimo snapshot tem >2h), entao varios disparos nao geram lixo.
-    - cron: '7 12 * * *'    # 09:07 BRT
-    - cron: '17 12 * * *'   # 09:17 BRT (redundancia)
-    - cron: '7 17 * * *'    # 14:07 BRT
-    - cron: '17 17 * * *'   # 14:17 BRT (redundancia)
-    - cron: '7 23 * * *'    # 20:07 BRT
-    - cron: '17 23 * * *'   # 20:17 BRT (redundancia)
-    - cron: '47 2 * * *'    # 23:47 BRT (canonico - 1a tentativa)
-    - cron: '57 2 * * *'    # 23:57 BRT (canonico - 2a tentativa)
-    - cron: '7 3 * * *'     # 00:07 BRT (canonico - 3a tentativa)
+  # Crons nativos do GitHub Actions DESABILITADOS — agendamento feito via Claude Routines
+  # (Anthropic cloud, disparos confiaveis 4x/dia: 09h, 14h, 20h, 23h55 BRT).
+  # Cada routine executa: gh workflow run "Coleta Ranking GrindHero" --ref master
+  # Rotinas: trig_01QUPSNc9vr4rfhpZLWEAJwF (09h) | trig_01QyMBuyXh7i7gyXnrhiFA7j (14h)
+  #          trig_01E1bXAXFMfvJTYDJsCa1auJ (20h) | trig_0121HJ85YNjfF6Z8SgpTkX8S (23h55)
   workflow_dispatch:        # permite rodar manualmente pela aba Actions
     inputs:
       force:

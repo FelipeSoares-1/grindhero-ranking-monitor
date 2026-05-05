@@ -12,7 +12,8 @@ from datetime import datetime
 BASE_DIR       = os.path.dirname(os.path.abspath(__file__))
 DB_PATH        = os.path.join(BASE_DIR, "ranking.db")
 CONFIG_PATH    = os.path.join(BASE_DIR, "config.json")
-DASHBOARD_PATH = os.path.join(BASE_DIR, "dashboard.html")
+DASHBOARD_DIR  = os.path.join(BASE_DIR, "dashboard")
+DASHBOARD_PATH = os.path.join(DASHBOARD_DIR, "index.html")
 
 # ── design tokens (Red Skull Guild) ────────────────────────────────────────
 CLR = {
@@ -1551,6 +1552,7 @@ def gerar():
         watched, ultima_coleta, dias_coletando, total_jogadores, total_registros,
     )
 
+    os.makedirs(DASHBOARD_DIR, exist_ok=True)
     with open(DASHBOARD_PATH, "w", encoding="utf-8") as f:
         f.write(html)
 

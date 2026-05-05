@@ -1184,16 +1184,125 @@ def build_html(
       Os gráficos de evolução, velocidade e histórico ficam completos a partir da segunda coleta (amanhã às 00:00).
     </div>"""
 
+    PWD_HASH = "10a74986775735e7d7873450b8f8e01998d23383cb9e49d52f4f899d657b9ff0"
+
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>GrindHero Monitor — {cfg['server']['name']}</title>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   {build_css()}
+  <style>
+    #rs-gate {{
+      position:fixed; inset:0; z-index:99999;
+      background:#0a0a0a;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:28px;
+    }}
+    #rs-gate.hidden {{ display:none; }}
+    .rs-gate-logo {{
+      width:130px; height:130px; object-fit:contain;
+      filter: drop-shadow(0 0 18px rgba(196,18,18,0.7));
+      animation: gateGlow 2.5s ease-in-out infinite alternate;
+    }}
+    @keyframes gateGlow {{
+      from {{ filter: drop-shadow(0 0 10px rgba(196,18,18,0.5)); }}
+      to   {{ filter: drop-shadow(0 0 28px rgba(196,18,18,0.95)); }}
+    }}
+    .rs-gate-title {{
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem; letter-spacing: 4px;
+      color: #c41212; text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(196,18,18,0.6);
+    }}
+    .rs-gate-form {{
+      display:flex; flex-direction:column; align-items:center; gap:14px;
+      width: 100%; max-width: 320px;
+    }}
+    .rs-gate-input {{
+      width:100%; padding:12px 16px;
+      background:#1a1a1a; border:1px solid #3a0a0a;
+      border-radius:3px; color:#e0e0e0;
+      font-family:'Ubuntu Condensed',sans-serif; font-size:1rem;
+      letter-spacing:3px; text-align:center;
+      outline:none; transition: border-color .2s, box-shadow .2s;
+    }}
+    .rs-gate-input:focus {{
+      border-color:#c41212;
+      box-shadow: 0 0 10px rgba(196,18,18,0.3);
+    }}
+    .rs-gate-btn {{
+      width:100%; padding:12px;
+      background:#c41212; border:none; border-radius:3px;
+      color:#fff; font-family:'Anton',sans-serif;
+      font-size:1rem; letter-spacing:3px; text-transform:uppercase;
+      cursor:pointer; transition: background .2s, box-shadow .2s;
+    }}
+    .rs-gate-btn:hover {{
+      background:#e01515;
+      box-shadow: 0 0 16px rgba(196,18,18,0.5);
+    }}
+    .rs-gate-error {{
+      color:#e74c3c; font-size:0.85rem;
+      font-family:'Ubuntu Condensed',sans-serif;
+      letter-spacing:1px; min-height:18px;
+    }}
+  </style>
+  <script>
+    (function(){{
+      const HASH = "{PWD_HASH}";
+      const KEY  = "rs_auth_v1";
+      if(sessionStorage.getItem(KEY) === HASH) {{
+        document.addEventListener('DOMContentLoaded', function(){{
+          var g = document.getElementById('rs-gate');
+          if(g) g.classList.add('hidden');
+        }});
+      }}
+    }})();
+  </script>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="rs-gate">
+  <img class="rs-gate-logo"
+       src="https://redskull.space/images/red-skull-logo.webp"
+       alt="RED SKULL"
+       onerror="this.style.display='none'">
+  <div class="rs-gate-title">Red Skull Monitor</div>
+  <form class="rs-gate-form" id="rs-gate-form" onsubmit="return rsCheckPwd(event)">
+    <input class="rs-gate-input" id="rs-pwd" type="password"
+           placeholder="••••••••••••" autocomplete="off" autofocus>
+    <div class="rs-gate-error" id="rs-err"></div>
+    <button class="rs-gate-btn" type="submit">Entrar</button>
+  </form>
+</div>
+
+<script>
+async function rsCheckPwd(e) {{
+  e.preventDefault();
+  const pwd   = document.getElementById('rs-pwd').value;
+  const err   = document.getElementById('rs-err');
+  const HASH  = "{PWD_HASH}";
+  const enc   = new TextEncoder().encode(pwd);
+  const buf   = await crypto.subtle.digest('SHA-256', enc);
+  const hex   = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex === HASH) {{
+    sessionStorage.setItem('rs_auth_v1', HASH);
+    document.getElementById('rs-gate').classList.add('hidden');
+    err.textContent = '';
+  }} else {{
+    err.textContent = 'Senha incorreta.';
+    document.getElementById('rs-pwd').value = '';
+    document.getElementById('rs-pwd').focus();
+  }}
+  return false;
+}}
+</script>
 
 <!-- PRELOADER -->
 <div id="preloader">

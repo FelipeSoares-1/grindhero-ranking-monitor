@@ -90,16 +90,34 @@ jobs:
         if: steps.skip_check.outputs.skip != 'true'
         run: python coletor_ranking.py
 
-      - name: Gerar dashboard
+      - name: Exportar dados para o React app
         if: steps.skip_check.outputs.skip != 'true'
-        run: python gerar_dashboard.py
+        run: python exportar_dados.py
+
+      - name: Setup Node.js
+        if: steps.skip_check.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: dashboard-app/package-lock.json
+
+      - name: Instalar dependencias Node
+        if: steps.skip_check.outputs.skip != 'true'
+        run: npm ci
+        working-directory: dashboard-app
+
+      - name: Build do React app
+        if: steps.skip_check.outputs.skip != 'true'
+        run: npm run build
+        working-directory: dashboard-app
 
       - name: Commit e push das atualizacoes
         if: steps.skip_check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ranking.db ranking_latest.json dashboard/ logs/coleta.log || true
+          git add ranking.db ranking_latest.json dashboard-app/public/data.json logs/coleta.log || true
           if git diff --staged --quiet; then
             echo "Nada para commitar."
             exit 0
@@ -116,11 +134,11 @@ jobs:
             sleep 3
           done
 
-      - name: Upload do dashboard como artefato Pages
+      - name: Upload do React app como artefato Pages
         if: steps.skip_check.outputs.skip != 'true'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./
+          path: dashboard-app/dist
           name: github-pages
 
   publicar-pages:

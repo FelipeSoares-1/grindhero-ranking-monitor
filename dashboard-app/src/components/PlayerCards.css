@@ -1,0 +1,110 @@
+/* components/PlayerCards.css */
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  gap: 14px;
+}
+
+.player-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red2);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.22s;
+  position: relative;
+  overflow: hidden;
+}
+.player-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--red), transparent 70%);
+  opacity: 0; transition: opacity 0.25s;
+}
+.player-card:hover {
+  border-color: var(--red);
+  border-left-color: var(--bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), -3px 0 16px rgba(196,18,18,0.18);
+}
+.player-card:hover::before { opacity: 1; }
+.player-card.selected {
+  border-color: var(--gold);
+  border-left-color: var(--gold);
+  box-shadow: var(--shadow-md), -3px 0 16px rgba(212,175,55,0.25);
+}
+.player-card--absent { opacity: 0.45; cursor: default; }
+.player-card--absent:hover { transform: none; box-shadow: none; }
+
+.pc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; gap: 12px;
+}
+.pc-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.2rem; color: var(--red);
+  text-transform: uppercase; letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(196,18,18,0.35);
+}
+.pc-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+.badge {
+  font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+  padding: 2px 7px; letter-spacing: 0.8px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.badge--gold   { background: rgba(212,175,55,0.1);  color: var(--gold);  border: 1px solid rgba(212,175,55,0.4); }
+.badge--red    { background: rgba(196,18,18,0.1);   color: #ff6b6b;      border: 1px solid rgba(196,18,18,0.35); }
+.badge--green  { background: rgba(46,204,113,0.1);  color: #2ecc71;      border: 1px solid rgba(46,204,113,0.3); }
+
+.remove-player-btn {
+  background: none; border: 1px solid rgba(196,18,18,0.2);
+  color: var(--muted); cursor: pointer; padding: 3px 7px;
+  font-size: 0.65rem; font-family: inherit;
+  transition: all 0.18s; text-transform: uppercase; letter-spacing: 0.5px;
+  border-radius: 2px;
+}
+.remove-player-btn:hover { border-color: var(--red); color: var(--bright); background: rgba(196,18,18,0.08); }
+
+.skill-list { display: flex; flex-direction: column; gap: 5px; }
+.skill-row {
+  display: grid;
+  grid-template-columns: 18px 90px 50px 48px 78px 86px 68px 1fr;
+  align-items: center; gap: 8px;
+  padding: 7px 10px;
+  background: var(--bg2);
+  border: 1px solid rgba(196,18,18,0.1);
+  border-left: 2px solid var(--skill-clr);
+  transition: all 0.15s;
+}
+.skill-row:hover { background: var(--bg3); border-color: rgba(196,18,18,0.25); }
+.skill-icon   { display: flex; align-items: center; color: var(--skill-clr); }
+.skill-name   { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.skill-rank   { font-family: 'Anton', sans-serif; font-size: 0.95rem; color: var(--skill-clr); }
+.skill-lv     { font-size: 0.7rem; color: var(--muted); }
+.skill-xp     { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--text); }
+.skill-delta  { font-size: 0.72rem; }
+.skill-rank-delta { font-size: 0.72rem; }
+.proj { font-size: 0.67rem; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.delta-up      { color: #2ecc71; font-weight: 700; display: inline-flex; align-items: center; gap: 2px; }
+.delta-down    { color: var(--bright); font-weight: 700; display: inline-flex; align-items: center; gap: 2px; }
+.delta-neutral { color: var(--muted); display: inline-flex; align-items: center; gap: 2px; }
+
+.pc-absent-msg { color: var(--muted); font-size: 0.83rem; }
+
+/* ── Digest ── */
+.digest-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  padding: 18px 22px;
+  box-shadow: -4px 0 16px rgba(196,18,18,0.08);
+  margin-bottom: 16px;
+}
+.digest-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.digest-list li { font-size: 0.85rem; line-height: 1.7; }
+.digest-list b  { color: var(--red); font-weight: 700; cursor: pointer; font-family: 'Anton', sans-serif; font-size: 0.92rem; letter-spacing: 0.5px; }
+.digest-list b:hover { color: var(--bright); }
+.digest-empty { color: var(--muted); font-size: 0.81rem; }

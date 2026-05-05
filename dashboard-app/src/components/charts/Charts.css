@@ -1,0 +1,86 @@
+/* components/charts/Charts.css */
+
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red2);
+  padding: 16px;
+  transition: all 0.2s;
+}
+.chart-card:hover { border-color: var(--red); border-top-color: var(--red); }
+.chart-card--full { grid-column: 1 / -1; }
+
+/* Card de evolução individual (por jogador × skill) */
+.evo-card {
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+
+.chart-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 0.9rem; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.chart-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 140px; color: var(--muted); font-size: 0.8rem; text-align: center;
+}
+
+/* Grid layouts */
+.chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* Tabs */
+.tabs-bar { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
+.tab-btn {
+  background: var(--card); color: var(--muted);
+  border: 1px solid var(--border); padding: 7px 16px; cursor: pointer;
+  font-family: 'Ubuntu Condensed', sans-serif; font-size: 0.82rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  transition: all 0.18s; border-radius: 0;
+}
+.tab-btn:hover { border-color: var(--red); color: var(--text); }
+.tab-btn.active {
+  background: var(--gradient-red); border-color: var(--red);
+  color: #fff; box-shadow: 0 4px 12px rgba(196,18,18,0.3);
+}
+
+/* Period bar */
+.period-bar { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+.period-label { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-right: 4px; font-weight: 700; }
+.period-btn {
+  background: var(--card); color: var(--muted); border: 1px solid var(--border);
+  padding: 5px 12px; cursor: pointer; font-family: inherit; font-size: 0.72rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.18s;
+}
+.period-btn:hover { border-color: var(--red); color: var(--text); }
+.period-btn.active { background: var(--gradient-red); border-color: var(--red); color: #fff; }
+
+/* Custom Tooltip */
+.custom-tooltip {
+  background: var(--bg3);
+  border: 1px solid var(--border-hi);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  min-width: 160px;
+}
+.custom-tooltip-label {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px; color: var(--text);
+  margin-bottom: 6px; letter-spacing: 0.5px;
+}
+.custom-tooltip-row {
+  display: flex; justify-content: space-between; gap: 12px;
+  color: var(--muted); margin-top: 3px;
+}
+.custom-tooltip-row span:last-child { color: var(--text); font-weight: 600; }
+
+/* Faded bars (cross-filter dim) */
+.bar-faded { opacity: 0.18 !important; transition: opacity 0.2s; }
+
+@media (max-width: 900px) {
+  .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+}

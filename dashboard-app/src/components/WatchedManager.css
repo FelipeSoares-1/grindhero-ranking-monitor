@@ -1,0 +1,98 @@
+/* components/WatchedManager.css */
+
+.wm-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red2);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.wm-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+}
+.wm-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 0.9rem; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.wm-save-btn {
+  background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.4);
+  color: #2ecc71; cursor: pointer; padding: 6px 14px;
+  font-family: inherit; font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+}
+.wm-save-btn:hover { background: rgba(46,204,113,0.2); box-shadow: 0 0 10px rgba(46,204,113,0.2); }
+
+.wm-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; min-height: 36px; }
+.wm-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px 4px 12px;
+  background: rgba(196,18,18,0.1); border: 1px solid rgba(196,18,18,0.4);
+  color: var(--text); font-size: 0.8rem; font-weight: 600;
+  transition: all 0.18s;
+}
+.wm-chip-remove {
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  padding: 0 2px; line-height: 1; display: flex; align-items: center;
+  transition: color 0.15s;
+}
+.wm-chip-remove:hover { color: var(--bright); }
+
+.wm-search-row {
+  display: flex; gap: 8px; align-items: stretch;
+}
+.wm-input {
+  flex: 1; padding: 8px 12px;
+  background: var(--bg2); border: 1px solid var(--border);
+  color: var(--text); font-family: inherit; font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.wm-input::placeholder { color: var(--muted); }
+.wm-input:focus { outline: none; border-color: var(--red); background: var(--bg3); }
+.wm-add-btn {
+  padding: 8px 16px;
+  background: var(--gradient-red); border: none; color: #fff;
+  font-family: 'Anton', sans-serif; font-size: 0.85rem; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.wm-add-btn:hover { box-shadow: 0 0 12px rgba(196,18,18,0.4); }
+.wm-add-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.wm-suggestions {
+  background: var(--bg3); border: 1px solid var(--border-hi);
+  margin-top: 4px; max-height: 220px; overflow-y: auto;
+  display: none;
+}
+.wm-suggestions.open { display: block; }
+.wm-suggestion-item {
+  padding: 8px 14px; cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.82rem; transition: background 0.12s;
+}
+.wm-suggestion-item:last-child { border-bottom: none; }
+.wm-suggestion-item:hover { background: rgba(196,18,18,0.07); }
+.wm-suggestion-meta { font-size: 0.7rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+.wm-suggestion-item.already { opacity: 0.4; cursor: not-allowed; }
+
+.wm-config-box {
+  margin-top: 12px; padding: 10px 12px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-left: 2px solid var(--gold);
+  font-size: 0.72rem; color: var(--muted); line-height: 1.8;
+}
+.wm-config-box code {
+  background: rgba(0,0,0,0.4); padding: 1px 6px;
+  color: var(--gold); font-family: 'Fira Code', monospace; font-size: 0.75rem;
+}
+.wm-copy-btn {
+  background: none; border: 1px solid rgba(212,175,55,0.4);
+  color: var(--gold); cursor: pointer; padding: 4px 10px;
+  font-size: 0.7rem; font-family: inherit; margin-top: 8px;
+  transition: all 0.15s; display: block;
+}
+.wm-copy-btn:hover { background: rgba(212,175,55,0.1); }

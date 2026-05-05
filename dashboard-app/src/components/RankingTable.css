@@ -1,0 +1,33 @@
+/* components/RankingTable.css */
+.rank-table-wrap {
+  background: var(--card); border: 1px solid var(--border); overflow: hidden;
+}
+.rank-table-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 11px 16px;
+  background: linear-gradient(90deg, rgba(140,0,0,0.22) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
+}
+.rt-count { font-size: 0.65rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.rank-table { width: 100%; border-collapse: collapse; }
+.rank-table th {
+  padding: 9px 14px; text-align: left; font-size: 0.62rem;
+  text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted);
+  border-bottom: 1px solid var(--border); font-weight: 700; background: var(--bg2);
+}
+.rank-table td { padding: 9px 14px; border-bottom: 1px solid rgba(196,18,18,0.07); vertical-align: middle; }
+.rank-table tr:last-child td { border-bottom: none; }
+.rank-table tbody tr:hover td { background: rgba(196,18,18,0.05); }
+.tr-highlight td { background: rgba(196,18,18,0.08) !important; }
+.tr-highlight .td-name { color: var(--red) !important; font-weight: 700; }
+.td-rank { font-family: 'Anton', sans-serif; color: var(--muted); width: 50px; font-size: 1rem; }
+.td-rank.top1 { color: var(--gold); text-shadow: 0 0 8px rgba(212,175,55,0.4); }
+.td-rank.top3 { color: var(--red); }
+.td-name { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.td-num  { font-family: 'Fira Code', monospace; font-size: 0.79rem; }
+.td-delta { font-size: 0.75rem; }
+.skull-badge { width: 16px; height: 16px; object-fit: contain; filter: drop-shadow(0 0 3px rgba(196,18,18,0.7)); vertical-align: middle; }
+
+.delta-up      { color: #2ecc71; font-weight: 700; }
+.delta-down    { color: var(--bright); font-weight: 700; }
+.delta-neutral { color: var(--muted); }

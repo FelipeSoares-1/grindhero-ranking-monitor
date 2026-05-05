@@ -4,6 +4,8 @@ Gera HTML interativo com design dark/neon focado em monitoramento de jogadores.
 """
 import sqlite3, os, sys, json, textwrap
 import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from datetime import datetime
 
 # ── paths ──────────────────────────────────────────────────────────────────
@@ -45,45 +47,13 @@ def hex_to_rgba(hex_color: str, alpha: float = 0.08) -> str:
     return f"rgba({r},{g},{b},{alpha})"
 
 
-_CHART_COUNTER = [0]
-
-def echarts_html(option: dict, height: int = 380, extra_id: str = "") -> str:
-    """Gera div + script ECharts a partir de um dict de opções."""
-    _CHART_COUNTER[0] += 1
-    cid = f"ec_{_CHART_COUNTER[0]}_{extra_id}" if extra_id else f"ec_{_CHART_COUNTER[0]}"
-    opt_json = json.dumps(option, ensure_ascii=False, default=str)
-    return f"""<div id="{cid}" style="width:100%;height:{height}px;"></div>
-<script>
-(function(){{
-  var dom = document.getElementById('{cid}');
-  var chart = echarts.init(dom, null, {{renderer:'canvas'}});
-  chart.setOption({opt_json});
-  window.addEventListener('resize', function(){{ chart.resize(); }});
-}})();
-</script>"""
-
-
-def _ec_base(title: str, title_color: str) -> dict:
-    """Base de configuração compartilhada por todos os gráficos."""
-    return {
-        "backgroundColor": "transparent",
-        "animation": True,
-        "animationDuration": 800,
-        "animationEasing": "cubicOut",
-        "textStyle": {"fontFamily": "Ubuntu Condensed, sans-serif", "color": "#e0e0e0"},
-        "title": {
-            "text": title,
-            "textStyle": {"color": title_color, "fontSize": 13,
-                          "fontFamily": "Ubuntu Condensed, sans-serif", "fontWeight": "normal"},
-            "left": 8, "top": 4,
-        },
-        "toolbox": {
-            "show": True, "right": 8, "top": 4,
-            "iconStyle": {"borderColor": "#555"},
-            "emphasis": {"iconStyle": {"borderColor": "#c41212"}},
-            "feature": {"saveAsImage": {"title": "Salvar", "name": "grindhero_chart"}},
-        },
-    }
+PLOTLY_THEME = dict(
+    template="plotly_dark",
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Ubuntu Condensed, sans-serif", color=CLR["text"], size=12),
+    margin=dict(l=16, r=16, t=40, b=16),
+)
 
 
 # ── data loading ───────────────────────────────────────────────────────────
@@ -193,46 +163,52 @@ def fmt_rank_delta(v):
 
 # ── charts ─────────────────────────────────────────────────────────────────
 def chart_radar(df_latest: pd.DataFrame, watched: list) -> str:
-    """Barras agrupadas por skill — posição de cada jogador monitorado."""
-    skills = ["Experience", "Melee", "Shielding", "Magic", "Distance", "Taming"]
+    """Barras horizontais agrupadas por skill — muito mais legível que radar."""
+    skills = ["Experience","Melee","Shielding","Magic","Distance","Taming"]
     colors = [CLR["cyan"], CLR["pink"], CLR["green"], CLR["yellow"], CLR["purple"], "#ff9f43"]
 
-    series = []
+    fig = go.Figure()
     for i, name in enumerate(watched):
-        data, labels = [], []
+        ranks, labels = [], []
         for sk in skills:
             sub = df_latest[(df_latest["name"].str.lower() == name.lower()) & (df_latest["ranking_type"] == sk)]
             rank = int(sub.iloc[0]["rank"]) if not sub.empty else None
-            data.append(51 - rank if rank else 0)
+            ranks.append(rank)
             labels.append(f"#{rank}" if rank else "—")
-        color = colors[i % len(colors)]
-        r, g, b = int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
-        series.append({
-            "type": "bar", "name": name, "data": data,
-            "itemStyle": {"color": f"rgba({r},{g},{b},0.3)", "borderColor": color, "borderWidth": 2},
-            "label": {"show": True, "position": "top", "color": color,
-                      "fontFamily": "Ubuntu Condensed, sans-serif", "fontSize": 12,
-                      "formatter": "{c}"},
-            "emphasis": {"itemStyle": {"color": f"rgba({r},{g},{b},0.6)"}},
-        })
-        # corrigir labels para mostrar posição real
-        series[-1]["label"]["formatter"] = None
-        for j, lbl in enumerate(labels):
-            series[-1]["data"][j] = {"value": data[j], "label": {"formatter": lbl}}
 
-    opt = _ec_base("Posição por Skill  (barra maior = melhor rank)", CLR["cyan"])
-    opt.update({
-        "legend": {"textStyle": {"color": "#e0e0e0"}, "bottom": 0},
-        "grid": {"left": 8, "right": 8, "top": 48, "bottom": 40, "containLabel": True},
-        "xAxis": {"type": "category", "data": skills,
-                  "axisLine": {"lineStyle": {"color": "#333"}},
-                  "axisLabel": {"color": "#aaa", "fontFamily": "Ubuntu Condensed, sans-serif"}},
-        "yAxis": {"type": "value", "show": False, "max": 55},
-        "tooltip": {"trigger": "axis", "backgroundColor": "#1a1a1a", "borderColor": "#c41212",
-                    "textStyle": {"color": "#e0e0e0"}},
-        "series": series,
-    })
-    return echarts_html(opt, height=360, extra_id="radar")
+        color = colors[i % len(colors)]
+        fig.add_trace(go.Bar(
+            name=name,
+            x=skills,
+            y=[51 - r if r else 0 for r in ranks],
+            text=labels,
+            textposition="outside",
+            textfont=dict(color=color, size=12, family="Fira Code, monospace"),
+            marker=dict(
+                color=hex_to_rgba(color, 0.25),
+                line=dict(color=color, width=2),
+            ),
+            hovertemplate="<b>%{x}</b><br>" + name + ": %{text}<extra></extra>",
+        ))
+
+    fig.update_layout(
+        **PLOTLY_THEME,
+        title=dict(text="Posição por Skill  (barra maior = melhor rank)", font=dict(color=CLR["cyan"], size=13)),
+        barmode="group",
+        bargap=0.25,
+        bargroupgap=0.08,
+        xaxis=dict(showgrid=False, tickfont=dict(size=12)),
+        yaxis=dict(
+            showgrid=True, gridcolor="rgba(255,255,255,0.05)",
+            tickvals=list(range(0, 52, 10)),
+            ticktext=[str(51-v) if v > 0 else "" for v in range(0, 52, 10)],
+            title="Posição no ranking",
+            title_font=dict(color=CLR["muted"]),
+        ),
+        legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color=CLR["text"])),
+        height=380,
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False, div_id="chart-radar")
 
 
 def chart_gap(df_latest: pd.DataFrame, name: str, rt: str) -> str:
@@ -244,118 +220,110 @@ def chart_gap(df_latest: pd.DataFrame, name: str, rt: str) -> str:
         return ""
 
     rk = int(target.iloc[0]["rank"])
-    window = sub[(sub["rank"] >= max(1, rk - 3)) & (sub["rank"] <= rk + 3)].copy()
+    # Pegar 3 acima e 3 abaixo
+    window = sub[(sub["rank"] >= max(1, rk-3)) & (sub["rank"] <= rk+3)].copy()
     window["is_target"] = window["name"].str.lower() == name.lower()
-    window = window.sort_values("rank", ascending=False)
 
-    color = CLR.get(rt, CLR["cyan"])
-    r2, g2, b2 = int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
+    colors = [CLR["cyan"] if t else "rgba(255,255,255,0.12)" for t in window["is_target"]]
+    border = [2 if t else 0 for t in window["is_target"]]
 
-    y_labels = window.apply(lambda row: f"#{int(row['rank'])}  {row['name']}", axis=1).tolist()
-    x_vals   = window["experience"].tolist()
-    is_tgt   = window["is_target"].tolist()
-    xp_fmted = [fmt_xp(v) for v in x_vals]
-
-    item_styles = [
-        {"color": f"rgba({r2},{g2},{b2},0.85)", "borderColor": color, "borderWidth": 2}
-        if t else {"color": "rgba(255,255,255,0.1)", "borderColor": "rgba(255,255,255,0.2)", "borderWidth": 1}
-        for t in is_tgt
-    ]
-
-    opt = _ec_base(f"Gap Competitivo — {rt}", color)
-    opt.update({
-        "grid": {"left": 8, "right": 80, "top": 36, "bottom": 8, "containLabel": True},
-        "xAxis": {"type": "value", "show": False},
-        "yAxis": {"type": "category", "data": y_labels,
-                  "axisLabel": {"color": "#ccc", "fontFamily": "Ubuntu Condensed, sans-serif", "fontSize": 11},
-                  "axisLine": {"lineStyle": {"color": "#333"}}},
-        "tooltip": {"trigger": "axis", "backgroundColor": "#1a1a1a", "borderColor": "#c41212",
-                    "textStyle": {"color": "#e0e0e0"},
-                    "formatter": "{b}<br/>XP: {c}"},
-        "series": [{
-            "type": "bar", "data": [
-                {"value": v, "itemStyle": s, "label": {"show": True, "position": "right",
-                 "formatter": fmt, "color": "#ccc", "fontSize": 11}}
-                for v, s, fmt in zip(x_vals, item_styles, xp_fmted)
-            ],
-        }],
-    })
-    return echarts_html(opt, height=260)
+    fig = go.Figure(go.Bar(
+        x=window["experience"],
+        y=window.apply(lambda r: f"#{int(r['rank'])} {r['name']}", axis=1),
+        orientation="h",
+        marker=dict(color=colors, line=dict(color=CLR["cyan"], width=border)),
+        text=window["experience"].apply(fmt_xp),
+        textposition="outside",
+        textfont=dict(color=CLR["text"], size=11),
+        hovertemplate="<b>%{y}</b><br>XP: %{x:,}<extra></extra>",
+    ))
+    fig.update_layout(
+        **PLOTLY_THEME,
+        title=dict(text=f"Gap Competitivo — {rt}", font=dict(color=CLR[rt], size=13)),
+        xaxis=dict(showgrid=False, showticklabels=False),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=11)),
+        height=260,
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False)
 
 
 def chart_evolution(df: pd.DataFrame, name: str, rt: str) -> str:
-    """Área (XP) + linha (posição) com eixos Y independentes."""
+    """Dois gráficos empilhados: XP acumulado em cima, posição no ranking embaixo."""
     sub = df[(df["name"].str.lower() == name.lower()) & (df["ranking_type"] == rt)].sort_values("collected_at")
     if len(sub) < 2:
         return ""
 
-    color = CLR.get(rt, CLR["cyan"])
-    r2, g2, b2 = int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
-    dates     = sub["collected_at"].tolist()
-    xp_vals   = sub["experience"].tolist()
+    color = CLR[rt]
+    dates = sub["collected_at"].tolist()
+    xp_vals = sub["experience"].tolist()
     rank_vals = sub["rank"].tolist()
-    xp_delta  = [0] + [xp_vals[i] - xp_vals[i-1] for i in range(1, len(xp_vals))]
 
-    opt = _ec_base(f"Evolução — {rt}", color)
-    opt.update({
-        "legend": {"data": ["XP Acumulado", "Posição"], "textStyle": {"color": "#aaa"}, "top": 28},
-        "grid": {"left": 8, "right": 8, "top": 60, "bottom": 60, "containLabel": True},
-        "dataZoom": [
-            {"type": "inside", "xAxisIndex": 0, "start": 0, "end": 100},
-            {"type": "slider", "xAxisIndex": 0, "start": 0, "end": 100,
-             "height": 18, "bottom": 4,
-             "fillerColor": f"rgba({r2},{g2},{b2},0.15)",
-             "handleStyle": {"color": color},
-             "textStyle": {"color": "#666"}},
-        ],
-        "xAxis": {"type": "category", "data": dates, "boundaryGap": False,
-                  "axisLabel": {"color": "#777", "fontSize": 10, "rotate": 30},
-                  "axisLine": {"lineStyle": {"color": "#333"}}},
-        "yAxis": [
-            {"type": "value", "name": "XP", "nameTextStyle": {"color": color},
-             "axisLabel": {"color": "#777"},
-             "splitLine": {"lineStyle": {"color": "rgba(255,255,255,0.04)"}},
-             "axisLine": {"lineStyle": {"color": "#333"}}},
-            {"type": "value", "name": "Posição", "nameTextStyle": {"color": CLR["yellow"]},
-             "inverse": True, "min": 1, "max": 50,
-             "axisLabel": {"color": "#777", "formatter": "#{value}"},
-             "splitLine": {"show": False},
-             "axisLine": {"lineStyle": {"color": "#333"}}},
-        ],
-        "tooltip": {
-            "trigger": "axis", "backgroundColor": "#1a1a1a", "borderColor": "#c41212",
-            "textStyle": {"color": "#e0e0e0"},
-            "formatter": f"""function(params){{
-                var d = params[0].axisValue;
-                var out = '<b>' + d + '</b><br/>';
-                params.forEach(function(p){{
-                    out += p.marker + ' ' + p.seriesName + ': ';
-                    if(p.seriesName==='XP Acumulado') out += p.data.toLocaleString('pt-BR');
-                    else out += '#' + p.data;
-                    out += '<br/>';
-                }});
-                return out;
-            }}""",
-        },
-        "series": [
-            {
-                "name": "XP Acumulado", "type": "line", "yAxisIndex": 0,
-                "data": xp_vals, "smooth": True, "symbol": "circle", "symbolSize": 6,
-                "lineStyle": {"color": color, "width": 2.5},
-                "itemStyle": {"color": color, "borderColor": "#0a0a0a", "borderWidth": 2},
-                "areaStyle": {"color": {"type": "linear", "x": 0, "y": 0, "x2": 0, "y2": 1,
-                    "colorStops": [{"offset": 0, "color": f"rgba({r2},{g2},{b2},0.35)"},
-                                   {"offset": 1, "color": f"rgba({r2},{g2},{b2},0.02)"}]}},
-            },
-            {
-                "name": "Posição", "type": "line", "yAxisIndex": 1,
-                "data": rank_vals, "smooth": False, "symbol": "diamond", "symbolSize": 8,
-                "lineStyle": {"color": CLR["yellow"], "width": 2, "type": "dashed"},
-                "itemStyle": {"color": CLR["yellow"], "borderColor": "#0a0a0a", "borderWidth": 2},
-            },
-        ],
-    })
-    return echarts_html(opt, height=420)
+    # XP delta entre snapshots
+    xp_delta = [0] + [xp_vals[i] - xp_vals[i-1] for i in range(1, len(xp_vals))]
+    hover_xp = [
+        f"<b>{d}</b><br>XP: {fmt_xp(x)}<br>Ganho: {'+' if dx>=0 else ''}{fmt_xp(dx)}"
+        for d, x, dx in zip(dates, xp_vals, xp_delta)
+    ]
+    hover_rank = [f"<b>{d}</b><br>Posição: #{r}" for d, r in zip(dates, rank_vals)]
+
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        row_heights=[0.6, 0.4],
+        vertical_spacing=0.08,
+        subplot_titles=["XP Acumulado", "Posição no Ranking"],
+    )
+
+    # XP — área preenchida
+    fig.add_trace(go.Scatter(
+        x=dates, y=xp_vals,
+        mode="lines+markers",
+        line=dict(color=color, width=2.5),
+        marker=dict(size=7, color=color, line=dict(color=CLR["bg"], width=1.5)),
+        fill="tozeroy",
+        fillcolor=hex_to_rgba(color, 0.12),
+        hovertemplate="%{customdata}<extra></extra>",
+        customdata=hover_xp,
+        showlegend=False,
+    ), row=1, col=1)
+
+    # Rank — linha com marcadores, eixo invertido
+    fig.add_trace(go.Scatter(
+        x=dates, y=rank_vals,
+        mode="lines+markers",
+        line=dict(color=CLR["yellow"], width=2),
+        marker=dict(size=8, color=CLR["yellow"], symbol="diamond", line=dict(color=CLR["bg"], width=1.5)),
+        hovertemplate="%{customdata}<extra></extra>",
+        customdata=hover_rank,
+        showlegend=False,
+    ), row=2, col=1)
+
+    fig.update_yaxes(
+        title_text="XP Total", title_font=dict(color=color, size=11),
+        gridcolor="rgba(255,255,255,0.05)", row=1, col=1,
+    )
+    fig.update_yaxes(
+        title_text="Posição", title_font=dict(color=CLR["yellow"], size=11),
+        autorange="reversed",
+        gridcolor="rgba(255,255,255,0.05)",
+        tickformat="d",
+        row=2, col=1,
+    )
+    fig.update_xaxes(showgrid=False, tickfont=dict(size=10))
+
+    # Ajustar títulos dos subplots
+    fig.layout.annotations[0].font.color = color
+    fig.layout.annotations[0].font.size = 12
+    fig.layout.annotations[1].font.color = CLR["yellow"]
+    fig.layout.annotations[1].font.size = 12
+
+    fig.update_layout(
+        **PLOTLY_THEME,
+        title=dict(text=f"Evolução — {rt}", font=dict(color=color, size=14)),
+        height=420,
+        hovermode="x unified",
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False)
 
 
 def chart_velocity(df_latest: pd.DataFrame, df_prev: pd.DataFrame, rt: str) -> str:
@@ -366,101 +334,60 @@ def chart_velocity(df_latest: pd.DataFrame, df_prev: pd.DataFrame, rt: str) -> s
     comuns = now.index.intersection(old.index)
     if len(comuns) == 0:
         return ""
-
     vel = pd.DataFrame({
         "name": now.loc[comuns, "name"],
         "xp_day": (now.loc[comuns, "experience"] - old.loc[comuns, "experience"]).astype(int),
         "rank": now.loc[comuns, "rank"].astype(int),
-    }).sort_values("xp_day", ascending=True).tail(15)
+    }).sort_values("xp_day", ascending=False).head(15)
 
-    y_labels = vel.apply(lambda r: f"#{r['rank']}  {r['name']}", axis=1).tolist()
-    x_vals   = vel["xp_day"].tolist()
-    max_xp   = max(x_vals) if x_vals else 1
-
-    color = CLR.get(rt, CLR["cyan"])
-
-    data_items = []
-    for v in x_vals:
-        pct = v / max_xp if max_xp > 0 else 0
-        if pct > 0.66:
-            c = CLR["gold"]
-        elif pct > 0.33:
-            c = "#c41212"
-        else:
-            c = "rgba(100,10,10,0.7)"
-        data_items.append({"value": v, "itemStyle": {"color": c},
-                            "label": {"show": True, "position": "right",
-                                      "formatter": fmt_xp(v), "color": "#bbb", "fontSize": 10}})
-
-    opt = _ec_base(f"Velocidade de Farm — {rt}", color)
-    opt.update({
-        "grid": {"left": "2%", "right": 90, "top": 40, "bottom": "2%", "containLabel": True},
-        "xAxis": {"type": "value", "show": False},
-        "yAxis": {"type": "category", "data": y_labels,
-                  "axisLabel": {"color": "#ccc", "fontFamily": "Ubuntu Condensed, sans-serif", "fontSize": 11, "width": 160, "overflow": "truncate"},
-                  "axisLine": {"lineStyle": {"color": "#333"}}},
-        "tooltip": {"trigger": "axis", "backgroundColor": "#1a1a1a", "borderColor": "#c41212",
-                    "textStyle": {"color": "#e0e0e0"}},
-        "series": [{"type": "bar", "data": data_items,
-                    "itemStyle": {"borderRadius": [0, 3, 3, 0]}}],
-    })
-    return echarts_html(opt, height=500)
+    fig = go.Figure(go.Bar(
+        x=vel["xp_day"],
+        y=vel.apply(lambda r: f"#{r['rank']} {r['name']}", axis=1),
+        orientation="h",
+        marker=dict(
+            color=vel["xp_day"],
+            colorscale=[[0,"rgba(100,10,10,0.7)"],[0.5,"rgba(196,18,18,0.6)"],[1,"rgba(212,175,55,0.85)"]],
+            showscale=False,
+        ),
+        text=vel["xp_day"].apply(fmt_xp),
+        textposition="outside",
+        textfont=dict(color=CLR["text"], size=10),
+    ))
+    fig.update_layout(
+        **PLOTLY_THEME,
+        title=dict(text=f"Velocidade de Farm — {rt}", font=dict(color=CLR[rt], size=13)),
+        xaxis=dict(showgrid=False, showticklabels=False),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=10)),
+        height=420,
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False)
 
 
 def chart_rank_history(df: pd.DataFrame, names: list) -> str:
     if df["collected_at"].nunique() < 2:
         return ""
-
-    palette = [CLR["cyan"], CLR["pink"], CLR["green"], CLR["yellow"],
-               CLR["purple"], "#ff9f43", "#00cec9", "#fd79a8"]
-    series, legend_data = [], []
-    idx = 0
-    for name in names:
-        for rt in ["Melee", "Shielding", "Magic", "Distance", "Taming", "Experience"]:
-            sub = df[(df["name"].str.lower() == name.lower()) & (df["ranking_type"] == rt)].sort_values("collected_at")
-            if sub.empty or len(sub) < 2:
-                continue
-            color = palette[idx % len(palette)]
-            sname = f"{name} — {rt}"
-            legend_data.append(sname)
-            series.append({
-                "name": sname, "type": "line", "smooth": True,
-                "data": list(zip(sub["collected_at"].tolist(), sub["rank"].tolist())),
-                "lineStyle": {"color": color, "width": 2},
-                "itemStyle": {"color": color},
-                "symbol": "circle", "symbolSize": 5,
-                "emphasis": {"lineStyle": {"width": 3}},
-            })
-            idx += 1
-
-    if not series:
+    figs = []
+    colors = [CLR["cyan"], CLR["pink"], CLR["green"], CLR["yellow"]]
+    fig = go.Figure()
+    for i, (name, rt) in enumerate([(n, r) for n in names for r in ["Melee","Shielding","Magic","Distance","Taming","Experience"]]):
+        sub = df[(df["name"].str.lower()==name.lower()) & (df["ranking_type"]==rt)].sort_values("collected_at")
+        if sub.empty or len(sub) < 2: continue
+        fig.add_trace(go.Scatter(
+            x=sub["collected_at"], y=sub["rank"],
+            name=f"{name} — {rt}",
+            line=dict(color=colors[i % len(colors)], width=2),
+            mode="lines+markers",
+        ))
+    if not fig.data:
         return ""
-
-    opt = _ec_base("Histórico de Posições — Jogadores Monitorados", CLR["cyan"])
-    opt.update({
-        "legend": {"data": legend_data, "textStyle": {"color": "#aaa", "fontSize": 11},
-                   "top": 28, "type": "scroll"},
-        "grid": {"left": 8, "right": 8, "top": 68, "bottom": 60, "containLabel": True},
-        "dataZoom": [
-            {"type": "inside", "start": 0, "end": 100},
-            {"type": "slider", "start": 0, "end": 100, "height": 18, "bottom": 4,
-             "fillerColor": "rgba(196,18,18,0.15)",
-             "handleStyle": {"color": "#c41212"},
-             "textStyle": {"color": "#666"}},
-        ],
-        "xAxis": {"type": "time",
-                  "axisLabel": {"color": "#777", "fontSize": 10},
-                  "axisLine": {"lineStyle": {"color": "#333"}}},
-        "yAxis": {"type": "value", "inverse": True, "name": "Posição",
-                  "nameTextStyle": {"color": "#777"},
-                  "axisLabel": {"color": "#777", "formatter": "#{value}"},
-                  "splitLine": {"lineStyle": {"color": "rgba(255,255,255,0.04)"}},
-                  "axisLine": {"lineStyle": {"color": "#333"}}},
-        "tooltip": {"trigger": "axis", "backgroundColor": "#1a1a1a", "borderColor": "#c41212",
-                    "textStyle": {"color": "#e0e0e0"}},
-        "series": series,
-    })
-    return echarts_html(opt, height=400)
+    fig.update_yaxes(autorange="reversed", title_text="Posição no Ranking")
+    fig.update_layout(
+        **PLOTLY_THEME,
+        title=dict(text="Histórico de Posições — Jogadores Monitorados", font=dict(color=CLR["cyan"], size=13)),
+        legend=dict(bgcolor="rgba(0,0,0,0)"),
+        height=380,
+    )
+    return fig.to_html(full_html=False, include_plotlyjs=False)
 
 
 # ── html builders ──────────────────────────────────────────────────────────
@@ -1266,7 +1193,7 @@ def build_html(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>GrindHero Monitor — {cfg['server']['name']}</title>
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   {build_css()}
   <style>
     #rs-gate {{
@@ -1682,8 +1609,20 @@ async function rsCheckPwd(e) {{
     document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // ECharts — dataZoom nativo já cuida do período via slider/inside zoom
-    // Os botões de período ficam como atalho visual sem necessidade de relayout manual
+    const charts = document.querySelectorAll('.evo-chart-box .js-plotly-plot');
+    if (days === 0) {{
+      charts.forEach(c => Plotly.relayout(c, {{'xaxis.autorange': true, 'xaxis2.autorange': true}}));
+    }} else {{
+      const end = new Date();
+      const start = new Date(end - days * 864e5);
+      const fmt = d => d.toISOString().split('T')[0];
+      charts.forEach(c => {{
+        const update = {{'xaxis.range': [fmt(start), fmt(end)]}};
+        // subplots compartilham xaxis — basta o xaxis principal
+        if (c.layout && c.layout.xaxis2) update['xaxis2.range'] = [fmt(start), fmt(end)];
+        Plotly.relayout(c, update);
+      }});
+    }}
   }}
 </script>
 </body>

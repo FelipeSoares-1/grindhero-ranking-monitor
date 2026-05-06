@@ -84,3 +84,11 @@
 @media (max-width: 900px) {
   .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
 }
+@media (max-width: 600px) {
+  .chart-card { padding: 12px 10px; }
+  .chart-title { font-size: 0.8rem; margin-bottom: 10px; }
+  .tabs-bar { gap: 4px; }
+  .tab-btn { padding: 6px 10px; font-size: 0.72rem; }
+  .period-bar { gap: 4px; }
+  .period-btn { padding: 4px 8px; font-size: 0.68rem; }
+}

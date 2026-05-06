@@ -96,3 +96,12 @@
   transition: all 0.15s; display: block;
 }
 .wm-copy-btn:hover { background: rgba(212,175,55,0.1); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .wm-panel { padding: 14px 12px; }
+  .wm-header { flex-direction: column; align-items: flex-start; }
+  .wm-save-btn { width: 100%; justify-content: center; }
+  .wm-search-row { flex-direction: column; }
+  .wm-add-btn { width: 100%; }
+}

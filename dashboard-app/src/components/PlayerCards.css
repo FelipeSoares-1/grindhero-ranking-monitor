@@ -2,7 +2,7 @@
 
 .player-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
   gap: 14px;
 }
 
@@ -118,6 +118,35 @@
 .digest-list b  { color: var(--red); font-weight: 700; cursor: pointer; font-family: 'Anton', sans-serif; font-size: 0.92rem; letter-spacing: 0.5px; }
 .digest-list b:hover { color: var(--bright); }
 .digest-empty { color: var(--muted); font-size: 0.81rem; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .pc-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .pc-badges {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .remove-player-btn {
+    margin-left: auto;
+  }
+  .skill-row {
+    grid-template-columns: 18px 1fr 44px;
+    grid-template-rows: auto auto;
+    gap: 4px 6px;
+    padding: 8px 10px;
+  }
+  .skill-name  { grid-column: 2; }
+  .skill-rank  { grid-column: 3; grid-row: 1; text-align: right; }
+  .skill-lv, .skill-xp, .skill-delta, .skill-rank-delta, .skill-row > span:last-child {
+    display: none;
+  }
+  .pc-badges { gap: 4px; }
+  .badge { font-size: 0.55rem; padding: 2px 5px; }
+}
 
 /* ── Player Drawer ── */
 .drawer-backdrop {

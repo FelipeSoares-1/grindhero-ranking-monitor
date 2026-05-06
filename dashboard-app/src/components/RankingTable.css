@@ -31,3 +31,18 @@
 .delta-up      { color: #2ecc71; font-weight: 700; }
 .delta-down    { color: var(--bright); font-weight: 700; }
 .delta-neutral { color: var(--muted); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .rank-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .rank-table th, .rank-table td { padding: 8px 10px; }
+  /* Esconde Level e XP Total no mobile — mantém Rank, Nome, XP +/- e Pos +/- */
+  .rank-table th:nth-child(3),
+  .rank-table td:nth-child(3),
+  .rank-table th:nth-child(4),
+  .rank-table td:nth-child(4) { display: none; }
+  .td-name { font-size: 0.8rem; }
+  .td-rank { font-size: 0.85rem; }
+  .tabs-bar { gap: 4px; }
+  .tab-btn { padding: 6px 10px; font-size: 0.75rem; }
+}

@@ -158,19 +158,6 @@ export function WatchedManager({ data, watchedPlayers, onAddPlayer, onRemovePlay
         </div>
       </div>
 
-      {/* Instrução para salvar no config.json */}
-      <div className="wm-config-box">
-        <strong style={{ color: 'var(--text)' }}>💡 Para persistir após o próximo build:</strong>
-        <br />
-        1. Clique em <strong style={{ color: 'var(--gold)' }}>Copiar config.json</strong> acima.
-        <br />
-        2. Cole o conteúdo no arquivo <code>config.json</code> na raiz do projeto.
-        <br />
-        3. Execute <code>python exportar_dados.py</code> para sincronizar os dados.
-        <button className="wm-copy-btn" onClick={copyConfig}>
-          {copied ? '✓ JSON copiado!' : '📋 Copiar config.json atualizado'}
-        </button>
-      </div>
     </div>
   );
 }

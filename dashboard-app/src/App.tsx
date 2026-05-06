@@ -8,6 +8,7 @@ import {
 } from './components/Layout';
 import { PlayerCards }    from './components/PlayerCards';
 import { WatchedManager } from './components/WatchedManager';
+import { PlayerDrawer }   from './components/PlayerCards';
 import { RadarSkillChart } from './components/charts/RadarSkillChart';
 import { GapChart }        from './components/charts/GapChart';
 import { VelocityChart }   from './components/charts/VelocityChart';
@@ -16,8 +17,12 @@ import { RankingTable }    from './components/RankingTable';
 import './index.css';
 
 export default function App() {
-  const [data, setData] = useState<DashboardData | null>(null);
+  const [
+    data, setData,
+  ] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Drawer global — qualquer componente pode abrir detalhes de qualquer jogador
+  const [drawerPlayer, setDrawerPlayer] = useState<string | null>(null);
 
   const {
     setSelectedPlayer,
@@ -85,7 +90,11 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 1440, margin: '0 auto', paddingBottom: 80 }}>
-      <Header data={dataWithWatched} onPlayerSelect={name => setSelectedPlayer(name)} />
+      <Header
+        data={dataWithWatched}
+        onPlayerSelect={name => setSelectedPlayer(name)}
+        onOpenDrawer={name => setDrawerPlayer(name)}
+      />
       <StatBar data={data} />
 
       {/* Banner de cross-filter ativo */}
@@ -111,6 +120,7 @@ export default function App() {
           data={dataWithWatched}
           watchedPlayers={watchedPlayers}
           onRemovePlayer={removeWatchedPlayer}
+          onOpenDrawer={name => setDrawerPlayer(name)}
         />
       </section>
 
@@ -153,8 +163,17 @@ export default function App() {
           accent="Rankings Completos"
           sub="Top 50 por tipo"
         />
-        <RankingTable data={dataWithWatched} />
+        <RankingTable data={dataWithWatched} onOpenDrawer={name => setDrawerPlayer(name)} />
       </section>
+
+      {/* ── Drawer global (qualquer jogador de qualquer seção) ── */}
+      {drawerPlayer && data && (
+        <PlayerDrawer
+          name={drawerPlayer}
+          data={dataWithWatched}
+          onClose={() => setDrawerPlayer(null)}
+        />
+      )}
 
       <p style={{
         textAlign: 'center', color: 'var(--muted)', fontSize: '0.7rem',

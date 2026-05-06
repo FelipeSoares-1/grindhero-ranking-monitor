@@ -59,15 +59,24 @@
 }
 .search-results.open { display: block; }
 .search-result-item {
-  padding: 10px 16px; cursor: pointer;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center;
-  transition: background 0.15s;
+  gap: 8px; transition: background 0.15s;
 }
 .search-result-item:last-child { border-bottom: none; }
 .search-result-item:hover { background: rgba(196,18,18,0.07); }
-.search-result-name { font-weight: 600; color: var(--text); }
+.search-result-name { font-weight: 600; color: var(--text); flex: 1; }
 .search-result-meta { font-size: 0.72rem; color: var(--muted); }
+
+/* Botão ⤢ na busca — abre drawer sem ativar cross-filter */
+.search-detail-btn {
+  background: none; border: 1px solid rgba(212,175,55,0.25);
+  color: var(--gold); cursor: pointer; padding: 3px 6px;
+  border-radius: 2px; display: inline-flex; align-items: center;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.search-detail-btn:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
 
 /* ── Stat Bar ── */
 .statbar {

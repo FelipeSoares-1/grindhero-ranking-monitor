@@ -1,6 +1,6 @@
 // components/Layout.tsx — Header, SearchBar, StatBar e estrutura da página
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { Search, X, Zap } from 'lucide-react';
+import { Search, X, Zap, Expand } from 'lucide-react';
 import type { DashboardData } from '../types';
 import { useDashboardStore } from '../store/useDashboardStore';
 import { fmtXP } from '../utils/colors';
@@ -8,10 +8,11 @@ import './Layout.css';
 
 interface HeaderProps {
   data: DashboardData;
-  onPlayerSelect: (name: string) => void;
+  onPlayerSelect: (name: string) => void;   // cross-filter
+  onOpenDrawer:   (name: string) => void;   // abre drawer
 }
 
-export function Header({ data, onPlayerSelect }: HeaderProps) {
+export function Header({ data, onPlayerSelect, onOpenDrawer }: HeaderProps) {
   const { metadata } = data;
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
@@ -81,9 +82,24 @@ export function Header({ data, onPlayerSelect }: HeaderProps) {
         />
         <div className={`search-results ${open && matches.length > 0 ? 'open' : ''}`}>
           {matches.map(name => (
-            <div key={name} className="search-result-item" onClick={() => selectPlayer(name)}>
-              <span className="search-result-name">{name}</span>
+            <div key={name} className="search-result-item">
+              {/* Clique no nome = cross-filter */}
+              <span
+                className="search-result-name"
+                onClick={() => selectPlayer(name)}
+                style={{ cursor: 'pointer', flex: 1 }}
+              >
+                {name}
+              </span>
               <span className="search-result-meta">{getPlayerMeta(name)}</span>
+              {/* Botão ⤢ = abre drawer sem afetar cross-filter */}
+              <button
+                className="search-detail-btn"
+                onClick={(e) => { e.stopPropagation(); setOpen(false); setQuery(''); onOpenDrawer(name); }}
+                title="Ver detalhes"
+              >
+                <Expand size={12} />
+              </button>
             </div>
           ))}
         </div>

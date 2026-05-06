@@ -5,9 +5,11 @@ import { useDashboardStore } from '../store/useDashboardStore';
 import { SKILL_COLORS, fmtXP } from '../utils/colors';
 import './RankingTable.css';
 
-interface Props { data: DashboardData; }
+import { Expand } from 'lucide-react';
 
-export function RankingTable({ data }: Props) {
+interface Props { data: DashboardData; onOpenDrawer: (name: string) => void; }
+
+export function RankingTable({ data, onOpenDrawer }: Props) {
   const { selectedPlayer, toggleSelectedPlayer, activeSkill, setActiveSkill } = useDashboardStore();
   const { metadata, latest_snapshot, deltas } = data;
   const { ranking_types, watched } = metadata;
@@ -64,7 +66,7 @@ export function RankingTable({ data }: Props) {
           <thead>
             <tr>
               <th>Rank</th><th>Nome</th><th>Level</th>
-              <th>XP Total</th><th>XP +/-</th><th>Pos +/-</th>
+              <th>XP Total</th><th>XP +/-</th><th>Pos +/-</th><th style={{ width: 32 }}></th>
             </tr>
           </thead>
           <tbody>
@@ -95,6 +97,16 @@ export function RankingTable({ data }: Props) {
                   <td className="td-num">{fmtXP(row.experience)}</td>
                   <td className="td-delta">{deltaEl(delta?.xp_delta)}</td>
                   <td className="td-delta">{deltaEl(delta?.rank_delta, true)}</td>
+                  {/* Botão ⤢ — abre drawer sem interferir no cross-filter da linha */}
+                  <td style={{ padding: '0 6px', textAlign: 'right' }}>
+                    <button
+                      className="detail-btn"
+                      onClick={(e) => { e.stopPropagation(); onOpenDrawer(row.name); }}
+                      title={`Ver detalhes de ${row.name}`}
+                    >
+                      <Expand size={11} />
+                    </button>
+                  </td>
                 </tr>
               );
             })}

@@ -2,7 +2,7 @@
 // Painel para adicionar/remover jogadores monitorados.
 // Persiste no localStorage. Mostra como atualizar o config.json.
 import { useState, useMemo, useRef } from 'react';
-import { Settings, Plus, X, Copy, Check } from 'lucide-react';
+import { Settings, Plus, X } from 'lucide-react';
 import type { DashboardData } from '../types';
 import { fmtXP } from '../utils/colors';
 import './WatchedManager.css';
@@ -17,7 +17,6 @@ interface Props {
 export function WatchedManager({ data, watchedPlayers, onAddPlayer, onRemovePlayer }: Props) {
   const [query, setQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Todos os jogadores que já apareceram no banco (distinct)
@@ -61,26 +60,7 @@ export function WatchedManager({ data, watchedPlayers, onAddPlayer, onRemovePlay
     inputRef.current?.focus();
   }
 
-  // Gera o JSON do config.json atualizado
-  const configJson = JSON.stringify(
-    {
-      watched_players: watchedPlayers,
-      server: data.metadata.server.startsWith('{')
-        ? JSON.parse(data.metadata.server)
-        : { id: 3, name: data.metadata.server },
-      ranking_types: data.metadata.ranking_types,
-      dashboard_title: 'GrindHero Monitor',
-    },
-    null,
-    2,
-  );
 
-  function copyConfig() {
-    navigator.clipboard.writeText(configJson).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    });
-  }
 
   return (
     <div className="wm-panel">
@@ -89,10 +69,6 @@ export function WatchedManager({ data, watchedPlayers, onAddPlayer, onRemovePlay
           <Settings size={15} />
           Gerenciar Jogadores Monitorados
         </div>
-        <button className="wm-save-btn" onClick={copyConfig}>
-          {copied ? <Check size={13} /> : <Copy size={13} />}
-          {copied ? 'Copiado!' : 'Copiar config.json'}
-        </button>
       </div>
 
       {/* Chips dos jogadores atuais */}

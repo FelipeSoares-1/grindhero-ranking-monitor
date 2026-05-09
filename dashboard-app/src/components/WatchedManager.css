@@ -17,14 +17,6 @@
   font-size: 0.9rem; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px;
   display: flex; align-items: center; gap: 8px;
 }
-.wm-save-btn {
-  background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.4);
-  color: #2ecc71; cursor: pointer; padding: 6px 14px;
-  font-family: inherit; font-size: 0.75rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  transition: all 0.2s; display: flex; align-items: center; gap: 6px;
-}
-.wm-save-btn:hover { background: rgba(46,204,113,0.2); box-shadow: 0 0 10px rgba(46,204,113,0.2); }
 
 .wm-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; min-height: 36px; }
 .wm-chip {
@@ -79,29 +71,11 @@
 .wm-suggestion-meta { font-size: 0.7rem; color: var(--muted); font-family: 'Fira Code', monospace; }
 .wm-suggestion-item.already { opacity: 0.4; cursor: not-allowed; }
 
-.wm-config-box {
-  margin-top: 12px; padding: 10px 12px;
-  background: var(--bg2); border: 1px solid var(--border);
-  border-left: 2px solid var(--gold);
-  font-size: 0.72rem; color: var(--muted); line-height: 1.8;
-}
-.wm-config-box code {
-  background: rgba(0,0,0,0.4); padding: 1px 6px;
-  color: var(--gold); font-family: 'Fira Code', monospace; font-size: 0.75rem;
-}
-.wm-copy-btn {
-  background: none; border: 1px solid rgba(212,175,55,0.4);
-  color: var(--gold); cursor: pointer; padding: 4px 10px;
-  font-size: 0.7rem; font-family: inherit; margin-top: 8px;
-  transition: all 0.15s; display: block;
-}
-.wm-copy-btn:hover { background: rgba(212,175,55,0.1); }
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .wm-panel { padding: 14px 12px; }
   .wm-header { flex-direction: column; align-items: flex-start; }
-  .wm-save-btn { width: 100%; justify-content: center; }
   .wm-search-row { flex-direction: column; }
   .wm-add-btn { width: 100%; }
 }

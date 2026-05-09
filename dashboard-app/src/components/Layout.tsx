@@ -66,7 +66,7 @@ export function Header({ data, onPlayerSelect, onOpenDrawer }: HeaderProps) {
           <div className="header-title">
             <span className="accent">GrindHero</span> Monitor
           </div>
-          <div className="header-sub">⚔ Ranking PvP — {metadata.server}</div>
+          <div className="header-sub">Ranking PvP - {metadata.server}</div>
         </div>
       </div>
 

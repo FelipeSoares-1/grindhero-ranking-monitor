@@ -175,14 +175,24 @@ export default function App() {
         />
       )}
 
-      <p style={{
-        textAlign: 'center', color: 'var(--muted)', fontSize: '0.7rem',
-        marginTop: 24, padding: '20px 28px 0',
-        borderTop: '1px solid var(--border)',
-        textTransform: 'uppercase', letterSpacing: 1,
-      }}>
-        GrindHero Monitor • {data.metadata.server} • Recharts Edition
-      </p>
+      <footer
+        style={{
+          textAlign: 'center',
+          padding: '2rem',
+          background: 'var(--dark)',
+          borderTop: '1px solid var(--border)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          color: 'var(--dim)'
+        }}>
+        <div>Monitor - Grind Hero</div>
+        <div>Red Skull Guild</div>
+        <img src="https://redskull.space/images/red-skull-logo.webp" alt="Red Skull Logo"
+          style={{ width: 50, height: 'auto', marginTop: 10, filter: 'drop-shadow(0 0 5px rgba(196, 18, 18, 0.4))' }} />
+      </footer>
     </div>
   );
 }

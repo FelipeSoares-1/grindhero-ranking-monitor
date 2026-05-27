@@ -9,6 +9,8 @@ import { useDashboardStore } from '../../store/useDashboardStore';
 import { SKILL_COLORS, fmtXP } from '../../utils/colors';
 import './Charts.css';
 
+const POS_LABELS = ['🥇', '🥈', '🥉'];
+
 interface Props { data: DashboardData; }
 
 
@@ -20,12 +22,15 @@ export function VelocityChart({ data }: Props) {
   const velData = velocity[activeSkill] ?? [];
   const color = SKILL_COLORS[activeSkill] ?? '#d4af37';
 
-  const chartData = velData.map(v => ({
-    name: `#${v.rank} ${v.name}`,
-    rawName: v.name,
-    xp_day: v.xp_day,
-    label: v.label,
-  }));
+  const chartData = velData.map((v, i) => {
+    const pos = i < 3 ? POS_LABELS[i] : `${i + 1}º`;
+    return {
+      name: `${pos} ${v.name}`,
+      rawName: v.name,
+      xp_day: v.xp_day,
+      label: v.label,
+    };
+  });
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (!active || !payload?.length) return null;
@@ -71,7 +76,7 @@ export function VelocityChart({ data }: Props) {
             <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 60, left: 0, bottom: 0 }}>
               <XAxis type="number" hide />
               <YAxis
-                type="category" dataKey="name" width={160}
+                type="category" dataKey="name" width={175}
                 tick={{ fill: 'var(--muted)', fontSize: 11, fontFamily: 'Fira Code' }}
                 axisLine={false} tickLine={false}
               />

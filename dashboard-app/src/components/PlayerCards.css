@@ -1,5 +1,91 @@
 /* components/PlayerCards.css */
 
+/* ── Drawer History Tables (Farm + Rank) ── */
+.dh-table { display: flex; flex-direction: column; gap: 0; }
+.dh-header {
+  display: grid; grid-template-columns: 80px 1fr 70px 80px;
+  padding: 6px 10px;
+  font-size: 0.58rem; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--muted); font-weight: 700;
+  border-bottom: 1px solid var(--border); margin-bottom: 2px;
+}
+.dh-row {
+  display: grid; grid-template-columns: 80px 1fr 70px 80px;
+  padding: 7px 10px; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.82rem; transition: background 0.12s;
+}
+.dh-row:hover { background: rgba(255,255,255,0.02); }
+.dh-row:last-child { border-bottom: none; }
+.dh-date { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--muted); }
+.dh-xp { font-family: 'Fira Code', monospace; font-weight: 700; color: var(--text); }
+.dh-xp--great { color: #2ecc71 !important; }
+.dh-xp--low   { color: var(--muted) !important; }
+.dh-level { font-size: 0.75rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+.dh-lv-delta { font-size: 0.72rem; font-family: 'Fira Code', monospace; }
+.dh-more-btn {
+  margin-top: 8px; background: none;
+  border: 1px solid var(--border); color: var(--muted);
+  padding: 6px 14px; cursor: pointer; font-family: inherit;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px;
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.15s; width: 100%; justify-content: center;
+}
+.dh-more-btn:hover { border-color: var(--red); color: var(--text); }
+
+/* Rank history table + Farm do Dia — ambas com scroll horizontal */
+.dh-rank-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.dh-rank-table { display: flex; flex-direction: column; min-width: max-content; }
+.dh-rank-header {
+  display: grid;
+  /* gridTemplateColumns definido inline no TSX dinamicamente */
+  padding: 6px 8px;
+  font-size: 0.58rem; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); font-weight: 700;
+  border-bottom: 1px solid var(--border); margin-bottom: 2px;
+}
+.dh-rank-row {
+  display: grid;
+  /* gridTemplateColumns definido inline no TSX dinamicamente */
+  padding: 7px 8px; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.8rem; transition: background 0.12s;
+}
+.dh-rank-row:hover { background: rgba(255,255,255,0.02); }
+.dh-rank-row:last-child { border-bottom: none; }
+.dh-rank-date-col { font-family: 'Fira Code', monospace; font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+.dh-rank-skill-col {
+  display: flex; align-items: center; gap: 3px;
+  font-family: 'Fira Code', monospace; font-size: 0.75rem;
+  white-space: nowrap;
+}
+.dh-rank-arrow { font-size: 0.6rem; }
+
+/* Farm do dia — tabela multi-skill */
+.dh-farm-table { display: flex; flex-direction: column; min-width: max-content; }
+.dh-farm-header {
+  display: grid;
+  column-gap: 8px;
+  padding: 6px 8px;
+  font-size: 0.58rem; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); font-weight: 700;
+  border-bottom: 1px solid var(--border); margin-bottom: 2px;
+}
+.dh-farm-row {
+  display: grid;
+  column-gap: 8px;
+  padding: 7px 8px; align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.12s;
+}
+.dh-farm-row:hover { background: rgba(255,255,255,0.02); }
+.dh-farm-row:last-child { border-bottom: none; }
+.dh-farm-cell {
+  font-family: 'Fira Code', monospace; font-size: 0.72rem; font-weight: 600;
+  white-space: nowrap;
+}
+.dh-lv-up { font-size: 0.62rem; color: #2ecc71; margin-left: 2px; }
+
 .player-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));

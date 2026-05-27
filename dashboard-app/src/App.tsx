@@ -1,6 +1,6 @@
 // App.tsx — Entrypoint do Dashboard GrindHero Monitor
 import { useEffect, useState } from 'react';
-import { Activity, Users, Trophy, Star, Zap, Swords } from 'lucide-react';
+import { Activity, Users, Trophy, Star, Zap, Swords, TrendingUp, Target } from 'lucide-react';
 import type { DashboardData } from './types';
 import { useDashboardStore } from './store/useDashboardStore';
 import {
@@ -14,6 +14,8 @@ import { GapChart }        from './components/charts/GapChart';
 import { VelocityChart }   from './components/charts/VelocityChart';
 import { EvolutionChart }  from './components/charts/EvolutionChart';
 import { RankingTable }    from './components/RankingTable';
+import { TopMovers }       from './components/TopMovers';
+import { GoalTracker }     from './components/GoalTracker';
 import './index.css';
 
 export default function App() {
@@ -130,6 +132,16 @@ export default function App() {
         <RadarSkillChart data={dataWithWatched} />
       </section>
 
+      {/* ── TOP MOVERS DO DIA ── */}
+      <section className="section">
+        <SectionTitle
+          icon={<TrendingUp size={18} color="var(--red)" />}
+          accent="Destaques do Dia"
+          sub="Maiores subidas e quedas no rank"
+        />
+        <TopMovers data={dataWithWatched} />
+      </section>
+
       {/* ── ANÁLISE COMPETITIVA ── */}
       <section className="section">
         <SectionTitle
@@ -150,10 +162,22 @@ export default function App() {
         <VelocityChart data={dataWithWatched} />
       </section>
 
-      {/* ── EVOLUÇÃO TEMPORAL ── */}
+      {/* ── EVOLUÇÃO TEMPORAL — oculto temporariamente ── */}
+      {false && (
+        <section className="section">
+          <SectionTitle icon={<Activity size={18} color="var(--red)" />} accent="Evolução Temporal" />
+          <EvolutionChart data={dataWithWatched} />
+        </section>
+      )}
+
+      {/* ── FAZEDOR DE META ── */}
       <section className="section">
-        <SectionTitle icon={<Activity size={18} color="var(--red)" />} accent="Evolução Temporal" />
-        <EvolutionChart data={dataWithWatched} />
+        <SectionTitle
+          icon={<Target size={18} color="var(--red)" />}
+          accent="Fazedor de Metas"
+          sub="Acompanhe quando você vai atingir seu objetivo"
+        />
+        <GoalTracker data={dataWithWatched} />
       </section>
 
       {/* ── RANKINGS COMPLETOS ── */}

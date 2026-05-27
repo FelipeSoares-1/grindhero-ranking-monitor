@@ -65,8 +65,13 @@ export function RankingTable({ data, onOpenDrawer }: Props) {
         <table className="rank-table">
           <thead>
             <tr>
-              <th>Rank</th><th>Nome</th><th>Level</th>
-              <th>XP Total</th><th>XP +/-</th><th>Pos +/-</th><th style={{ width: 32 }}></th>
+              <th>#</th>
+              <th>Nome</th>
+              <th className="th-lv">Lv</th>
+              <th className="th-xp">XP</th>
+              <th className="th-xpdelta"><span className="th-full">XP +/-</span><span className="th-short">XP±</span></th>
+              <th className="th-posdelta"><span className="th-full">Pos +/-</span><span className="th-short">Pos±</span></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -93,7 +98,7 @@ export function RankingTable({ data, onOpenDrawer }: Props) {
                       />
                     )}
                   </td>
-                  <td className="td-num">Lv {row.level}</td>
+                  <td className="td-num"><span className="lv-full">Lv </span>{row.level}</td>
                   <td className="td-num">{fmtXP(row.experience)}</td>
                   <td className="td-delta">{deltaEl(delta?.xp_delta)}</td>
                   <td className="td-delta">{deltaEl(delta?.rank_delta, true)}</td>

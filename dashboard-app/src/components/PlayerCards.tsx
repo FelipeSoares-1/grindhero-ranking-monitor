@@ -1,9 +1,9 @@
 // components/PlayerCards.tsx — Cards dos jogadores monitorados com stats e digest
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { DashboardData } from '../types';
 import { useDashboardStore } from '../store/useDashboardStore';
 import { SKILL_COLORS, fmtXP } from '../utils/colors';
-import { TrendingUp, TrendingDown, Minus, X, Expand } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, X, Expand, ChevronDown } from 'lucide-react';
 import './PlayerCards.css';
 
 interface Props {
@@ -180,6 +180,8 @@ export function PlayerDrawer({ name, data, onClose }: {
   name: string; data: DashboardData; onClose: () => void;
 }) {
   const { latest_snapshot, deltas, history, velocity } = data;
+  const [farmDaysShown, setFarmDaysShown] = useState(7);
+  const [rankDaysShown, setRankDaysShown] = useState(7);
 
   const rows = latest_snapshot
     .filter(s => s.name.toLowerCase() === name.toLowerCase())
@@ -189,36 +191,88 @@ export function PlayerDrawer({ name, data, onClose }: {
     (best, r) => (!best || r.rank < best.rank ? r : best), null
   );
 
+  const playerHistory = history.filter(h => h.name.toLowerCase() === name.toLowerCase());
+
   const daysMonitored = (() => {
     const allDates = new Set<string>();
-    history
-      .filter(h => h.name.toLowerCase() === name.toLowerCase())
-      .forEach(h => h.points.forEach(p => allDates.add(p.date)));
+    playerHistory.forEach(h => h.points.forEach(p => allDates.add(p.date)));
     return allDates.size;
   })();
 
-  // XP Médio por dia: média de todos os ganhos diários via history
+  // XP Médio por dia
   const avgXpPerDay = (() => {
-    const deltas: number[] = [];
-    history
-      .filter(h => h.name.toLowerCase() === name.toLowerCase() && h.ranking_type === 'Experience')
+    const diffs: number[] = [];
+    playerHistory
+      .filter(h => h.ranking_type === 'Experience')
       .forEach(h => {
         for (let i = 1; i < h.points.length; i++) {
           const d = h.points[i].experience - h.points[i - 1].experience;
-          if (d > 0) deltas.push(d);
+          if (d > 0) diffs.push(d);
         }
       });
-    if (deltas.length === 0) return null;
-    return Math.round(deltas.reduce((a, b) => a + b, 0) / deltas.length);
+    if (diffs.length === 0) return null;
+    return Math.round(diffs.reduce((a, b) => a + b, 0) / diffs.length);
   })();
 
-  // Rank Farm do Dia: posição do jogador no ranking de velocity por skill
+  // Rank Farm do Dia: posição no velocity
   function getFarmRank(rt: string): string {
     const vel = velocity[rt];
     if (!vel) return '—';
     const idx = vel.findIndex(v => v.name.toLowerCase() === name.toLowerCase());
     if (idx === -1) return '—';
     return `#${idx + 1} de ${vel.length}`;
+  }
+
+  // ── Farm do Dia: XP ganho por dia — só skills com histórico real do jogador ──
+  const farmSkills = data.metadata.ranking_types.filter(
+    skill => playerHistory.some(h => h.ranking_type === skill && h.points.length >= 2)
+  );
+  const farmDates = (() => {
+    const dates = new Set<string>();
+    playerHistory.forEach(h => h.points.forEach(p => dates.add(p.date)));
+    return [...dates].sort().reverse(); // mais recente primeiro
+  })();
+  // Para cada data e skill: calcula delta de XP e nível
+  function getFarmForDate(skill: string, date: string): { xpDelta: number; level: number; lvDelta: number } | null {
+    const h = playerHistory.find(h => h.ranking_type === skill);
+    if (!h) return null;
+    const idx = h.points.findIndex(p => p.date === date);
+    if (idx <= 0) return null;
+    const cur  = h.points[idx];
+    const prev = h.points[idx - 1];
+    return {
+      xpDelta: cur.experience - prev.experience,
+      level:   cur.level,
+      lvDelta: cur.level - prev.level,
+    };
+  }
+  const farmHistory = farmDates; // usamos farmDates diretamente
+
+  // ── Histórico de Rank: só skills com dados reais do jogador ──
+  const rankSkills = data.metadata.ranking_types.filter(
+    skill => playerHistory.some(h => h.ranking_type === skill && h.points.length > 0)
+  );
+  const rankDates = (() => {
+    const dates = new Set<string>();
+    playerHistory.forEach(h => h.points.forEach(p => dates.add(p.date)));
+    return [...dates].sort().reverse();
+  })();
+
+  function getRankAtDate(skill: string, date: string): number | null {
+    const h = playerHistory.find(h => h.ranking_type === skill);
+    return h?.points.find(p => p.date === date)?.rank ?? null;
+  }
+  function getPrevRankAtDate(skill: string, date: string): number | null {
+    const h = playerHistory.find(h => h.ranking_type === skill);
+    if (!h) return null;
+    const idx = h.points.findIndex(p => p.date === date);
+    if (idx <= 0) return null;
+    return h.points[idx - 1].rank;
+  }
+
+  function fmtDate(d: string) {
+    const [y, m, day] = d.split('-');
+    return `${day}/${m}/${y.slice(2)}`;
   }
 
   // Fechar com Escape
@@ -244,7 +298,7 @@ export function PlayerDrawer({ name, data, onClose }: {
         </div>
 
         <div className="drawer-body">
-          {/* ── VISÃO GERAL — 4 stats ── */}
+          {/* ── VISÃO GERAL ── */}
           <div className="drawer-section-title">Visão Geral</div>
           <div className="drawer-stat-grid drawer-stat-grid--4">
             <div className="drawer-stat">
@@ -271,7 +325,7 @@ export function PlayerDrawer({ name, data, onClose }: {
             </div>
           </div>
 
-          {/* ── POSIÇÕES ATUAIS — grid 2 colunas ── */}
+          {/* ── POSIÇÕES ATUAIS ── */}
           {rows.length > 0 && (
             <div>
               <div className="drawer-section-title">Posições Atuais</div>
@@ -284,27 +338,16 @@ export function PlayerDrawer({ name, data, onClose }: {
                   const rkDelta = delta?.rank_delta ?? 0;
                   const farmRank = getFarmRank(row.ranking_type);
                   const hasFarm = farmRank !== '—';
-
                   return (
-                    <div
-                      key={row.ranking_type}
-                      className="drawer-skill-card"
-                      style={{ '--skill-clr': clr } as React.CSSProperties}
-                    >
-                      {/* Topo: nome + rank grande */}
+                    <div key={row.ranking_type} className="drawer-skill-card"
+                      style={{ '--skill-clr': clr } as React.CSSProperties}>
                       <div className="dsc-header">
                         <div>
-                          <div className="dsc-name">
-                            <span>{icon}</span> {row.ranking_type}
-                          </div>
-                          <div className="dsc-lvxp">
-                            Lv {row.level} · {fmtXP(row.experience)} XP total
-                          </div>
+                          <div className="dsc-name"><span>{icon}</span> {row.ranking_type}</div>
+                          <div className="dsc-lvxp">Lv {row.level} · {fmtXP(row.experience)} XP total</div>
                         </div>
                         <div className="dsc-rank">#{row.rank}</div>
                       </div>
-
-                      {/* Deltas: ganhou / posição / farm rank */}
                       <div className="dsc-deltas">
                         <div className="dsc-delta-block">
                           <div className="dsc-delta-label">Ganhou no Dia</div>
@@ -321,9 +364,7 @@ export function PlayerDrawer({ name, data, onClose }: {
                         {hasFarm && (
                           <div className="dsc-delta-block">
                             <div className="dsc-delta-label">🔥 Rank Farm do Dia</div>
-                            <div className="dsc-delta-value" style={{ color: '#ff9500' }}>
-                              {farmRank}
-                            </div>
+                            <div className="dsc-delta-value" style={{ color: '#ff9500' }}>{farmRank}</div>
                           </div>
                         )}
                       </div>
@@ -331,6 +372,107 @@ export function PlayerDrawer({ name, data, onClose }: {
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {/* ── FARM DO DIA (todos os skills por data) ── */}
+          {farmHistory.length > 0 && (
+            <div>
+              <div className="drawer-section-title">📅 Farm do Dia — Histórico</div>
+              <div className="dh-rank-wrap">
+                <div className="dh-farm-table">
+                  {/* Header dinâmico com todos os skills presentes */}
+                  <div className="dh-farm-header"
+                    style={{ gridTemplateColumns: `72px repeat(${farmSkills.length}, 1fr)` }}>
+                    <span className="dh-rank-date-col">Data</span>
+                    {farmSkills.map(s => (
+                      <span key={s} className="dh-rank-skill-col"
+                        style={{ color: SKILL_COLORS[s] ?? 'var(--muted)' }}>
+                        {s.slice(0, 4)}
+                      </span>
+                    ))}
+                  </div>
+                  {farmHistory.slice(0, farmDaysShown).map(date => (
+                    <div key={date} className="dh-farm-row"
+                      style={{ gridTemplateColumns: `72px repeat(${farmSkills.length}, 1fr)` }}>
+                      <span className="dh-rank-date-col">{fmtDate(date)}</span>
+                      {farmSkills.map(s => {
+                        const f = getFarmForDate(s, date);
+                        if (!f) return <span key={s} className="dh-farm-cell" style={{ color: 'var(--muted)' }}>—</span>;
+                        const isGreat = f.xpDelta > (avgXpPerDay ?? 0) * 1.3;
+                        const isLow   = f.xpDelta > 0 && f.xpDelta < (avgXpPerDay ?? 0) * 0.4;
+                        const clr = isGreat ? '#2ecc71' : isLow ? 'var(--muted)' : (SKILL_COLORS[s] ?? 'var(--text)');
+                        return (
+                          <span key={s} className="dh-farm-cell" style={{ color: clr }}>
+                            {f.xpDelta > 0 ? `+${fmtXP(f.xpDelta)}` : f.xpDelta === 0 ? '—' : fmtXP(f.xpDelta)}
+                            {f.lvDelta > 0 && <span className="dh-lv-up"> ↑{f.lvDelta}</span>}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {farmHistory.length > farmDaysShown && (
+                <button className="dh-more-btn" onClick={() => setFarmDaysShown(n => n + 7)}>
+                  <ChevronDown size={13} /> Ver mais {Math.min(7, farmHistory.length - farmDaysShown)} dias
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* ── HISTÓRICO DE RANK (todas as skills por data) ── */}
+          {rankDates.length > 0 && (
+            <div>
+              <div className="drawer-section-title">📊 Histórico de Rank por Skill</div>
+              <div className="dh-rank-wrap">
+                <div className="dh-rank-table">
+                  <div className="dh-rank-header"
+                    style={{ gridTemplateColumns: `72px repeat(${rankSkills.length}, 1fr)` }}>
+                    <span className="dh-rank-date-col">Data</span>
+                    {rankSkills.map(s => (
+                      <span key={s} className="dh-rank-skill-col"
+                        style={{ color: SKILL_COLORS[s] ?? 'var(--muted)' }}>
+                        {s.slice(0, 4)}
+                      </span>
+                    ))}
+                  </div>
+                  {rankDates.slice(0, rankDaysShown).map(date => (
+                    <div key={date} className="dh-rank-row"
+                      style={{ gridTemplateColumns: `72px repeat(${rankSkills.length}, 1fr)` }}>
+                      <span className="dh-rank-date-col">{fmtDate(date)}</span>
+                      {rankSkills.map(s => {
+                        const rank = getRankAtDate(s, date);
+                        const prev = getPrevRankAtDate(s, date);
+                        const delta = rank != null && prev != null ? prev - rank : null;
+                        return (
+                          <span key={s} className="dh-rank-skill-col">
+                            {rank != null ? (
+                              <>
+                                <span style={{ color: SKILL_COLORS[s] ?? 'var(--text)', fontWeight: 600 }}>
+                                  #{rank}
+                                </span>
+                                {delta != null && delta !== 0 && (
+                                  <span className={`dh-rank-arrow ${delta > 0 ? 'delta-up' : 'delta-down'}`}>
+                                    {delta > 0 ? '▲' : '▼'}
+                                  </span>
+                                )}
+                              </>
+                            ) : (
+                              <span style={{ color: 'var(--muted)' }}>—</span>
+                            )}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {rankDates.length > rankDaysShown && (
+                <button className="dh-more-btn" onClick={() => setRankDaysShown(n => n + 7)}>
+                  <ChevronDown size={13} /> Ver mais {Math.min(7, rankDates.length - rankDaysShown)} dias
+                </button>
+              )}
             </div>
           )}
 

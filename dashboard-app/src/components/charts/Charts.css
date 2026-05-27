@@ -84,6 +84,52 @@
 @media (max-width: 900px) {
   .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
 }
+/* ── Velocity Placar ── */
+.velocity-placar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red2);
+  padding: 18px 20px;
+  margin-top: 14px;
+}
+.vp-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 0.9rem; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.vp-table { display: flex; flex-direction: column; }
+.vp-header {
+  display: grid;
+  grid-template-columns: 42px 1fr 110px 60px;
+  padding: 6px 10px;
+  font-size: 0.58rem; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--muted); font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2px;
+}
+.vp-row {
+  display: grid;
+  grid-template-columns: 42px 1fr 110px 60px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 0.83rem;
+}
+.vp-row:hover { background: rgba(255,255,255,0.03); }
+.vp-row:last-child { border-bottom: none; }
+.vp-row--watched {
+  border-left: 3px solid var(--vp-clr);
+  background: rgba(196,18,18,0.04);
+}
+.vp-row--selected { background: rgba(212,175,55,0.08) !important; }
+.vp-col-pos { font-size: 1rem; line-height: 1; }
+.vp-num { font-size: 0.78rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+.vp-col-name { font-weight: 600; color: var(--text); }
+.vp-col-xp { font-family: 'Fira Code', monospace; font-size: 0.78rem; font-weight: 700; }
+.vp-col-rank { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--muted); }
+
 @media (max-width: 600px) {
   .chart-card { padding: 12px 10px; }
   .chart-title { font-size: 0.8rem; margin-bottom: 10px; }
@@ -91,4 +137,5 @@
   .tab-btn { padding: 6px 10px; font-size: 0.72rem; }
   .period-bar { gap: 4px; }
   .period-btn { padding: 4px 8px; font-size: 0.68rem; }
+  .vp-header, .vp-row { grid-template-columns: 36px 1fr 90px 50px; font-size: 0.75rem; }
 }

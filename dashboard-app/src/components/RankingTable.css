@@ -32,17 +32,45 @@
 .delta-down    { color: var(--bright); font-weight: 700; }
 .delta-neutral { color: var(--muted); }
 
+/* Alternar labels longo/curto — desktop mostra full, mobile mostra short */
+.th-short { display: none; }
+.th-full  { display: inline; }
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .rank-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .rank-table th, .rank-table td { padding: 8px 10px; }
-  /* Esconde Level e XP Total no mobile — mantém Rank, Nome, XP +/- e Pos +/- */
-  .rank-table th:nth-child(3),
-  .rank-table td:nth-child(3),
-  .rank-table th:nth-child(4),
-  .rank-table td:nth-child(4) { display: none; }
-  .td-name { font-size: 0.8rem; }
-  .td-rank { font-size: 0.85rem; }
-  .tabs-bar { gap: 4px; }
-  .tab-btn { padding: 6px 10px; font-size: 0.75rem; }
+  .th-full  { display: none; }
+  .th-short { display: inline; }
+
+  /* Sem scroll lateral — tudo cabe na tela */
+  .rank-table-wrap { overflow-x: visible; }
+  .rank-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  /* Larguras das colunas: # | Nome(auto) | Lv | XP | XP± | Pos± | btn */
+  .rank-table th:nth-child(1), .rank-table td:nth-child(1) { width: 28px; }
+  .rank-table th:nth-child(2), .rank-table td:nth-child(2) { width: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank-table th:nth-child(3), .rank-table td:nth-child(3) { width: 30px; text-align: right; }
+  .rank-table th:nth-child(4), .rank-table td:nth-child(4) { width: 48px; text-align: right; }
+  .rank-table th:nth-child(5), .rank-table td:nth-child(5) { width: 54px; text-align: right; }
+  .rank-table th:nth-child(6), .rank-table td:nth-child(6) { width: 30px; text-align: right; }
+  .rank-table th:nth-child(7), .rank-table td:nth-child(7) { width: 22px; padding: 0 3px; }
+  .rank-table td:nth-child(7) .detail-btn { padding: 3px 3px; }
+  .rank-table td:nth-child(7) .detail-btn svg { width: 10px; height: 10px; }
+
+  /* "Lv " prefix oculto no mobile — header já indica a coluna */
+  .lv-full { display: none; }
+
+  .rank-table th, .rank-table td { padding: 8px 4px; white-space: nowrap; }
+  .rank-table th { font-size: 0.58rem; letter-spacing: 0.6px; }
+
+  .td-name  { font-size: 0.78rem; gap: 4px; }
+  .td-rank  { font-size: 0.82rem; width: auto; }
+  .td-num   { font-size: 0.7rem; }
+  .td-delta { font-size: 0.7rem; }
+  .skull-badge { width: 12px; height: 12px; }
+
+  .tabs-bar { gap: 4px; flex-wrap: wrap; }
+  .tab-btn  { padding: 6px 10px; font-size: 0.75rem; }
 }

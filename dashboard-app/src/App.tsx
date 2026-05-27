@@ -162,13 +162,15 @@ export default function App() {
         <VelocityChart data={dataWithWatched} />
       </section>
 
-      {/* ── EVOLUÇÃO TEMPORAL — oculto temporariamente ── */}
-      {false && (
-        <section className="section">
-          <SectionTitle icon={<Activity size={18} color="var(--red)" />} accent="Evolução Temporal" />
-          <EvolutionChart data={dataWithWatched} />
-        </section>
-      )}
+      {/* ── EVOLUÇÃO TEMPORAL ── */}
+      <section className="section">
+        <SectionTitle
+          icon={<Activity size={18} color="var(--red)" />}
+          accent="Evolução Temporal"
+          sub="XP acumulado e posição no ranking ao longo do tempo"
+        />
+        <EvolutionChart data={dataWithWatched} />
+      </section>
 
       {/* ── FAZEDOR DE META ── */}
       <section className="section">

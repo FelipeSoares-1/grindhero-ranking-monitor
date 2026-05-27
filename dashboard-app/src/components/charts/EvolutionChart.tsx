@@ -1,15 +1,13 @@
 // components/charts/EvolutionChart.tsx
-// Evolução Temporal — um card por jogador × skill
-// Cada card: Area (XP acumulado) + Line (posição no ranking) empilhados com syncId
-// Idêntico ao layout Plotly original em grid 2 colunas
-import { useMemo } from 'react';
+// Evolução Temporal — com abas de skill, um card por jogador monitorado
+import { useState, useMemo } from 'react';
 import {
   AreaChart, Area, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import type { DashboardData, SkillPoint } from '../../types';
 import { useDashboardStore } from '../../store/useDashboardStore';
-import { SKILL_COLORS, PLAYER_COLORS, hexToRgba, fmtXP } from '../../utils/colors';
+import { SKILL_COLORS, hexToRgba, fmtXP } from '../../utils/colors';
 import './Charts.css';
 
 interface Props { data: DashboardData; }
@@ -22,23 +20,18 @@ interface EvoCard {
 }
 
 const PERIODS = [
-  { label: '24h', days: 1 }, { label: '7d', days: 7 }, { label: '15d', days: 15 },
-  { label: '30d', days: 30 }, { label: '3 meses', days: 90 },
-  { label: '6 meses', days: 180 }, { label: '1 ano', days: 365 },
+  { label: '7d', days: 7 }, { label: '15d', days: 15 },
+  { label: '30d', days: 30 }, { label: '3m', days: 90 },
+  { label: '6m', days: 180 }, { label: '1a', days: 365 },
   { label: 'Tudo', days: 0 },
 ];
 
-function EvoCardChart({
-  card, dimmed,
-}: {
-  card: EvoCard;
-  dimmed: boolean;
-}) {
+function EvoCardChart({ card, dimmed }: { card: EvoCard; dimmed: boolean }) {
   const skillColor = SKILL_COLORS[card.skill] ?? '#d4af37';
   const syncId = `evo-${card.playerName}-${card.skill}`;
 
   const chartData = card.points.map(p => ({
-    date: p.date.slice(5),   // "04-23" format
+    date: p.date.slice(5),
     xp: p.experience,
     rank: p.rank,
     level: p.level,
@@ -47,9 +40,8 @@ function EvoCardChart({
   const xpTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null;
     const d = payload[0]?.payload;
-    const xpDelta = chartData.findIndex(p => p.date === label) > 0
-      ? (d?.xp ?? 0) - (chartData[chartData.findIndex(p => p.date === label) - 1]?.xp ?? 0)
-      : 0;
+    const idx = chartData.findIndex(p => p.date === label);
+    const xpDelta = idx > 0 ? (d?.xp ?? 0) - (chartData[idx - 1]?.xp ?? 0) : 0;
     return (
       <div className="custom-tooltip">
         <div className="custom-tooltip-label">{label}</div>
@@ -77,126 +69,38 @@ function EvoCardChart({
   };
 
   return (
-    <div
-      className="chart-card evo-card"
-      style={{ opacity: dimmed ? 0.25 : 1, transition: 'opacity 0.25s' }}
-    >
-      {/* Título */}
-      <div style={{ marginBottom: 4 }}>
-        <div className="chart-title" style={{ color: skillColor, marginBottom: 2 }}>
-          Evolução — {card.skill}
-        </div>
-        <div style={{ fontSize: '0.68rem', color: 'var(--muted)', letterSpacing: '0.5px', fontFamily: 'Ubuntu Condensed' }}>
-          {card.playerName}
-        </div>
+    <div className="chart-card evo-card" style={{ opacity: dimmed ? 0.25 : 1, transition: 'opacity 0.25s' }}>
+      <div className="chart-title" style={{ color: skillColor }}>
+        {card.playerName}
       </div>
 
-      {/* XP Acumulado — Área */}
-      <div style={{ marginBottom: 2 }}>
-        <div style={{ fontSize: '0.62rem', color: skillColor, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, marginBottom: 4 }}>
-          XP Acumulado
-        </div>
-        <ResponsiveContainer width="100%" height={160}>
-          <AreaChart data={chartData} syncId={syncId} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} />
-            <YAxis tickFormatter={v => fmtXP(v)} tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} width={44} />
-            <Tooltip content={xpTooltip} />
-            <Area
-              type="monotone"
-              dataKey="xp"
-              stroke={skillColor}
-              strokeWidth={2.5}
-              fill={hexToRgba(skillColor, 0.18)}
-              dot={false}
-              activeDot={{ r: 4, fill: skillColor, strokeWidth: 0 }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      <div style={{ fontSize: '0.62rem', color: skillColor, textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, margin: '8px 0 4px' }}>
+        XP Acumulado
       </div>
+      <ResponsiveContainer width="100%" height={150}>
+        <AreaChart data={chartData} syncId={syncId} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+          <XAxis dataKey="date" tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} />
+          <YAxis tickFormatter={v => fmtXP(v)} tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} width={44} />
+          <Tooltip content={xpTooltip} />
+          <Area type="monotone" dataKey="xp" stroke={skillColor} strokeWidth={2.5}
+            fill={hexToRgba(skillColor, 0.18)} dot={false}
+            activeDot={{ r: 4, fill: skillColor, strokeWidth: 0 }} />
+        </AreaChart>
+      </ResponsiveContainer>
 
-      {/* Posição no Ranking — Linha */}
-      <div>
-        <div style={{ fontSize: '0.62rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, marginBottom: 4 }}>
-          Posição no Ranking
-        </div>
-        <ResponsiveContainer width="100%" height={120}>
-          <LineChart data={chartData} syncId={syncId} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} />
-            <YAxis reversed tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => `#${v}`} width={32} />
-            <Tooltip content={rankTooltip} />
-            <Line
-              type="monotone"
-              dataKey="rank"
-              stroke="#d4af37"
-              strokeWidth={2}
-              dot={{ r: 4, fill: '#d4af37', stroke: 'var(--bg)', strokeWidth: 1.5 }}
-              activeDot={{ r: 6, fill: '#d4af37', strokeWidth: 0 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+      <div style={{ fontSize: '0.62rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, margin: '10px 0 4px' }}>
+        Posição no Ranking
       </div>
-    </div>
-  );
-}
-
-// Gráfico de histórico consolidado: todos os watched players em uma linha cada
-function RankHistoryChart({ cards }: { cards: EvoCard[] }) {
-  const { selectedPlayer } = useDashboardStore();
-
-  // Uma linha por jogador×skill
-  const series = cards.map(c => ({
-    key: `${c.playerName}_${c.skill}`,
-    label: `${c.playerName} — ${c.skill}`,
-    playerName: c.playerName,
-    color: PLAYER_COLORS[c.playerIndex % PLAYER_COLORS.length],
-    points: c.points,
-  }));
-
-  if (series.length === 0) return null;
-
-  // Merge all dates
-  const allDates = [...new Set(series.flatMap(s => s.points.map(p => p.date.slice(5))))].sort();
-  const chartData = allDates.map(date => {
-    const row: Record<string, string | number | null> = { date };
-    series.forEach(s => {
-      const pt = s.points.find(p => p.date.slice(5) === date);
-      row[s.key] = pt ? pt.rank : null;
-    });
-    return row;
-  });
-
-  return (
-    <div className="chart-card chart-card--full" style={{ marginTop: 14 }}>
-      <div className="chart-title" style={{ color: 'var(--gold)' }}>
-        Histórico de Posições — Jogadores Monitorados
-      </div>
-      <ResponsiveContainer width="100%" height={320}>
-        <LineChart data={chartData} margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" tick={{ fill: 'var(--muted)', fontSize: 10 }} axisLine={false} tickLine={false} />
-          <YAxis reversed tick={{ fill: 'var(--muted)', fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => `#${v}`} />
-          <Tooltip
-            contentStyle={{ background: 'var(--bg3)', border: '1px solid var(--border-hi)', borderRadius: 'var(--radius)', fontSize: 11, fontFamily: 'Fira Code' }}
-            labelStyle={{ color: 'var(--text)', fontFamily: 'Anton', marginBottom: 4 }}
-          />
-          {series.map(s => {
-            const dimmed = selectedPlayer !== null && selectedPlayer !== s.playerName;
-            return (
-              <Line
-                key={s.key}
-                type="monotone"
-                dataKey={s.key}
-                name={s.label}
-                stroke={s.color}
-                strokeWidth={dimmed ? 1 : 2}
-                dot={false}
-                connectNulls
-                style={{ opacity: dimmed ? 0.2 : 1, transition: 'opacity 0.25s' }}
-              />
-            );
-          })}
+      <ResponsiveContainer width="100%" height={110}>
+        <LineChart data={chartData} syncId={syncId} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+          <XAxis dataKey="date" tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} />
+          <YAxis reversed tick={{ fill: 'var(--muted)', fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => `#${v}`} width={32} />
+          <Tooltip content={rankTooltip} />
+          <Line type="monotone" dataKey="rank" stroke="#d4af37" strokeWidth={2}
+            dot={{ r: 3, fill: '#d4af37', stroke: 'var(--bg)', strokeWidth: 1.5 }}
+            activeDot={{ r: 5, fill: '#d4af37', strokeWidth: 0 }} />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -204,10 +108,11 @@ function RankHistoryChart({ cards }: { cards: EvoCard[] }) {
 }
 
 export function EvolutionChart({ data }: Props) {
-  const { periodDays, setPeriodDays } = useDashboardStore();
-  const { selectedPlayer } = useDashboardStore();
+  const { periodDays, setPeriodDays, selectedPlayer } = useDashboardStore();
   const { metadata, history } = data;
   const { watched, ranking_types } = metadata;
+
+  const [activeSkill, setActiveSkill] = useState(ranking_types[0] ?? 'Experience');
 
   const cutoff = useMemo(() => {
     if (periodDays === 0) return null;
@@ -216,39 +121,39 @@ export function EvolutionChart({ data }: Props) {
     return d.toISOString().split('T')[0];
   }, [periodDays]);
 
-  // Gera os cards na mesma ordem do Plotly: watched × skills
+  // Apenas jogadores com dados na skill ativa
   const cards = useMemo<EvoCard[]>(() => {
-    const result: EvoCard[] = [];
-    watched.forEach((name, playerIndex) => {
-      ranking_types.forEach(rt => {
-        const entry = history.find(
-          h => h.name.toLowerCase() === name.toLowerCase() && h.ranking_type === rt
-        );
-        if (!entry || entry.points.length < 2) return;
+    return watched.flatMap((name, playerIndex) => {
+      const entry = history.find(
+        h => h.name.toLowerCase() === name.toLowerCase() && h.ranking_type === activeSkill
+      );
+      if (!entry || entry.points.length < 2) return [];
 
-        const filtered = cutoff
-          ? entry.points.filter(p => p.date >= cutoff)
-          : entry.points;
-        if (filtered.length < 2) return;
+      const filtered = cutoff
+        ? entry.points.filter(p => p.date >= cutoff)
+        : entry.points;
+      if (filtered.length < 2) return [];
 
-        result.push({ playerName: name, playerIndex, skill: rt, points: filtered });
-      });
+      return [{ playerName: name, playerIndex, skill: activeSkill, points: filtered }];
     });
-    return result;
-  }, [watched, ranking_types, history, cutoff]);
-
-  if (cards.length === 0) {
-    return (
-      <div className="chart-card">
-        <div className="chart-empty">
-          Disponível a partir da segunda coleta. Aguarde o próximo dia de dados.
-        </div>
-      </div>
-    );
-  }
+  }, [watched, history, activeSkill, cutoff]);
 
   return (
     <div>
+      {/* Abas de skill */}
+      <div className="tabs-bar">
+        {ranking_types.map(rt => (
+          <button
+            key={rt}
+            className={`tab-btn ${activeSkill === rt ? 'active' : ''}`}
+            onClick={() => setActiveSkill(rt)}
+            style={activeSkill === rt ? { borderColor: SKILL_COLORS[rt], backgroundColor: `${SKILL_COLORS[rt]}22` } : {}}
+          >
+            {rt}
+          </button>
+        ))}
+      </div>
+
       {/* Filtro de período */}
       <div className="period-bar">
         <span className="period-label">Período:</span>
@@ -263,22 +168,23 @@ export function EvolutionChart({ data }: Props) {
         ))}
       </div>
 
-      {/* Grid 2 colunas dos cards individuais */}
-      <div className="chart-grid-2">
-        {cards.map((card, i) => {
-          const dimmed = selectedPlayer !== null && selectedPlayer !== card.playerName;
-          return (
+      {cards.length === 0 ? (
+        <div className="chart-card">
+          <div className="chart-empty">
+            Sem dados de {activeSkill} para o período selecionado.
+          </div>
+        </div>
+      ) : (
+        <div className="chart-grid-2">
+          {cards.map((card, i) => (
             <EvoCardChart
-              key={`${card.playerName}-${card.skill}-${i}`}
+              key={`${card.playerName}-${i}`}
               card={card}
-              dimmed={dimmed}
+              dimmed={selectedPlayer !== null && selectedPlayer !== card.playerName}
             />
-          );
-        })}
-      </div>
-
-      {/* Gráfico consolidado de histórico */}
-      <RankHistoryChart cards={cards} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

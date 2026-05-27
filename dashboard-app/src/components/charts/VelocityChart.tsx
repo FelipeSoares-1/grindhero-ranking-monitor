@@ -77,7 +77,19 @@ export function VelocityChart({ data }: Props) {
               <XAxis type="number" hide />
               <YAxis
                 type="category" dataKey="name" width={175}
-                tick={{ fill: 'var(--muted)', fontSize: 11, fontFamily: 'Fira Code' }}
+                tick={({ y, payload }: any) => (
+                  <text
+                    x={4}
+                    y={y}
+                    dy={4}
+                    textAnchor="start"
+                    fill="var(--muted)"
+                    fontSize={11}
+                    fontFamily="Fira Code, monospace"
+                  >
+                    {payload.value}
+                  </text>
+                )}
                 axisLine={false} tickLine={false}
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />

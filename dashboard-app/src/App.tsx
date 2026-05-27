@@ -47,7 +47,7 @@ export default function App() {
   if (error) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: 16, textAlign: 'center', padding: 32 }}>
-        <img src="https://redskull.space/images/red-skull-logo.webp" alt="" style={{ width: 80, filter: 'drop-shadow(0 0 12px rgba(196,18,18,0.8))' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+        <img src="/red-skull-logo.webp" alt="" style={{ width: 80, filter: 'drop-shadow(0 0 12px rgba(196,18,18,0.8))' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
         <div style={{ fontFamily: 'Anton', fontSize: '1.4rem', color: 'var(--red)', letterSpacing: 2, textTransform: 'uppercase' }}>
           Erro ao carregar dados
         </div>
@@ -67,7 +67,7 @@ export default function App() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: 20 }}>
         <img
-          src="https://redskull.space/images/red-skull-logo.webp" alt=""
+          src="/red-skull-logo.webp" alt=""
           style={{ width: 90, filter: 'drop-shadow(0 0 14px rgba(196,18,18,0.7))' }}
           onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
         />
@@ -175,23 +175,27 @@ export default function App() {
         />
       )}
 
-      <footer
-        style={{
-          textAlign: 'center',
-          padding: '2rem',
-          background: 'var(--dark)',
-          borderTop: '1px solid var(--border)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '0.5rem',
-          color: 'var(--dim)'
-        }}>
-        <div>Monitor - Grind Hero</div>
-        <div>Red Skull Guild</div>
-        <img src="https://redskull.space/images/red-skull-logo.webp" alt="Red Skull Logo"
-          style={{ width: 50, height: 'auto', marginTop: 10, filter: 'drop-shadow(0 0 5px rgba(196, 18, 18, 0.4))' }} />
+      <footer style={{
+        textAlign: 'center', padding: '2rem',
+        borderTop: '1px solid var(--border)',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        gap: '0.4rem', color: 'var(--muted)',
+      }}>
+        <a href="https://redskull.space/" target="_blank" rel="noopener noreferrer"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+          <img
+            src="/red-skull-logo.webp"
+            alt="Red Skull Logo"
+            style={{ width: 56, height: 'auto', filter: 'drop-shadow(0 0 8px rgba(196,18,18,0.5))', transition: 'transform 0.2s' }}
+            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+          />
+        </a>
+        <div style={{ fontSize: '0.8rem', fontFamily: 'Anton, sans-serif', letterSpacing: '1px', color: 'var(--text)', textTransform: 'uppercase' }}>
+          Monitor - Grind Hero
+        </div>
+        <div style={{ fontSize: '0.7rem', letterSpacing: '0.5px' }}>Red Skull Guild</div>
       </footer>
     </div>
   );

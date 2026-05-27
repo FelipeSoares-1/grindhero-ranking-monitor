@@ -56,12 +56,13 @@ export function Header({ data, onPlayerSelect, onOpenDrawer }: HeaderProps) {
   return (
     <header className="header">
       <div className="header-brand">
-        <img
-          className="header-logo-img"
-          src="https://redskull.space/images/red-skull-logo.webp"
-          alt="RED SKULL"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-        />
+        <a href="https://redskull.space/" target="_blank" rel="noopener noreferrer" className="header-logo-link">
+          <img
+            className="header-logo-img"
+            src="/red-skull-logo.webp"
+            alt="RED SKULL"
+          />
+        </a>
         <div>
           <div className="header-title">
             <span className="accent">GrindHero</span> Monitor

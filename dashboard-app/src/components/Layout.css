@@ -5,30 +5,33 @@
   position: sticky; top: 0; z-index: 50;
   display: grid; grid-template-columns: auto 1fr auto;
   align-items: center; gap: 24px;
-  padding: 14px 28px;
+  padding: 16px 32px;
   background: rgba(8,8,8,0.97);
   border-bottom: 2px solid var(--red2);
   box-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 2px 0 var(--red2);
   margin-bottom: 28px;
 }
-.header-brand { display: flex; align-items: center; gap: 14px; }
+.header-brand { display: flex; align-items: center; gap: 16px; }
+.header-logo-link { display: flex; align-items: center; flex-shrink: 0; }
 .header-logo-img {
-  width: 64px; height: 64px; object-fit: contain;
+  width: 80px; height: 80px; object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(196,18,18,0.6));
   animation: logoGlow 3s ease-in-out infinite alternate;
+  transition: transform 0.2s;
 }
+.header-logo-link:hover .header-logo-img { transform: scale(1.08); }
 @keyframes logoGlow {
   from { filter: drop-shadow(0 0 6px rgba(196,18,18,0.4)); }
   to   { filter: drop-shadow(0 0 18px rgba(196,18,18,0.85)); }
 }
 .header-title {
   font-family: 'Anton', sans-serif;
-  font-size: 1.55rem; color: var(--text);
-  letter-spacing: 1.5px; text-transform: uppercase;
+  font-size: 1.85rem; color: var(--text);
+  letter-spacing: 2px; text-transform: uppercase;
   text-shadow: 0 0 10px rgba(196,18,18,0.2);
 }
 .header-title .accent { color: var(--red); }
-.header-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; letter-spacing: 1px; text-transform: uppercase; }
+.header-sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; letter-spacing: 1px; text-transform: uppercase; }
 .header-meta { text-align: right; font-size: 0.73rem; color: var(--muted); line-height: 1.9; }
 .header-meta strong { color: var(--text); }
 
@@ -142,8 +145,8 @@
 }
 @media (max-width: 600px) {
   .header { padding: 10px 12px; margin-bottom: 16px; }
-  .header-logo-img { width: 44px; height: 44px; }
-  .header-title { font-size: 1.15rem; }
+  .header-logo-img { width: 52px; height: 52px; }
+  .header-title { font-size: 1.3rem; }
   .header-sub { font-size: 0.65rem; }
   .statbar { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .section { padding: 0 12px; margin-bottom: 24px; }

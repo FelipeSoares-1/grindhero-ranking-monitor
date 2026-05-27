@@ -1,24 +1,35 @@
-// components/GoalTracker.tsx — Fazedor de Metas com meta diária dinâmica
+// components/GoalTracker.tsx — Fazedor de Metas com meta por nível
 import { useState, useEffect } from 'react';
 import type { DashboardData, SnapshotEntry } from '../types';
 import { fmtXP } from '../utils/colors';
 import { X, Target } from 'lucide-react';
 import './GoalTracker.css';
 
+// XP total acumulado para atingir o nível N (fórmula GrindHero derivada)
+function totalXpForLevel(n: number): number {
+  if (n <= 1) return 0;
+  return Math.round((n - 1) * (100 * n * n - 500 * n + 1200) / 6);
+}
+
 interface Goal {
   id: string;
   player: string;
   skill: string;
-  targetRank: number;
-  targetDate: string;   // "YYYY-MM-DD" — prazo final
-  xpAtCreation: number; // XP do jogador no momento em que a meta foi criada
-  createdAt: string;    // ISO timestamp
+  targetLevel: number;
+  targetDate: string;     // "YYYY-MM-DD" — prazo final
+  xpAtCreation: number;   // XP do jogador no momento em que a meta foi criada
+  levelAtCreation: number;
+  createdAt: string;      // ISO timestamp
 }
 
 interface Props { data: DashboardData; }
 
 function loadGoals(): Goal[] {
-  try { return JSON.parse(localStorage.getItem('gh_goals') ?? '[]'); } catch { return []; }
+  try {
+    const raw = JSON.parse(localStorage.getItem('gh_goals') ?? '[]');
+    // Migração: goals antigos usam targetRank → descarta-os (não são compatíveis)
+    return (raw as any[]).filter(g => g.targetLevel != null);
+  } catch { return []; }
 }
 
 function todayStr(): string {
@@ -41,14 +52,14 @@ function fmtDateBR(d: string) {
 }
 
 export function GoalTracker({ data }: Props) {
-  const { metadata, latest_snapshot, history } = data;
+  const { metadata, latest_snapshot } = data;
   const { ranking_types, watched } = metadata;
 
-  const [goals, setGoals]       = useState<Goal[]>(loadGoals);
-  const [player, setPlayer]     = useState(watched[0] ?? '');
-  const [skill, setSkill]       = useState(ranking_types[0] ?? 'Experience');
-  const [targetRank, setTargetRank] = useState('');
-  const [targetDate, setTargetDate] = useState(addDays(todayStr(), 30));
+  const [goals, setGoals]         = useState<Goal[]>(loadGoals);
+  const [player, setPlayer]       = useState(watched[0] ?? '');
+  const [skill, setSkill]         = useState(ranking_types[0] ?? 'Experience');
+  const [targetLevel, setTargetLevel] = useState('');
+  const [targetDate, setTargetDate]   = useState(addDays(todayStr(), 30));
 
   useEffect(() => {
     localStorage.setItem('gh_goals', JSON.stringify(goals));
@@ -61,44 +72,26 @@ export function GoalTracker({ data }: Props) {
   }
 
   function addGoal() {
-    const rank = parseInt(targetRank);
-    if (!player || !rank || rank < 1 || !targetDate) return;
+    const lvl = parseInt(targetLevel);
+    if (!player || !lvl || lvl < 2 || !targetDate) return;
     const row = getPlayerRow(player, skill);
+    if (row && lvl <= row.level) return; // nível já atingido
     const goal: Goal = {
       id: Date.now().toString(),
       player,
       skill,
-      targetRank: rank,
+      targetLevel: lvl,
       targetDate,
       xpAtCreation: row?.experience ?? 0,
+      levelAtCreation: row?.level ?? 1,
       createdAt: new Date().toISOString(),
     };
     setGoals(prev => [...prev, goal]);
-    setTargetRank('');
+    setTargetLevel('');
   }
 
   function removeGoal(id: string) {
     setGoals(prev => prev.filter(g => g.id !== id));
-  }
-
-  function getTargetRankXP(skillType: string, targetRankNum: number): number | null {
-    return latest_snapshot.find(
-      s => s.ranking_type === skillType && s.rank === targetRankNum
-    )?.experience ?? null;
-  }
-
-  // Histórico diário de XP do jogador para um skill
-  function getDailyXpHistory(playerName: string, skillType: string): Map<string, number> {
-    const h = history.find(
-      h => h.name.toLowerCase() === playerName.toLowerCase() && h.ranking_type === skillType
-    );
-    const map = new Map<string, number>();
-    if (!h || h.points.length < 2) return map;
-    for (let i = 1; i < h.points.length; i++) {
-      const delta = h.points[i].experience - h.points[i - 1].experience;
-      if (delta >= 0) map.set(h.points[i].date, delta);
-    }
-    return map;
   }
 
   return (
@@ -114,11 +107,11 @@ export function GoalTracker({ data }: Props) {
         </select>
 
         <div className="gt-rank-input-wrap">
-          <span className="gt-rank-label">Rank alvo #</span>
+          <span className="gt-rank-label">Nível alvo</span>
           <input
-            type="number" min="1" max="500" placeholder="ex: 10"
-            value={targetRank}
-            onChange={e => setTargetRank(e.target.value)}
+            type="number" min="2" max="1000" placeholder="ex: 200"
+            value={targetLevel}
+            onChange={e => setTargetLevel(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && addGoal()}
             className="gt-input"
           />
@@ -135,7 +128,7 @@ export function GoalTracker({ data }: Props) {
           />
         </div>
 
-        <button onClick={addGoal} disabled={!targetRank || !player || !targetDate} className="gt-add-btn">
+        <button onClick={addGoal} disabled={!targetLevel || !player || !targetDate} className="gt-add-btn">
           <Target size={13} /> Adicionar Meta
         </button>
       </div>
@@ -144,21 +137,17 @@ export function GoalTracker({ data }: Props) {
       {goals.length === 0 ? (
         <div className="gt-empty">
           <Target size={28} style={{ color: 'var(--muted)', opacity: 0.4 }} />
-          <p>Nenhuma meta definida. Selecione um jogador, skill, rank alvo e prazo.</p>
+          <p>Nenhuma meta definida. Selecione um jogador, skill, nível alvo e prazo.</p>
         </div>
       ) : (
         <div className="gt-goals">
           {goals.map(goal => {
-            const row      = getPlayerRow(goal.player, goal.skill);
-            const targetXP = getTargetRankXP(goal.skill, goal.targetRank);
-            const dailyXpH = getDailyXpHistory(goal.player, goal.skill);
+            const row = getPlayerRow(goal.player, goal.skill);
             return (
               <GoalCard
                 key={goal.id}
                 goal={goal}
                 playerRow={row}
-                targetXP={targetXP}
-                dailyXpHistory={dailyXpH}
                 onRemove={() => removeGoal(goal.id)}
               />
             );
@@ -170,25 +159,25 @@ export function GoalTracker({ data }: Props) {
 }
 
 // ──────────────────────────────────────────────
-function GoalCard({ goal, playerRow, targetXP, dailyXpHistory, onRemove }: {
+function GoalCard({ goal, playerRow, onRemove }: {
   goal: Goal;
   playerRow: SnapshotEntry | null;
-  targetXP: number | null;
-  dailyXpHistory: Map<string, number>;
   onRemove: () => void;
 }) {
-  const today        = todayStr();
-  const createdDay   = goal.createdAt.slice(0, 10);
-  const daysTotal    = Math.max(1, daysBetween(createdDay, goal.targetDate));
-  const daysElapsed  = Math.max(0, Math.min(daysTotal, daysBetween(createdDay, today)));
-  const daysRemain   = Math.max(0, daysBetween(today, goal.targetDate));
+  const today       = todayStr();
+  const createdDay  = goal.createdAt.slice(0, 10);
+  const daysTotal   = Math.max(1, daysBetween(createdDay, goal.targetDate));
+  const daysElapsed = Math.max(0, Math.min(daysTotal, daysBetween(createdDay, today)));
+  const daysRemain  = Math.max(0, daysBetween(today, goal.targetDate));
+
+  const targetXP = totalXpForLevel(goal.targetLevel);
 
   const cardHead = (
     <div className="gt-card-head">
       <div className="gt-card-title">
         <span className="gt-player">{goal.player}</span>
         <span className="gt-skill">{goal.skill}</span>
-        <span className="gt-arrow">→ #{goal.targetRank}</span>
+        <span className="gt-arrow">→ Lv {goal.targetLevel}</span>
         <span className="gt-deadline">até {fmtDateBR(goal.targetDate)}</span>
       </div>
       <button className="gt-remove" onClick={onRemove}><X size={13} /></button>
@@ -205,14 +194,14 @@ function GoalCard({ goal, playerRow, targetXP, dailyXpHistory, onRemove }: {
   }
 
   const currentXP  = playerRow.experience;
-  const currentRnk = playerRow.rank;
-  const achieved   = currentRnk <= goal.targetRank;
+  const currentLvl = playerRow.level;
+  const achieved   = currentLvl >= goal.targetLevel;
 
   if (achieved) {
     return (
       <div className="gt-card gt-card--done">
         {cardHead}
-        <div className="gt-msg gt-msg--done">✅ Meta atingida! Posição atual: <strong>#{currentRnk}</strong></div>
+        <div className="gt-msg gt-msg--done">✅ Meta atingida! Nível atual: <strong>Lv {currentLvl}</strong></div>
       </div>
     );
   }
@@ -221,26 +210,20 @@ function GoalCard({ goal, playerRow, targetXP, dailyXpHistory, onRemove }: {
     return (
       <div className="gt-card gt-card--warn">
         {cardHead}
-        <div className="gt-msg">⏰ Prazo expirado. Posição atual: #{currentRnk} (meta: #{goal.targetRank})</div>
+        <div className="gt-msg">⏰ Prazo expirado. Nível atual: Lv {currentLvl} (meta: Lv {goal.targetLevel})</div>
       </div>
     );
   }
 
-  // XP necessário total (baseado no XP de quem está no rank alvo agora)
-  const xpNeededTotal = targetXP ? targetXP - goal.xpAtCreation : null;
-  const xpNeededNow   = targetXP ? targetXP - currentXP        : null;
+  // XP necessário total (do momento da criação até o nível alvo)
+  const xpNeededTotal = targetXP - goal.xpAtCreation;
+  const xpNeededNow   = targetXP - currentXP;
 
   // XP ideal por dia (divisão linear)
-  const idealXpPerDay = xpNeededTotal ? Math.ceil(xpNeededTotal / daysTotal) : null;
+  const idealXpPerDay = xpNeededTotal > 0 ? Math.ceil(xpNeededTotal / daysTotal) : null;
 
-  // Acumulado real: soma XP ganho desde criação usando o histórico
-  let xpEarnedSoFar = 0;
-  if (daysElapsed > 0) {
-    for (let d = 0; d < daysElapsed; d++) {
-      const date = addDays(createdDay, d + 1);
-      xpEarnedSoFar += dailyXpHistory.get(date) ?? 0;
-    }
-  }
+  // Acumulado real desde criação
+  const xpEarnedSoFar = Math.max(0, currentXP - goal.xpAtCreation);
 
   // XP ideal esperado até hoje
   const xpIdealSoFar = idealXpPerDay ? idealXpPerDay * daysElapsed : null;
@@ -249,16 +232,16 @@ function GoalCard({ goal, playerRow, targetXP, dailyXpHistory, onRemove }: {
   const saldo = xpIdealSoFar != null ? xpEarnedSoFar - xpIdealSoFar : null;
 
   // Meta diária ajustada: (XP ainda faltando) / dias restantes
-  const xpAdjustedPerDay = xpNeededNow && daysRemain > 0
+  const xpAdjustedPerDay = xpNeededNow > 0 && daysRemain > 0
     ? Math.ceil(xpNeededNow / daysRemain)
     : null;
 
   // Progresso em % do XP necessário total
-  const progress = xpNeededTotal && xpNeededTotal > 0
+  const progress = xpNeededTotal > 0
     ? Math.min(99.9, (xpEarnedSoFar / xpNeededTotal) * 100)
     : null;
 
-  const rankGap = currentRnk - goal.targetRank;
+  const lvlGap = goal.targetLevel - currentLvl;
 
   return (
     <div className="gt-card">
@@ -266,14 +249,14 @@ function GoalCard({ goal, playerRow, targetXP, dailyXpHistory, onRemove }: {
 
       <div className="gt-stats-row">
         <div className="gt-stat">
-          <div className="gt-stat-label">Posição Atual</div>
-          <div className="gt-stat-value">#{currentRnk}</div>
-          <div className="gt-stat-sub">{rankGap} pos. a subir</div>
+          <div className="gt-stat-label">Nível Atual</div>
+          <div className="gt-stat-value">Lv {currentLvl}</div>
+          <div className="gt-stat-sub">{lvlGap} níveis restantes</div>
         </div>
         <div className="gt-stat">
           <div className="gt-stat-label">XP Faltando</div>
-          <div className="gt-stat-value">{xpNeededNow != null ? fmtXP(xpNeededNow) : '—'}</div>
-          <div className="gt-stat-sub">para alcançar #{goal.targetRank}</div>
+          <div className="gt-stat-value">{fmtXP(xpNeededNow)}</div>
+          <div className="gt-stat-sub">para Lv {goal.targetLevel}</div>
         </div>
         <div className="gt-stat">
           <div className="gt-stat-label">Meta / dia</div>

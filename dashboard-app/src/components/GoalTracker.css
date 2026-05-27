@@ -115,6 +115,21 @@
   box-shadow: 0 0 8px rgba(196,18,18,0.4);
 }
 .gt-progress-label { font-size: 0.67rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+.gt-progress-info {
+  display: flex; justify-content: space-between;
+  font-size: 0.67rem; color: var(--muted); font-family: 'Fira Code', monospace;
+}
+
+/* ── Goal card messages ── */
+.gt-msg { padding: 12px 16px; font-size: 0.85rem; color: var(--muted); }
+.gt-msg--done { color: #2ecc71; }
+
+/* ── Value colors ── */
+.gt-val--up   { color: #2ecc71 !important; }
+.gt-val--down { color: var(--bright) !important; }
+
+/* ── Deadline ── */
+.gt-deadline { font-size: 0.75rem; color: var(--muted); font-family: 'Ubuntu Condensed', sans-serif; }
 
 /* ── Responsive ── */
 @media (max-width: 700px) {

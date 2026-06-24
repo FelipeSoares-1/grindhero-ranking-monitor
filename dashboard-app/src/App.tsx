@@ -33,7 +33,8 @@ export default function App() {
   } = useDashboardStore();
 
   useEffect(() => {
-    fetch('/data.json')
+    // Cache-busting: garante que o navegador sempre baixe a versão mais recente
+    fetch(`/data.json?t=${Date.now()}`, { cache: 'no-store' })
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status} — data.json não encontrado`);
         return r.json() as Promise<DashboardData>;

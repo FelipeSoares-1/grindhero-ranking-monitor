@@ -1,11 +1,18 @@
 name: Coleta Ranking GrindHero
 
 on:
-  # Crons nativos do GitHub Actions DESABILITADOS — agendamento feito via Claude Routines
-  # (Anthropic cloud, disparos confiaveis 4x/dia: 09h, 14h, 20h, 23h55 BRT).
-  # Cada routine executa: gh workflow run "Coleta Ranking GrindHero" --ref master
+  # AGENDAMENTO REDUNDANTE (dupla fonte para nao perder coletas):
+  #   1) Cron nativo do GitHub Actions (abaixo) — agendador primario confiavel.
+  #   2) Claude Routines (Anthropic cloud) — backup que tambem dispara via workflow_dispatch.
+  # A trava "pular se ja coletou nas ultimas 2h" evita coleta duplicada quando ambos disparam.
+  # Horarios alvo BRT: 09h, 14h, 20h, 23h55  ->  UTC: 12h, 17h, 23h, 02h55.
   # Rotinas: trig_01QUPSNc9vr4rfhpZLWEAJwF (09h) | trig_01QyMBuyXh7i7gyXnrhiFA7j (14h)
   #          trig_01E1bXAXFMfvJTYDJsCa1auJ (20h) | trig_0121HJ85YNjfF6Z8SgpTkX8S (23h55)
+  schedule:
+    - cron: '0 12 * * *'    # 09h BRT
+    - cron: '0 17 * * *'    # 14h BRT
+    - cron: '0 23 * * *'    # 20h BRT
+    - cron: '55 2 * * *'    # 23h55 BRT (fechamento canonico)
   workflow_dispatch:        # permite rodar manualmente pela aba Actions
     inputs:
       force:

@@ -50,7 +50,7 @@
   </style>
   <script>
     (function(){
-      const HASH = "50682375fea36720e10f3c58fd0c160dee1dcd00a085b8a32b45307ddd945895";
+      const HASH = "fe5c14e52b5cef6021f7757f130a5dd2f76883f9654dd5e54e53b0320f3818b7";
       const KEY  = "rs_auth_v1";
       if(sessionStorage.getItem(KEY) === HASH){
         document.addEventListener('DOMContentLoaded',function(){
@@ -79,7 +79,7 @@
     async function rsCheckPwd(e){
       e.preventDefault();
       const pwd = document.getElementById('rs-pwd').value;
-      const HASH = "50682375fea36720e10f3c58fd0c160dee1dcd00a085b8a32b45307ddd945895";
+      const HASH = "fe5c14e52b5cef6021f7757f130a5dd2f76883f9654dd5e54e53b0320f3818b7";
       const enc = new TextEncoder().encode(pwd);
       const buf = await crypto.subtle.digest('SHA-256', enc);
       const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');

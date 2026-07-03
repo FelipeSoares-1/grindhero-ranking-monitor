@@ -1,5 +1,5 @@
 {
-  "coletado_em": "2026-07-03 13:00:56",
+  "coletado_em": "2026-07-03 15:00:55",
   "servidores": {
     "Endora (PvP)": {
       "Experience": [
@@ -7,15 +7,15 @@
           "Rank": 1,
           "PlayerId": 4552,
           "Name": "Tsukuyomi",
-          "Level": 666,
-          "Experience": 4882256371
+          "Level": 667,
+          "Experience": 4907096662
         },
         {
           "Rank": 2,
           "PlayerId": 4641,
           "Name": "Seyuki",
-          "Level": 632,
-          "Experience": 4169751710
+          "Level": 633,
+          "Experience": 4191137713
         },
         {
           "Rank": 3,
@@ -28,22 +28,22 @@
           "Rank": 4,
           "PlayerId": 260671,
           "Name": "Rellikk",
-          "Level": 609,
-          "Experience": 3741962548
+          "Level": 610,
+          "Experience": 3749398267
         },
         {
           "Rank": 5,
+          "PlayerId": 333670,
+          "Name": "Louco Perigoso",
+          "Level": 572,
+          "Experience": 3088181708
+        },
+        {
+          "Rank": 6,
           "PlayerId": 262903,
           "Name": "Darkbaxie",
           "Level": 571,
           "Experience": 3086380877
-        },
-        {
-          "Rank": 6,
-          "PlayerId": 333670,
-          "Name": "Louco Perigoso",
-          "Level": 571,
-          "Experience": 3071239156
         },
         {
           "Rank": 7,
@@ -57,7 +57,7 @@
           "PlayerId": 275952,
           "Name": "Demonix",
           "Level": 528,
-          "Experience": 2428719073
+          "Experience": 2430718021
         },
         {
           "Rank": 9,
@@ -78,7 +78,7 @@
           "PlayerId": 5463,
           "Name": "te comi",
           "Level": 506,
-          "Experience": 2134431920
+          "Experience": 2135326252
         },
         {
           "Rank": 12,
@@ -92,7 +92,7 @@
           "PlayerId": 11530,
           "Name": "Stenffor",
           "Level": 490,
-          "Experience": 1943405790
+          "Experience": 1946167761
         },
         {
           "Rank": 14,
@@ -113,14 +113,14 @@
           "PlayerId": 263705,
           "Name": "papitafrita",
           "Level": 477,
-          "Experience": 1787640476
+          "Experience": 1794585357
         },
         {
           "Rank": 17,
           "PlayerId": 4565,
           "Name": "Sir Black",
-          "Level": 470,
-          "Experience": 1715652214
+          "Level": 471,
+          "Experience": 1726105575
         },
         {
           "Rank": 18,
@@ -134,14 +134,14 @@
           "PlayerId": 8659,
           "Name": "Wezermoo",
           "Level": 466,
-          "Experience": 1674702216
+          "Experience": 1674759755
         },
         {
           "Rank": 20,
           "PlayerId": 243315,
           "Name": "teilor",
           "Level": 464,
-          "Experience": 1647019354
+          "Experience": 1648137679
         },
         {
           "Rank": 21,
@@ -161,15 +161,15 @@
           "Rank": 23,
           "PlayerId": 263704,
           "Name": "glad",
-          "Level": 458,
-          "Experience": 1586116433
+          "Level": 456,
+          "Experience": 1564247742
         },
         {
           "Rank": 24,
           "PlayerId": 4781,
           "Name": "GRETTEL",
-          "Level": 457,
-          "Experience": 1578390299
+          "Level": 455,
+          "Experience": 1557067706
         },
         {
           "Rank": 25,
@@ -196,8 +196,8 @@
           "Rank": 28,
           "PlayerId": 278413,
           "Name": "Tokiio",
-          "Level": 432,
-          "Experience": 1331659267
+          "Level": 433,
+          "Experience": 1338729532
         },
         {
           "Rank": 29,
@@ -245,8 +245,8 @@
           "Rank": 35,
           "PlayerId": 255763,
           "Name": "Uss samsomp",
-          "Level": 411,
-          "Experience": 1143852416
+          "Level": 412,
+          "Experience": 1153756748
         },
         {
           "Rank": 36,
@@ -259,43 +259,43 @@
           "Rank": 37,
           "PlayerId": 288372,
           "Name": "Guardon",
-          "Level": 408,
-          "Experience": 1119266725
+          "Level": 409,
+          "Experience": 1126056584
         },
         {
           "Rank": 38,
+          "PlayerId": 340696,
+          "Name": "Killer Archer",
+          "Level": 407,
+          "Experience": 1110864764
+        },
+        {
+          "Rank": 39,
+          "PlayerId": 325430,
+          "Name": "Pyroh",
+          "Level": 406,
+          "Experience": 1101335419
+        },
+        {
+          "Rank": 40,
           "PlayerId": 246166,
           "Name": "nanzin",
           "Level": 406,
           "Experience": 1100610990
         },
         {
-          "Rank": 39,
+          "Rank": 41,
           "PlayerId": 333468,
           "Name": "jaka",
           "Level": 405,
           "Experience": 1096411138
         },
         {
-          "Rank": 40,
-          "PlayerId": 340696,
-          "Name": "Killer Archer",
-          "Level": 405,
-          "Experience": 1096321162
-        },
-        {
-          "Rank": 41,
-          "PlayerId": 325430,
-          "Name": "Pyroh",
-          "Level": 404,
-          "Experience": 1083986623
-        },
-        {
           "Rank": 42,
           "PlayerId": 344475,
           "Name": "Rott",
           "Level": 400,
-          "Experience": 1055200430
+          "Experience": 1055200562
         },
         {
           "Rank": 43,
@@ -308,8 +308,8 @@
           "Rank": 44,
           "PlayerId": 356844,
           "Name": "TonyAi",
-          "Level": 399,
-          "Experience": 1047774999
+          "Level": 400,
+          "Experience": 1052775762
         },
         {
           "Rank": 45,
@@ -322,29 +322,29 @@
           "Rank": 46,
           "PlayerId": 257439,
           "Name": "skiees",
-          "Level": 394,
-          "Experience": 1004294243
+          "Level": 395,
+          "Experience": 1013837781
         },
         {
           "Rank": 47,
           "PlayerId": 248590,
           "Name": "killzero",
-          "Level": 393,
-          "Experience": 1000033581
+          "Level": 394,
+          "Experience": 1007976544
         },
         {
           "Rank": 48,
+          "PlayerId": 348793,
+          "Name": "īDãrk fåmâ",
+          "Level": 392,
+          "Experience": 995183718
+        },
+        {
+          "Rank": 49,
           "PlayerId": 4755,
           "Name": "IlIIIIII",
           "Level": 392,
           "Experience": 994122570
-        },
-        {
-          "Rank": 49,
-          "PlayerId": 348793,
-          "Name": "īDãrk fåmâ",
-          "Level": 392,
-          "Experience": 993103412
         },
         {
           "Rank": 50,
@@ -360,14 +360,14 @@
           "PlayerId": 275952,
           "Name": "Demonix",
           "Level": 91,
-          "Experience": 10804714
+          "Experience": 10805839
         },
         {
           "Rank": 2,
           "PlayerId": 4641,
           "Name": "Seyuki",
           "Level": 88,
-          "Experience": 7611885
+          "Experience": 7617728
         },
         {
           "Rank": 3,
@@ -381,7 +381,7 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 80,
-          "Experience": 3159064
+          "Experience": 3171195
         },
         {
           "Rank": 5,
@@ -402,7 +402,7 @@
           "PlayerId": 5463,
           "Name": "te comi",
           "Level": 73,
-          "Experience": 1559259
+          "Experience": 1560013
         },
         {
           "Rank": 8,
@@ -416,14 +416,14 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 72,
-          "Experience": 1369105
+          "Experience": 1370906
         },
         {
           "Rank": 10,
           "PlayerId": 365929,
           "Name": "KingThorn",
-          "Level": 72,
-          "Experience": 1271432
+          "Level": 71,
+          "Experience": 1246543
         },
         {
           "Rank": 11,
@@ -451,7 +451,7 @@
           "PlayerId": 347251,
           "Name": "LIRǟnzɛsLIxD",
           "Level": 69,
-          "Experience": 931492
+          "Experience": 931539
         },
         {
           "Rank": 15,
@@ -465,21 +465,21 @@
           "PlayerId": 258500,
           "Name": "NIÑO GUERRERO",
           "Level": 68,
-          "Experience": 847914
+          "Experience": 849177
         },
         {
           "Rank": 17,
           "PlayerId": 11924,
           "Name": "MARECHALIGRISs",
           "Level": 67,
-          "Experience": 767435
+          "Experience": 770257
         },
         {
           "Rank": 18,
           "PlayerId": 8659,
           "Name": "Wezermoo",
           "Level": 66,
-          "Experience": 646268
+          "Experience": 646469
         },
         {
           "Rank": 19,
@@ -507,7 +507,7 @@
           "PlayerId": 240485,
           "Name": "shadowIxD",
           "Level": 64,
-          "Experience": 511650
+          "Experience": 513013
         },
         {
           "Rank": 23,
@@ -521,28 +521,28 @@
           "PlayerId": 317552,
           "Name": "Paladina AL",
           "Level": 63,
-          "Experience": 496125
+          "Experience": 496153
         },
         {
           "Rank": 25,
           "PlayerId": 317939,
           "Name": "DJSG",
           "Level": 63,
-          "Experience": 489532
+          "Experience": 490267
         },
         {
           "Rank": 26,
+          "PlayerId": 268424,
+          "Name": "milhouseblac",
+          "Level": 63,
+          "Experience": 488441
+        },
+        {
+          "Rank": 27,
           "PlayerId": 21192,
           "Name": "zkweF",
           "Level": 63,
           "Experience": 488298
-        },
-        {
-          "Rank": 27,
-          "PlayerId": 268424,
-          "Name": "milhouseblac",
-          "Level": 63,
-          "Experience": 486770
         },
         {
           "Rank": 28,
@@ -591,7 +591,7 @@
           "PlayerId": 257008,
           "Name": "orm",
           "Level": 61,
-          "Experience": 395583
+          "Experience": 398380
         },
         {
           "Rank": 35,
@@ -661,7 +661,7 @@
           "PlayerId": 239488,
           "Name": "yundi",
           "Level": 60,
-          "Experience": 340777
+          "Experience": 341997
         },
         {
           "Rank": 45,
@@ -696,7 +696,7 @@
           "PlayerId": 433367,
           "Name": "LouisTW",
           "Level": 58,
-          "Experience": 281919
+          "Experience": 284669
         },
         {
           "Rank": 50,
@@ -719,7 +719,7 @@
           "PlayerId": 275952,
           "Name": "Demonix",
           "Level": 77,
-          "Experience": 4730691
+          "Experience": 4731788
         },
         {
           "Rank": 3,
@@ -768,7 +768,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 26,
-          "Experience": 1886446
+          "Experience": 1888832
         },
         {
           "Rank": 10,
@@ -789,7 +789,7 @@
           "PlayerId": 5463,
           "Name": "te comi",
           "Level": 67,
-          "Experience": 1500431
+          "Experience": 1500436
         },
         {
           "Rank": 13,
@@ -803,7 +803,7 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 64,
-          "Experience": 1120984
+          "Experience": 1122267
         },
         {
           "Rank": 15,
@@ -817,14 +817,14 @@
           "PlayerId": 344475,
           "Name": "Rott",
           "Level": 24,
-          "Experience": 962416
+          "Experience": 962422
         },
         {
           "Rank": 17,
           "PlayerId": 8659,
           "Name": "Wezermoo",
           "Level": 63,
-          "Experience": 932751
+          "Experience": 935537
         },
         {
           "Rank": 18,
@@ -866,7 +866,7 @@
           "PlayerId": 298742,
           "Name": "joseguevami",
           "Level": 24,
-          "Experience": 721297
+          "Experience": 722283
         },
         {
           "Rank": 24,
@@ -901,28 +901,28 @@
           "PlayerId": 347251,
           "Name": "LIRǟnzɛsLIxD",
           "Level": 59,
-          "Experience": 640936
+          "Experience": 640994
         },
         {
           "Rank": 29,
           "PlayerId": 258500,
           "Name": "NIÑO GUERRERO",
           "Level": 59,
-          "Experience": 626014
+          "Experience": 627604
         },
         {
           "Rank": 30,
+          "PlayerId": 348793,
+          "Name": "īDãrk fåmâ",
+          "Level": 23,
+          "Experience": 589975
+        },
+        {
+          "Rank": 31,
           "PlayerId": 269283,
           "Name": "Jet Lag",
           "Level": 23,
           "Experience": 583939
-        },
-        {
-          "Rank": 31,
-          "PlayerId": 348793,
-          "Name": "īDãrk fåmâ",
-          "Level": 23,
-          "Experience": 582457
         },
         {
           "Rank": 32,
@@ -943,14 +943,14 @@
           "PlayerId": 317552,
           "Name": "Paladina AL",
           "Level": 58,
-          "Experience": 533038
+          "Experience": 533125
         },
         {
           "Rank": 35,
           "PlayerId": 240485,
           "Name": "shadowIxD",
           "Level": 58,
-          "Experience": 514787
+          "Experience": 516166
         },
         {
           "Rank": 36,
@@ -971,7 +971,7 @@
           "PlayerId": 351776,
           "Name": "Yeoshen",
           "Level": 23,
-          "Experience": 477481
+          "Experience": 478481
         },
         {
           "Rank": 39,
@@ -982,17 +982,17 @@
         },
         {
           "Rank": 40,
-          "PlayerId": 263704,
-          "Name": "glad",
-          "Level": 23,
-          "Experience": 456819
-        },
-        {
-          "Rank": 41,
           "PlayerId": 268424,
           "Name": "milhouseblac",
           "Level": 56,
-          "Experience": 454837
+          "Experience": 455840
+        },
+        {
+          "Rank": 41,
+          "PlayerId": 263704,
+          "Name": "glad",
+          "Level": 23,
+          "Experience": 446373
         },
         {
           "Rank": 42,
@@ -1006,7 +1006,7 @@
           "PlayerId": 21610,
           "Name": "Aelar",
           "Level": 23,
-          "Experience": 439880
+          "Experience": 440767
         },
         {
           "Rank": 44,
@@ -1031,10 +1031,10 @@
         },
         {
           "Rank": 47,
-          "PlayerId": 365929,
-          "Name": "KingThorn",
+          "PlayerId": 257008,
+          "Name": "orm",
           "Level": 56,
-          "Experience": 420779
+          "Experience": 422621
         },
         {
           "Rank": 48,
@@ -1045,17 +1045,17 @@
         },
         {
           "Rank": 49,
-          "PlayerId": 257008,
-          "Name": "orm",
-          "Level": 56,
-          "Experience": 420213
-        },
-        {
-          "Rank": 50,
           "PlayerId": 335296,
           "Name": "Jceriu",
           "Level": 23,
           "Experience": 419633
+        },
+        {
+          "Rank": 50,
+          "PlayerId": 320811,
+          "Name": "Olberdam",
+          "Level": 56,
+          "Experience": 417906
         }
       ],
       "Magic": [
@@ -1071,21 +1071,21 @@
           "PlayerId": 11530,
           "Name": "Stenffor",
           "Level": 80,
-          "Experience": 3953516
+          "Experience": 3955992
         },
         {
           "Rank": 3,
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 79,
-          "Experience": 3353518
+          "Experience": 3358634
         },
         {
           "Rank": 4,
           "PlayerId": 4641,
           "Name": "Seyuki",
           "Level": 17,
-          "Experience": 3253259
+          "Experience": 3265406
         },
         {
           "Rank": 5,
@@ -1113,35 +1113,35 @@
           "PlayerId": 344475,
           "Name": "Rott",
           "Level": 72,
-          "Experience": 1628273
+          "Experience": 1628279
         },
         {
           "Rank": 9,
           "PlayerId": 325430,
           "Name": "Pyroh",
           "Level": 70,
-          "Experience": 1309484
+          "Experience": 1311368
         },
         {
           "Rank": 10,
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 16,
-          "Experience": 1295693
+          "Experience": 1307059
         },
         {
           "Rank": 11,
           "PlayerId": 348793,
           "Name": "īDãrk fåmâ",
           "Level": 70,
-          "Experience": 1260288
+          "Experience": 1291062
         },
         {
           "Rank": 12,
           "PlayerId": 351776,
           "Name": "Yeoshen",
           "Level": 70,
-          "Experience": 1256061
+          "Experience": 1258453
         },
         {
           "Rank": 13,
@@ -1155,14 +1155,14 @@
           "PlayerId": 263704,
           "Name": "glad",
           "Level": 69,
-          "Experience": 1145372
+          "Experience": 1118969
         },
         {
           "Rank": 15,
           "PlayerId": 355591,
           "Name": "YISÚS",
           "Level": 68,
-          "Experience": 1048863
+          "Experience": 1049386
         },
         {
           "Rank": 16,
@@ -1176,7 +1176,7 @@
           "PlayerId": 298742,
           "Name": "joseguevami",
           "Level": 67,
-          "Experience": 945842
+          "Experience": 947176
         },
         {
           "Rank": 18,
@@ -1204,7 +1204,7 @@
           "PlayerId": 4655,
           "Name": "AgilitBoss",
           "Level": 65,
-          "Experience": 746803
+          "Experience": 752144
         },
         {
           "Rank": 22,
@@ -1218,42 +1218,42 @@
           "PlayerId": 21610,
           "Name": "Aelar",
           "Level": 65,
-          "Experience": 700286
+          "Experience": 701235
         },
         {
           "Rank": 24,
           "PlayerId": 324635,
           "Name": "O Setimo",
           "Level": 64,
-          "Experience": 684634
+          "Experience": 684918
         },
         {
           "Rank": 25,
           "PlayerId": 235607,
           "Name": "Killirmico",
           "Level": 64,
-          "Experience": 683396
+          "Experience": 684105
         },
         {
           "Rank": 26,
           "PlayerId": 278698,
           "Name": "Zynthrox",
           "Level": 64,
-          "Experience": 675338
+          "Experience": 678830
         },
         {
           "Rank": 27,
-          "PlayerId": 273287,
-          "Name": "XxGodlikexX",
-          "Level": 64,
-          "Experience": 630081
-        },
-        {
-          "Rank": 28,
           "PlayerId": 337688,
           "Name": "Jrdp",
           "Level": 64,
-          "Experience": 618086
+          "Experience": 645060
+        },
+        {
+          "Rank": 28,
+          "PlayerId": 273287,
+          "Name": "XxGodlikexX",
+          "Level": 64,
+          "Experience": 630725
         },
         {
           "Rank": 29,
@@ -1285,31 +1285,31 @@
         },
         {
           "Rank": 33,
-          "PlayerId": 360570,
-          "Name": "CharlieLionn",
-          "Level": 63,
-          "Experience": 568430
-        },
-        {
-          "Rank": 34,
           "PlayerId": 8272,
           "Name": "Ozloka",
           "Level": 63,
-          "Experience": 563855
+          "Experience": 567123
+        },
+        {
+          "Rank": 34,
+          "PlayerId": 360570,
+          "Name": "CharlieLionn",
+          "Level": 63,
+          "Experience": 555810
         },
         {
           "Rank": 35,
           "PlayerId": 279130,
           "Name": "midado",
           "Level": 62,
-          "Experience": 532693
+          "Experience": 534306
         },
         {
           "Rank": 36,
           "PlayerId": 4552,
           "Name": "Tsukuyomi",
           "Level": 27,
-          "Experience": 529469
+          "Experience": 529536
         },
         {
           "Rank": 37,
@@ -1320,17 +1320,17 @@
         },
         {
           "Rank": 38,
+          "PlayerId": 288372,
+          "Name": "Guardon",
+          "Level": 62,
+          "Experience": 515909
+        },
+        {
+          "Rank": 39,
           "PlayerId": 263710,
           "Name": "ajolote",
           "Level": 62,
           "Experience": 514876
-        },
-        {
-          "Rank": 39,
-          "PlayerId": 288372,
-          "Name": "Guardon",
-          "Level": 62,
-          "Experience": 513283
         },
         {
           "Rank": 40,
@@ -1351,7 +1351,7 @@
           "PlayerId": 255763,
           "Name": "Uss samsomp",
           "Level": 61,
-          "Experience": 467941
+          "Experience": 470726
         },
         {
           "Rank": 43,
@@ -1407,7 +1407,7 @@
           "PlayerId": 235527,
           "Name": "AdzaelGG",
           "Level": 60,
-          "Experience": 398406
+          "Experience": 399909
         }
       ],
       "Distance": [
@@ -1416,14 +1416,14 @@
           "PlayerId": 260671,
           "Name": "Rellikk",
           "Level": 87,
-          "Experience": 3955155
+          "Experience": 3963845
         },
         {
           "Rank": 2,
           "PlayerId": 4552,
           "Name": "Tsukuyomi",
           "Level": 86,
-          "Experience": 3866077
+          "Experience": 3872742
         },
         {
           "Rank": 3,
@@ -1444,7 +1444,7 @@
           "PlayerId": 243315,
           "Name": "teilor",
           "Level": 79,
-          "Experience": 1740174
+          "Experience": 1742122
         },
         {
           "Rank": 6,
@@ -1455,17 +1455,17 @@
         },
         {
           "Rank": 7,
-          "PlayerId": 4781,
-          "Name": "GRETTEL",
-          "Level": 79,
-          "Experience": 1645395
-        },
-        {
-          "Rank": 8,
           "PlayerId": 246166,
           "Name": "nanzin",
           "Level": 78,
           "Experience": 1609274
+        },
+        {
+          "Rank": 8,
+          "PlayerId": 4781,
+          "Name": "GRETTEL",
+          "Level": 78,
+          "Experience": 1608165
         },
         {
           "Rank": 9,
@@ -1497,17 +1497,17 @@
         },
         {
           "Rank": 13,
+          "PlayerId": 248590,
+          "Name": "killzero",
+          "Level": 76,
+          "Experience": 1198185
+        },
+        {
+          "Rank": 14,
           "PlayerId": 341643,
           "Name": "Blok",
           "Level": 76,
           "Experience": 1194389
-        },
-        {
-          "Rank": 14,
-          "PlayerId": 248590,
-          "Name": "killzero",
-          "Level": 76,
-          "Experience": 1193056
         },
         {
           "Rank": 15,
@@ -1528,14 +1528,14 @@
           "PlayerId": 263705,
           "Name": "papitafrita",
           "Level": 75,
-          "Experience": 1118126
+          "Experience": 1123341
         },
         {
           "Rank": 18,
           "PlayerId": 316433,
           "Name": "reymonjsc",
           "Level": 75,
-          "Experience": 1086709
+          "Experience": 1089170
         },
         {
           "Rank": 19,
@@ -1549,7 +1549,7 @@
           "PlayerId": 340696,
           "Name": "Killer Archer",
           "Level": 74,
-          "Experience": 990485
+          "Experience": 992308
         },
         {
           "Rank": 21,
@@ -1569,29 +1569,29 @@
           "Rank": 23,
           "PlayerId": 313192,
           "Name": "EVIL HERO",
-          "Level": 72,
-          "Experience": 840583
+          "Level": 73,
+          "Experience": 843685
         },
         {
           "Rank": 24,
           "PlayerId": 356844,
           "Name": "TonyAi",
           "Level": 72,
-          "Experience": 830173
+          "Experience": 833101
         },
         {
           "Rank": 25,
           "PlayerId": 278413,
           "Name": "Tokiio",
           "Level": 72,
-          "Experience": 822835
+          "Experience": 824530
         },
         {
           "Rank": 26,
           "PlayerId": 321116,
           "Name": "Tirion The Zeruko",
           "Level": 72,
-          "Experience": 800457
+          "Experience": 802496
         },
         {
           "Rank": 27,
@@ -1644,17 +1644,17 @@
         },
         {
           "Rank": 34,
+          "PlayerId": 257439,
+          "Name": "skiees",
+          "Level": 70,
+          "Experience": 638380
+        },
+        {
+          "Rank": 35,
           "PlayerId": 27448,
           "Name": "Ahmaneth",
           "Level": 70,
           "Experience": 636704
-        },
-        {
-          "Rank": 35,
-          "PlayerId": 257439,
-          "Name": "skiees",
-          "Level": 70,
-          "Experience": 635563
         },
         {
           "Rank": 36,
@@ -1665,31 +1665,31 @@
         },
         {
           "Rank": 37,
+          "PlayerId": 358274,
+          "Name": "Pura Adrenalina",
+          "Level": 70,
+          "Experience": 632777
+        },
+        {
+          "Rank": 38,
           "PlayerId": 355513,
           "Name": "Saci De Patinetii",
           "Level": 70,
           "Experience": 626799
         },
         {
-          "Rank": 38,
+          "Rank": 39,
           "PlayerId": 22708,
           "Name": "Ashezinha",
           "Level": 70,
           "Experience": 623354
         },
         {
-          "Rank": 39,
-          "PlayerId": 358274,
-          "Name": "Pura Adrenalina",
-          "Level": 70,
-          "Experience": 620605
-        },
-        {
           "Rank": 40,
           "PlayerId": 318102,
           "Name": "massacring",
           "Level": 70,
-          "Experience": 620455
+          "Experience": 621047
         },
         {
           "Rank": 41,
@@ -1742,17 +1742,17 @@
         },
         {
           "Rank": 48,
+          "PlayerId": 314759,
+          "Name": "Brisadin",
+          "Level": 68,
+          "Experience": 487457
+        },
+        {
+          "Rank": 49,
           "PlayerId": 270079,
           "Name": "Goldencoin",
           "Level": 68,
           "Experience": 487078
-        },
-        {
-          "Rank": 49,
-          "PlayerId": 314759,
-          "Name": "Brisadin",
-          "Level": 67,
-          "Experience": 481017
         },
         {
           "Rank": 50,
@@ -1768,7 +1768,7 @@
           "PlayerId": 4641,
           "Name": "Seyuki",
           "Level": 77,
-          "Experience": 3378494
+          "Experience": 3380734
         },
         {
           "Rank": 2,
@@ -1782,14 +1782,14 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 63,
-          "Experience": 753807
+          "Experience": 759568
         },
         {
           "Rank": 4,
           "PlayerId": 4552,
           "Name": "Tsukuyomi",
           "Level": 63,
-          "Experience": 689096
+          "Experience": 691083
         },
         {
           "Rank": 5,
@@ -1817,7 +1817,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 62,
-          "Experience": 610578
+          "Experience": 611589
         },
         {
           "Rank": 9,
@@ -1831,35 +1831,35 @@
           "PlayerId": 275952,
           "Name": "Demonix",
           "Level": 61,
-          "Experience": 572535
+          "Experience": 573239
         },
         {
           "Rank": 11,
           "PlayerId": 11530,
           "Name": "Stenffor",
           "Level": 60,
-          "Experience": 521513
+          "Experience": 522162
         },
         {
           "Rank": 12,
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 60,
-          "Experience": 519906
+          "Experience": 521518
         },
         {
           "Rank": 13,
           "PlayerId": 260671,
           "Name": "Rellikk",
           "Level": 60,
-          "Experience": 516911
+          "Experience": 519201
         },
         {
           "Rank": 14,
           "PlayerId": 5463,
           "Name": "te comi",
           "Level": 60,
-          "Experience": 515255
+          "Experience": 515686
         },
         {
           "Rank": 15,
@@ -1887,14 +1887,14 @@
           "PlayerId": 11924,
           "Name": "MARECHALIGRISs",
           "Level": 58,
-          "Experience": 418847
+          "Experience": 420588
         },
         {
           "Rank": 19,
           "PlayerId": 243315,
           "Name": "teilor",
           "Level": 58,
-          "Experience": 398284
+          "Experience": 399705
         },
         {
           "Rank": 20,
@@ -1915,7 +1915,7 @@
           "PlayerId": 356844,
           "Name": "TonyAi",
           "Level": 57,
-          "Experience": 351686
+          "Experience": 352770
         },
         {
           "Rank": 23,
@@ -1933,38 +1933,38 @@
         },
         {
           "Rank": 25,
+          "PlayerId": 263705,
+          "Name": "papitafrita",
+          "Level": 56,
+          "Experience": 329433
+        },
+        {
+          "Rank": 26,
           "PlayerId": 4560,
           "Name": "buKyk",
           "Level": 56,
           "Experience": 327067
         },
         {
-          "Rank": 26,
-          "PlayerId": 263705,
-          "Name": "papitafrita",
-          "Level": 56,
-          "Experience": 324944
-        },
-        {
           "Rank": 27,
-          "PlayerId": 365929,
-          "Name": "KingThorn",
-          "Level": 56,
-          "Experience": 324537
-        },
-        {
-          "Rank": 28,
           "PlayerId": 4777,
           "Name": "MediCú",
           "Level": 56,
           "Experience": 322564
         },
         {
-          "Rank": 29,
+          "Rank": 28,
           "PlayerId": 298742,
           "Name": "joseguevami",
           "Level": 56,
-          "Experience": 321105
+          "Experience": 321953
+        },
+        {
+          "Rank": 29,
+          "PlayerId": 365929,
+          "Name": "KingThorn",
+          "Level": 56,
+          "Experience": 320260
         },
         {
           "Rank": 30,
@@ -2006,35 +2006,35 @@
           "PlayerId": 8659,
           "Name": "Wezermoo",
           "Level": 55,
-          "Experience": 297913
+          "Experience": 297977
         },
         {
           "Rank": 36,
-          "PlayerId": 4781,
-          "Name": "GRETTEL",
-          "Level": 55,
-          "Experience": 295542
-        },
-        {
-          "Rank": 37,
           "PlayerId": 4745,
           "Name": "Eldermolidor",
           "Level": 55,
           "Experience": 294402
         },
         {
-          "Rank": 38,
+          "Rank": 37,
           "PlayerId": 7063,
           "Name": "Unstoppable Guuh Zikaah",
           "Level": 55,
           "Experience": 294350
         },
         {
+          "Rank": 38,
+          "PlayerId": 4781,
+          "Name": "GRETTEL",
+          "Level": 55,
+          "Experience": 289234
+        },
+        {
           "Rank": 39,
           "PlayerId": 316433,
           "Name": "reymonjsc",
           "Level": 55,
-          "Experience": 284970
+          "Experience": 287043
         },
         {
           "Rank": 40,
@@ -2055,14 +2055,14 @@
           "PlayerId": 317939,
           "Name": "DJSG",
           "Level": 55,
-          "Experience": 272164
+          "Experience": 272777
         },
         {
           "Rank": 43,
           "PlayerId": 278698,
           "Name": "Zynthrox",
           "Level": 55,
-          "Experience": 271490
+          "Experience": 272459
         },
         {
           "Rank": 44,
@@ -2087,24 +2087,24 @@
         },
         {
           "Rank": 47,
-          "PlayerId": 263704,
-          "Name": "glad",
-          "Level": 54,
-          "Experience": 261616
-        },
-        {
-          "Rank": 48,
           "PlayerId": 6368,
           "Name": "Unstoppable Nunoh",
           "Level": 54,
           "Experience": 258918
         },
         {
-          "Rank": 49,
+          "Rank": 48,
           "PlayerId": 361160,
           "Name": "Biridim Streamer",
           "Level": 54,
           "Experience": 258630
+        },
+        {
+          "Rank": 49,
+          "PlayerId": 263704,
+          "Name": "glad",
+          "Level": 54,
+          "Experience": 255668
         },
         {
           "Rank": 50,

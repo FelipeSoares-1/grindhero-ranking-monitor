@@ -87,8 +87,8 @@ jobs:
           print(int(diff_min))
           ")
           echo "Ultima coleta foi ha $MIN_AGO minutos."
-          if [ "$MIN_AGO" -lt 45 ]; then
-            echo "Pulando: coleta recente (<45min). Deduplica disparos proximos."
+          if [ "$MIN_AGO" -lt 20 ]; then
+            echo "Pulando: coleta recente (<20min). Deduplica disparos proximos."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"

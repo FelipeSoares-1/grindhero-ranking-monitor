@@ -1,19 +1,20 @@
 name: Coleta Ranking GrindHero
 
 on:
-  # AGENDAMENTO REDUNDANTE (dupla fonte para nao perder coletas):
-  #   1) Cron nativo do GitHub Actions (abaixo) — agendador primario confiavel.
-  #   2) Claude Routines (Anthropic cloud) — backup que tambem dispara via workflow_dispatch.
-  # A trava "pular se ja coletou nas ultimas 2h" evita coleta duplicada quando ambos disparam.
-  # Horarios alvo BRT: 09h, 14h, 20h, 23h55  ->  UTC: 12h, 17h, 23h, 02h55.
-  # Rotinas: trig_01QUPSNc9vr4rfhpZLWEAJwF (09h) | trig_01QyMBuyXh7i7gyXnrhiFA7j (14h)
-  #          trig_01E1bXAXFMfvJTYDJsCa1auJ (20h) | trig_0121HJ85YNjfF6Z8SgpTkX8S (23h55)
-  schedule:
-    - cron: '0 12 * * *'    # 09h BRT
-    - cron: '0 17 * * *'    # 14h BRT
-    - cron: '0 23 * * *'    # 20h BRT
-    - cron: '55 2 * * *'    # 23h55 BRT (fechamento canonico)
-  workflow_dispatch:        # permite rodar manualmente pela aba Actions
+  # AGENDAMENTO: feito 100% pelo cron-job.org (externo, pontual, confiavel).
+  #   - Coleta de 2 em 2h: cron '0 1,3,5,...,23 * * *' (America/Sao_Paulo)
+  #   - Fechamento canonico: 23:55 BRT
+  #   Cada job faz POST em workflows/coleta.yml/dispatches (workflow_dispatch abaixo).
+  #
+  # Cron nativo do GitHub DESATIVADO (comentado): ele atrasava 1-4h e COLIDIA com o
+  # cron-job.org, empilhando runs na concorrencia -> o GitHub cancelava uma (coleta perdida).
+  # Reativar so se o cron-job.org falhar de vez.
+  # schedule:
+  #   - cron: '0 12 * * *'    # 09h BRT
+  #   - cron: '0 17 * * *'    # 14h BRT
+  #   - cron: '0 23 * * *'    # 20h BRT
+  #   - cron: '55 2 * * *'    # 23h55 BRT
+  workflow_dispatch:        # gatilho usado pelo cron-job.org (e execucao manual)
     inputs:
       force:
         description: 'Forcar coleta mesmo se ja teve uma recente'

@@ -7740,3 +7740,19 @@
 2026-07-10 08:01:54,602 [INFO]     50 registros salvos
 2026-07-10 08:01:54,604 [INFO] JSON exportado: /home/runner/work/grindhero-ranking-monitor/grindhero-ranking-monitor/ranking_latest.json
 2026-07-10 08:01:54,606 [INFO] === Coleta finalizada: 300 registros | Status: sucesso ===
+2026-07-10 08:30:59,106 [INFO] === Início da coleta: 2026-07-10 08:30:59 ===
+2026-07-10 08:30:59,106 [INFO] Servidor: Endora (PvP) (ID=3)
+2026-07-10 08:30:59,106 [INFO]   Coletando: Experience...
+2026-07-10 08:30:59,521 [INFO]     50 registros salvos
+2026-07-10 08:31:09,521 [INFO]   Coletando: Melee...
+2026-07-10 08:31:09,984 [INFO]     50 registros salvos
+2026-07-10 08:31:19,984 [INFO]   Coletando: Shielding...
+2026-07-10 08:31:20,127 [INFO]     50 registros salvos
+2026-07-10 08:31:30,127 [INFO]   Coletando: Magic...
+2026-07-10 08:31:30,315 [INFO]     50 registros salvos
+2026-07-10 08:31:40,315 [INFO]   Coletando: Distance...
+2026-07-10 08:31:40,468 [INFO]     50 registros salvos
+2026-07-10 08:31:50,468 [INFO]   Coletando: Taming...
+2026-07-10 08:31:50,616 [INFO]     50 registros salvos
+2026-07-10 08:31:50,619 [INFO] JSON exportado: /home/runner/work/grindhero-ranking-monitor/grindhero-ranking-monitor/ranking_latest.json
+2026-07-10 08:31:50,620 [INFO] === Coleta finalizada: 300 registros | Status: sucesso ===

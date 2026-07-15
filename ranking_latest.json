@@ -1,5 +1,5 @@
 {
-  "coletado_em": "2026-07-15 01:01:07",
+  "coletado_em": "2026-07-15 01:31:02",
   "servidores": {
     "Endora (PvP)": {
       "Experience": [
@@ -36,7 +36,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 602,
-          "Experience": 3610292359
+          "Experience": 3610888483
         },
         {
           "Rank": 6,
@@ -92,14 +92,14 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 515,
-          "Experience": 2255952161
+          "Experience": 2256771301
         },
         {
           "Rank": 14,
           "PlayerId": 263705,
           "Name": "papitafrita",
           "Level": 507,
-          "Experience": 2148649695
+          "Experience": 2148716991
         },
         {
           "Rank": 15,
@@ -127,7 +127,7 @@
           "PlayerId": 263704,
           "Name": "glad",
           "Level": 486,
-          "Experience": 1899066545
+          "Experience": 1900002763
         },
         {
           "Rank": 19,
@@ -281,7 +281,7 @@
           "PlayerId": 340696,
           "Name": "Killer Archer",
           "Level": 426,
-          "Experience": 1276770905
+          "Experience": 1276927806
         },
         {
           "Rank": 41,
@@ -344,14 +344,14 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 404,
-          "Experience": 1088746662
+          "Experience": 1090844298
         },
         {
           "Rank": 50,
           "PlayerId": 358274,
           "Name": "Pura Adrenalina",
           "Level": 403,
-          "Experience": 1079205873
+          "Experience": 1081902205
         }
       ],
       "Melee": [
@@ -374,7 +374,7 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 81,
-          "Experience": 3611439
+          "Experience": 3612234
         },
         {
           "Rank": 4,
@@ -416,7 +416,7 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 73,
-          "Experience": 1511462
+          "Experience": 1512706
         },
         {
           "Rank": 10,
@@ -647,7 +647,7 @@
           "PlayerId": 239488,
           "Name": "yundi",
           "Level": 61,
-          "Experience": 368357
+          "Experience": 368716
         },
         {
           "Rank": 43,
@@ -768,7 +768,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 26,
-          "Experience": 2080613
+          "Experience": 2081136
         },
         {
           "Rank": 10,
@@ -803,7 +803,7 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 65,
-          "Experience": 1226848
+          "Experience": 1227823
         },
         {
           "Rank": 15,
@@ -992,7 +992,7 @@
           "PlayerId": 263704,
           "Name": "glad",
           "Level": 23,
-          "Experience": 490264
+          "Experience": 490415
         },
         {
           "Rank": 42,
@@ -1085,7 +1085,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 79,
-          "Experience": 3568697
+          "Experience": 3569205
         },
         {
           "Rank": 5,
@@ -1120,7 +1120,7 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 16,
-          "Experience": 1686617
+          "Experience": 1686734
         },
         {
           "Rank": 10,
@@ -1141,7 +1141,7 @@
           "PlayerId": 351776,
           "Name": "Yeoshen",
           "Level": 71,
-          "Experience": 1357443
+          "Experience": 1358157
         },
         {
           "Rank": 13,
@@ -1155,7 +1155,7 @@
           "PlayerId": 263704,
           "Name": "glad",
           "Level": 69,
-          "Experience": 1182510
+          "Experience": 1182601
         },
         {
           "Rank": 15,
@@ -1316,14 +1316,14 @@
           "PlayerId": 360570,
           "Name": "CharlieLionn",
           "Level": 63,
-          "Experience": 567088
+          "Experience": 567211
         },
         {
           "Rank": 38,
           "PlayerId": 279130,
           "Name": "midado",
           "Level": 63,
-          "Experience": 558415
+          "Experience": 558477
         },
         {
           "Rank": 39,
@@ -1344,7 +1344,7 @@
           "PlayerId": 346787,
           "Name": "Carlitok",
           "Level": 62,
-          "Experience": 513160
+          "Experience": 513533
         },
         {
           "Rank": 42,
@@ -1507,7 +1507,7 @@
           "PlayerId": 263705,
           "Name": "papitafrita",
           "Level": 77,
-          "Experience": 1340726
+          "Experience": 1340774
         },
         {
           "Rank": 15,
@@ -1539,24 +1539,24 @@
         },
         {
           "Rank": 19,
+          "PlayerId": 23269,
+          "Name": "Dex",
+          "Level": 75,
+          "Experience": 1076459
+        },
+        {
+          "Rank": 20,
           "PlayerId": 326676,
           "Name": "Paladino of Poder",
           "Level": 75,
           "Experience": 1062040
         },
         {
-          "Rank": 20,
-          "PlayerId": 23269,
-          "Name": "Dex",
-          "Level": 75,
-          "Experience": 1061259
-        },
-        {
           "Rank": 21,
           "PlayerId": 358274,
           "Name": "Pura Adrenalina",
           "Level": 75,
-          "Experience": 1054235
+          "Experience": 1055150
         },
         {
           "Rank": 22,
@@ -1577,7 +1577,7 @@
           "PlayerId": 340696,
           "Name": "Killer Archer",
           "Level": 73,
-          "Experience": 904743
+          "Experience": 904980
         },
         {
           "Rank": 25,
@@ -1591,7 +1591,7 @@
           "PlayerId": 321116,
           "Name": "Tirion The Zeruko",
           "Level": 72,
-          "Experience": 822497
+          "Experience": 823653
         },
         {
           "Rank": 27,
@@ -1626,7 +1626,7 @@
           "PlayerId": 313192,
           "Name": "EVIL HERO",
           "Level": 71,
-          "Experience": 705504
+          "Experience": 705873
         },
         {
           "Rank": 32,
@@ -1682,7 +1682,7 @@
           "PlayerId": 318102,
           "Name": "massacring",
           "Level": 70,
-          "Experience": 646357
+          "Experience": 647332
         },
         {
           "Rank": 40,
@@ -1738,7 +1738,7 @@
           "PlayerId": 264699,
           "Name": "Stefanykiller",
           "Level": 68,
-          "Experience": 523764
+          "Experience": 524045
         },
         {
           "Rank": 48,
@@ -1775,7 +1775,7 @@
           "PlayerId": 4565,
           "Name": "Sir Black",
           "Level": 65,
-          "Experience": 908419
+          "Experience": 908650
         },
         {
           "Rank": 3,
@@ -1810,7 +1810,7 @@
           "PlayerId": 333670,
           "Name": "Louco Perigoso",
           "Level": 62,
-          "Experience": 666148
+          "Experience": 666268
         },
         {
           "Rank": 8,
@@ -1852,7 +1852,7 @@
           "PlayerId": 246441,
           "Name": "DAYA",
           "Level": 61,
-          "Experience": 572980
+          "Experience": 573444
         },
         {
           "Rank": 14,
@@ -1915,7 +1915,7 @@
           "PlayerId": 263705,
           "Name": "papitafrita",
           "Level": 57,
-          "Experience": 372707
+          "Experience": 372727
         },
         {
           "Rank": 23,
@@ -2097,7 +2097,7 @@
           "PlayerId": 263704,
           "Name": "glad",
           "Level": 55,
-          "Experience": 280620
+          "Experience": 280670
         },
         {
           "Rank": 49,

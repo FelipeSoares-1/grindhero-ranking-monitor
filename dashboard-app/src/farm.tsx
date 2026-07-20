@@ -145,7 +145,6 @@ function TopFarmers() {
       {/* Rodapé */}
       <div className="tf-footer">
         <span>Atualizado a cada 30 min · última coleta {fmtDateHora(metadata.ultima_coleta)}</span>
-        <a href="https://monitor.redskull.space" target="_blank" rel="noopener noreferrer">Ver monitor completo →</a>
       </div>
     </div>
   );

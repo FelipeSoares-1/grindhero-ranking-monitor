@@ -142,7 +142,7 @@ function TopFarmers() {
                 {chartData.map((entry, i) => (
                   <Cell
                     key={entry.name}
-                    fill={i === 0 ? '#d4af37' : hexToRgba(color, i < 3 ? 0.85 : 0.55)}
+                    fill={hexToRgba(color, i === 0 ? 1 : i < 3 ? 0.75 : 0.5)}
                   />
                 ))}
               </Bar>

@@ -12,6 +12,14 @@ import './farm.css';
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 
+// ── Google Analytics (GA4) ──
+declare global {
+  interface Window { gtag?: (...args: any[]) => void; }
+}
+function ga(event: string, params?: Record<string, unknown>) {
+  window.gtag?.('event', event, params);
+}
+
 function hexToRgba(hex: string, a: number): string {
   const h = hex.replace('#', '');
   const r = parseInt(h.slice(0, 2), 16);
@@ -40,6 +48,7 @@ function TopFarmers() {
       .then((d: DashboardData) => {
         setData(d);
         setActiveSkill(d.metadata.ranking_types[0] ?? 'Experience');
+        ga('view_top_farmers', { page_title: 'Top Farmers do Dia' });
       })
       .catch(e => setError(e.message));
   }, []);
@@ -97,7 +106,7 @@ function TopFarmers() {
             <button
               key={rt}
               className={`tf-tab ${on ? 'active' : ''}`}
-              onClick={() => setActiveSkill(rt)}
+              onClick={() => { setActiveSkill(rt); ga('select_skill', { skill_name: rt }); }}
               style={on ? { borderColor: c, backgroundColor: hexToRgba(c, 0.18), color: '#fff' } : {}}
             >
               {rt}

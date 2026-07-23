@@ -1,5 +1,5 @@
 {
-  "coletado_em": "2026-07-23 03:00:47",
+  "coletado_em": "2026-07-23 03:30:36",
   "servidores": {
     "Endora (PvP)": {
       "Experience": [
@@ -395,7 +395,7 @@
           "PlayerId": 433367,
           "Name": "LouisTW",
           "Level": 75,
-          "Experience": 1850182
+          "Experience": 1850303
         },
         {
           "Rank": 7,
@@ -693,17 +693,17 @@
         },
         {
           "Rank": 49,
+          "PlayerId": 429020,
+          "Name": "Diokkar",
+          "Level": 60,
+          "Experience": 325160
+        },
+        {
+          "Rank": 50,
           "PlayerId": 283306,
           "Name": "Zzangetsu",
           "Level": 60,
           "Experience": 323594
-        },
-        {
-          "Rank": 50,
-          "PlayerId": 429020,
-          "Name": "Diokkar",
-          "Level": 59,
-          "Experience": 319842
         }
       ],
       "Shielding": [
@@ -1141,7 +1141,7 @@
           "PlayerId": 351776,
           "Name": "Yeoshen",
           "Level": 70,
-          "Experience": 1324016
+          "Experience": 1324995
         },
         {
           "Rank": 13,

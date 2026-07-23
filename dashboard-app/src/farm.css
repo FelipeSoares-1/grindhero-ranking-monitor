@@ -1,6 +1,7 @@
 /* farm.css — Widget público "Top Farmers do Dia" */
 
-#farm-root { min-height: 100vh; }
+/* min-height fixo quebraria a medicao de altura do postMessage */
+#farm-root { min-height: 0; }
 
 .tf-wrap {
   max-width: 760px;
@@ -93,3 +94,21 @@
   .tf-title { font-size: 1.25rem; }
   .tf-logo { width: 42px; }
 }
+
+/* ── Seletor de servidor ── */
+.tf-servers {
+  display: inline-flex; gap: 0; margin-bottom: 12px;
+  border: 1px solid var(--border); background: var(--bg2);
+}
+.tf-server {
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--muted); padding: 7px 22px;
+  font-family: 'Anton', sans-serif; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 1px;
+  transition: all 0.18s;
+}
+.tf-server:hover { color: var(--text); }
+.tf-server.active {
+  background: var(--red2); color: #fff;
+}
+.tf-server + .tf-server { border-left: 1px solid var(--border); }

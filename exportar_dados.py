@@ -8,22 +8,26 @@ import pandas as pd
 from datetime import datetime
 
 BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
-DB_PATH       = os.path.join(BASE_DIR, "ranking.db")
+DB_PATH       = os.path.join(BASE_DIR, os.environ.get("RANKING_DB", "ranking.db"))
 CONFIG_PATH   = os.path.join(BASE_DIR, "config.json")
-OUTPUT_PATH   = os.path.join(BASE_DIR, "dashboard-app", "public", "data.json")
+PUBLIC_DIR    = os.path.join(BASE_DIR, "dashboard-app", "public")
+OUTPUT_PATH   = os.path.join(PUBLIC_DIR, "data.json")
+FARM_PATH     = os.path.join(PUBLIC_DIR, "farm.json")
 
 
 # ── helpers duplicados do gerar_dashboard para manter independência ──────────
-def load(conn) -> pd.DataFrame:
+def load(conn, server_id: int) -> pd.DataFrame:
     """
     Lê todos os snapshots e mantém apenas UMA coleta por dia:
     a ÚLTIMA do dia (maior collected_at). Assim, com 4 extrações/dia,
     a curva de evolução fica com 1 ponto por dia.
     """
     df = pd.read_sql_query(
-        "SELECT * FROM snapshots ORDER BY collected_at, ranking_type, rank",
-        conn, parse_dates=["collected_at"],
+        "SELECT * FROM snapshots WHERE server_id = ? ORDER BY collected_at, ranking_type, rank",
+        conn, params=(server_id,), parse_dates=["collected_at"],
     )
+    if df.empty:
+        return df
     df["_date"] = df["collected_at"].dt.date
     latest_per_day = df.groupby("_date")["collected_at"].max().rename("_keep")
     df = df.join(latest_per_day, on="_date")
@@ -76,19 +80,29 @@ def fmt_xp(v):
 
 
 # ── exportação ───────────────────────────────────────────────────────────────
-def exportar():
-    cfg = json.load(open(CONFIG_PATH, encoding="utf-8"))
+def exportar_servidor(conn, cfg: dict, server: dict) -> dict | None:
+    """Monta o payload completo de UM servidor. Retorna None se nao ha dados."""
     watched = cfg.get("watched_players", [])
-    ranking_types = cfg.get("ranking_types", [])
+    server_id = server["id"]
 
-    conn = sqlite3.connect(DB_PATH)
-    df = load(conn)
-    total_registros = conn.execute("SELECT COUNT(*) FROM snapshots").fetchone()[0]
-    conn.close()
+    df = load(conn, server_id)
+    total_registros = conn.execute(
+        "SELECT COUNT(*) FROM snapshots WHERE server_id = ?", (server_id,)
+    ).fetchone()[0]
 
     if df.empty:
-        print("Sem dados no banco.")
-        return
+        print(f"[AVISO] {server['name']}: sem dados no banco ainda.")
+        return None
+
+    # Skills REAIS deste servidor, na ordem canonica do config.
+    # Servidores podem nao expor o mesmo conjunto (ex.: Taming/Magic).
+    ordem = cfg.get("ranking_types", [])
+    presentes = set(df["ranking_type"].unique())
+    ranking_types = [rt for rt in ordem if rt in presentes]
+    ranking_types += sorted(presentes - set(ordem))   # skill nova na API, nao perde
+    faltando = [rt for rt in ordem if rt not in presentes]
+    if faltando:
+        print(f"[INFO] {server['name']}: sem dados para {faltando} — abas omitidas.")
 
     df_lat = latest(df)
     df_prv = prev(df)
@@ -113,7 +127,10 @@ def exportar():
 
     # ── metadata ──
     metadata = {
-        "server": cfg["server"]["name"],
+        "server": server["name"],
+        "server_id": server_id,
+        "slug": server["slug"],
+        "label": server["label"],
         "ultima_coleta": ultima_coleta,
         "dashboard_gerado": datetime.now().strftime("%d/%m/%Y %H:%M"),
         "dias_coletando": dias_coletando,
@@ -141,15 +158,15 @@ def exportar():
     # ── deltas (comparação com o snapshot anterior) ──
     deltas = {}
     if not df_prv.empty:
-        now_idx = df_lat.set_index(["player_id", "ranking_type"])
-        old_idx = df_prv.set_index(["player_id", "ranking_type"])
+        now_idx = df_lat.set_index(["server_id", "player_id", "ranking_type"])
+        old_idx = df_prv.set_index(["server_id", "player_id", "ranking_type"])
         for key in now_idx.index:
             if key in old_idx.index:
                 xp_now  = int(now_idx.loc[key, "experience"])
                 xp_old  = int(old_idx.loc[key, "experience"])
                 rk_now  = int(now_idx.loc[key, "rank"])
                 rk_old  = int(old_idx.loc[key, "rank"])
-                pid, rt = key
+                sid, pid, rt = key
                 deltas[f"{pid}_{rt}"] = {
                     "xp_delta":   xp_now - xp_old,
                     "rank_delta": rk_old - rk_now,  # positivo = subiu
@@ -183,8 +200,8 @@ def exportar():
     velocity = {}
     if not df_prv.empty:
         for rt in ranking_types:
-            lat_rt  = df_lat[df_lat["ranking_type"] == rt].set_index("player_id")[["name", "experience", "rank"]]
-            prev_rt = df_prv[df_prv["ranking_type"] == rt].set_index("player_id")[["experience"]]
+            lat_rt  = df_lat[df_lat["ranking_type"] == rt].set_index(["server_id", "player_id"])[["name", "experience", "rank"]]
+            prev_rt = df_prv[df_prv["ranking_type"] == rt].set_index(["server_id", "player_id"])[["experience"]]
             comuns  = lat_rt.index.intersection(prev_rt.index)
             if len(comuns) == 0:
                 continue
@@ -202,7 +219,9 @@ def exportar():
                 for _, row in merged.iterrows()
             ]
 
-    output = {
+    print(f"[OK] {server['name']}: {dias_coletando} dia(s) | {total_jogadores} jogadores | {total_registros} registros")
+
+    return {
         "metadata":        metadata,
         "latest_snapshot": latest_snapshot,
         "deltas":          deltas,
@@ -210,12 +229,66 @@ def exportar():
         "velocity":        velocity,
     }
 
-    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] data.json exportado -> {OUTPUT_PATH}")
-    print(f"     {dias_coletando} dia(s) | {total_jogadores} jogadores | {total_registros} registros")
+def build_farm_entry(payload: dict) -> dict:
+    """
+    Recorte minimo que o widget publico consome.
+
+    O data.json completo tem ~3,6 MB por servidor — 99% e `history`, que o
+    farm.html nunca le. Servir o payload completo num embed publico e
+    desperdicio de banda a cada pageview.
+    """
+    md = payload["metadata"]
+    return {
+        "server":        md["server"],
+        "label":         md["label"],
+        "ultima_coleta": md["ultima_coleta"],
+        "janela_horas":  (md.get("prev_snapshot") or {}).get("delta_horas"),
+        "ranking_types": md["ranking_types"],
+        "velocity":      payload["velocity"],
+    }
+
+
+def exportar() -> None:
+    cfg = json.load(open(CONFIG_PATH, encoding="utf-8"))
+    servers = cfg.get("servers") or [
+        {**cfg["server"], "slug": "pvp", "label": "PvP", "primary": True}
+    ]
+
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        payloads = {s["slug"]: exportar_servidor(conn, cfg, s) for s in servers}
+    finally:
+        conn.close()
+
+    os.makedirs(PUBLIC_DIR, exist_ok=True)
+
+    # ── data.json: dashboard privado. Contrato inalterado = so o servidor primario.
+    primario = next((s for s in servers if s.get("primary")), servers[0])
+    principal = payloads.get(primario["slug"])
+    if principal is None:
+        print("[ERRO] Servidor primario sem dados — data.json nao gerado.")
+    else:
+        with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+            json.dump(principal, f, ensure_ascii=False, indent=2)
+        print(f"[OK] data.json -> {OUTPUT_PATH}")
+
+    # ── farm.json: widget publico, TODOS os servidores, payload enxuto.
+    farm = {
+        "gerado_em": datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "servidores": [
+            {"slug": s["slug"], **build_farm_entry(payloads[s["slug"]])}
+            for s in servers if payloads.get(s["slug"]) is not None
+        ],
+    }
+    if not farm["servidores"]:
+        print("[ERRO] Nenhum servidor com dados — farm.json nao gerado.")
+        return
+
+    with open(FARM_PATH, "w", encoding="utf-8") as f:
+        json.dump(farm, f, ensure_ascii=False, separators=(",", ":"))
+    kb = os.path.getsize(FARM_PATH) / 1024
+    print(f"[OK] farm.json -> {FARM_PATH} ({kb:.1f} KB, {len(farm['servidores'])} servidor(es))")
 
 
 if __name__ == "__main__":

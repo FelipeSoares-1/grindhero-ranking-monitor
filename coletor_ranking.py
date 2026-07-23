@@ -20,11 +20,16 @@ LOG_PATH = os.path.join(BASE_DIR, "logs", "coleta.log")
 
 API_BASE = "https://api.grindhero.online/api/ranking"
 API_CODE = "eqnEyx1GstjnFX"
-SERVERS = {
-    3: "Endora (PvP)",
-    # 1: "Relaqua (non-PvP)",  # Adicionar se necessário
+
+CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
+with open(CONFIG_PATH, encoding="utf-8") as _f:
+    _CFG = json.load(_f)
+
+# Fonte unica de verdade: config.json["servers"]. Fallback para o formato antigo.
+SERVERS = {s["id"]: s["name"] for s in _CFG.get("servers")} or {
+    _CFG["server"]["id"]: _CFG["server"]["name"]
 }
-RANKING_TYPES = ["Experience", "Melee", "Shielding", "Magic", "Distance", "Taming"]
+RANKING_TYPES = _CFG["ranking_types"]
 
 DELAY_ENTRE_REQUISICOES = 10  # segundos entre rankings — evitar rate limit acumulado
 MAX_RETRIES = 5
@@ -159,13 +164,15 @@ def coletar() -> None:
     erros = []
     todos_dados = {"coletado_em": collected_at, "servidores": {}}
 
+    requisicoes = 0
     for server_id, server_name in SERVERS.items():
         log.info(f"Servidor: {server_name} (ID={server_id})")
         todos_dados["servidores"][server_name] = {}
 
-        for i, ranking_type in enumerate(RANKING_TYPES):
-            if i > 0:
+        for ranking_type in RANKING_TYPES:
+            if requisicoes > 0:
                 time.sleep(DELAY_ENTRE_REQUISICOES)
+            requisicoes += 1
 
             log.info(f"  Coletando: {ranking_type}...")
             registros = fetch_ranking(server_id, ranking_type)

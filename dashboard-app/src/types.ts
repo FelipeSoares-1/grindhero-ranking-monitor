@@ -56,3 +56,19 @@ export interface DashboardData {
 
 // Força tratamento como módulo ESM (Vite + verbatimModuleSyntax)
 export type {};
+
+// ── Widget público "Top Farmers do Dia" (/farm.json) ──
+export interface FarmServer {
+  slug: string;              // 'pvp' | 'pve'
+  server: string;            // 'Endora (PvP)'
+  label: string;             // 'PvP'
+  ultima_coleta: string;
+  janela_horas: number | null;
+  ranking_types: string[];
+  velocity: Record<string, VelocityEntry[]>;
+}
+
+export interface FarmData {
+  gerado_em: string;
+  servidores: FarmServer[];
+}

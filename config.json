@@ -12,6 +12,10 @@
     "id": 3,
     "name": "Endora (PvP)"
   },
+  "servers": [
+    { "id": 3, "name": "Endora (PvP)",  "slug": "pvp", "label": "PvP", "primary": true },
+    { "id": 4, "name": "Relaqua (PvE)", "slug": "pve", "label": "PvE", "primary": false }
+  ],
   "ranking_types": ["Experience", "Melee", "Shielding", "Magic", "Distance", "Taming"],
   "dashboard_title": "GrindHero Monitor"
 }

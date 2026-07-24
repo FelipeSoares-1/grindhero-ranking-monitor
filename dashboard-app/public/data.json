@@ -4,11 +4,11 @@
     "server_id": 3,
     "slug": "pvp",
     "label": "PvP",
-    "ultima_coleta": "23/07/2026 21:00",
-    "dashboard_gerado": "23/07/2026 21:02",
+    "ultima_coleta": "23/07/2026 21:30",
+    "dashboard_gerado": "23/07/2026 21:32",
     "dias_coletando": 92,
     "total_jogadores": 223,
-    "total_registros": 334550,
+    "total_registros": 334850,
     "watched": [
       "Sir Black",
       "Magodocv",
@@ -28,7 +28,7 @@
     ],
     "prev_snapshot": {
       "data": "22/07/2026 23:55",
-      "delta_horas": 21.1
+      "delta_horas": 21.6
     }
   },
   "latest_snapshot": [
@@ -39,16 +39,16 @@
       "level": 90,
       "experience": 5480418,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4552,
       "name": "Tsukuyomi",
       "rank": 2,
       "level": 89,
-      "experience": 4882363,
+      "experience": 4882392,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 331661,
@@ -57,16 +57,16 @@
       "level": 83,
       "experience": 2708159,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 243315,
       "name": "teilor",
       "rank": 4,
       "level": 81,
-      "experience": 2102418,
+      "experience": 2104042,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246166,
@@ -75,16 +75,16 @@
       "level": 80,
       "experience": 1932131,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333468,
       "name": "jaka",
       "rank": 6,
       "level": 80,
-      "experience": 1845164,
+      "experience": 1847570,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248457,
@@ -93,7 +93,7 @@
       "level": 79,
       "experience": 1803872,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 357863,
@@ -102,7 +102,7 @@
       "level": 79,
       "experience": 1753876,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 316433,
@@ -111,7 +111,7 @@
       "level": 79,
       "experience": 1746082,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 318610,
@@ -120,16 +120,16 @@
       "level": 79,
       "experience": 1650449,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 286578,
       "name": "Tusa",
       "rank": 11,
       "level": 79,
-      "experience": 1647815,
+      "experience": 1648633,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4781,
@@ -138,7 +138,7 @@
       "level": 78,
       "experience": 1616042,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248590,
@@ -147,16 +147,16 @@
       "level": 78,
       "experience": 1506343,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263705,
       "name": "papitafrita",
       "rank": 14,
       "level": 77,
-      "experience": 1417111,
+      "experience": 1417503,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 280809,
@@ -165,7 +165,7 @@
       "level": 77,
       "experience": 1367652,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 356844,
@@ -174,7 +174,7 @@
       "level": 77,
       "experience": 1356383,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 28538,
@@ -183,7 +183,7 @@
       "level": 77,
       "experience": 1319841,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 23269,
@@ -192,7 +192,7 @@
       "level": 76,
       "experience": 1242715,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 341643,
@@ -201,7 +201,7 @@
       "level": 76,
       "experience": 1195480,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 7063,
@@ -210,25 +210,25 @@
       "level": 75,
       "experience": 1171649,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 326676,
       "name": "Paladino of Poder",
       "rank": 21,
       "level": 75,
-      "experience": 1140299,
+      "experience": 1140524,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 358274,
       "name": "Pura Adrenalina",
       "rank": 22,
       "level": 74,
-      "experience": 1036703,
+      "experience": 1037680,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 340696,
@@ -237,7 +237,7 @@
       "level": 73,
       "experience": 917084,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 321116,
@@ -246,7 +246,7 @@
       "level": 73,
       "experience": 879052,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 284765,
@@ -255,25 +255,25 @@
       "level": 73,
       "experience": 875601,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 356559,
       "name": "TodMip",
       "rank": 26,
       "level": 72,
-      "experience": 778425,
+      "experience": 778639,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 9070,
       "name": "J o k e r",
       "rank": 27,
       "level": 72,
-      "experience": 772343,
+      "experience": 772835,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 27448,
@@ -282,7 +282,7 @@
       "level": 71,
       "experience": 745438,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 260513,
@@ -291,7 +291,7 @@
       "level": 71,
       "experience": 737719,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 276170,
@@ -300,7 +300,7 @@
       "level": 71,
       "experience": 731741,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 9662,
@@ -309,7 +309,7 @@
       "level": 71,
       "experience": 712579,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 257439,
@@ -318,7 +318,7 @@
       "level": 71,
       "experience": 708750,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 314227,
@@ -327,7 +327,7 @@
       "level": 71,
       "experience": 696035,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 25175,
@@ -336,7 +336,7 @@
       "level": 71,
       "experience": 684290,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 273372,
@@ -345,7 +345,7 @@
       "level": 71,
       "experience": 675598,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 313192,
@@ -354,7 +354,7 @@
       "level": 71,
       "experience": 674569,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 265774,
@@ -363,7 +363,7 @@
       "level": 70,
       "experience": 668138,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 22708,
@@ -372,7 +372,7 @@
       "level": 70,
       "experience": 665109,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4755,
@@ -381,7 +381,7 @@
       "level": 70,
       "experience": 661515,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 355073,
@@ -390,7 +390,7 @@
       "level": 70,
       "experience": 635651,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 367927,
@@ -399,7 +399,7 @@
       "level": 70,
       "experience": 620591,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 273255,
@@ -408,7 +408,7 @@
       "level": 70,
       "experience": 611563,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 355513,
@@ -417,7 +417,7 @@
       "level": 69,
       "experience": 600009,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4520,
@@ -426,7 +426,7 @@
       "level": 69,
       "experience": 588407,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 314759,
@@ -435,16 +435,16 @@
       "level": 69,
       "experience": 560039,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 429123,
       "name": "Huker",
       "rank": 46,
       "level": 69,
-      "experience": 553298,
+      "experience": 553761,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 349511,
@@ -453,7 +453,7 @@
       "level": 69,
       "experience": 541126,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 264699,
@@ -462,7 +462,7 @@
       "level": 68,
       "experience": 525391,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 243241,
@@ -471,34 +471,34 @@
       "level": 68,
       "experience": 504358,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 344099,
       "name": "Frozen Returns",
       "rank": 50,
       "level": 68,
-      "experience": 490993,
+      "experience": 492161,
       "ranking_type": "Distance",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4552,
       "name": "Tsukuyomi",
       "rank": 1,
       "level": 723,
-      "experience": 6254383384,
+      "experience": 6254400634,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4641,
       "name": "Seyuki",
       "rank": 2,
       "level": 699,
-      "experience": 5657132000,
+      "experience": 5666900690,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 260671,
@@ -507,7 +507,7 @@
       "level": 641,
       "experience": 4356263996,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 25730,
@@ -516,16 +516,16 @@
       "level": 622,
       "experience": 3977868234,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333670,
       "name": "Louco Perigoso",
       "rank": 5,
       "level": 622,
-      "experience": 3973534264,
+      "experience": 3976429095,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 262903,
@@ -534,7 +534,7 @@
       "level": 577,
       "experience": 3177239732,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 275952,
@@ -543,7 +543,7 @@
       "level": 569,
       "experience": 3038584687,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248791,
@@ -552,7 +552,7 @@
       "level": 561,
       "experience": 2916813901,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248907,
@@ -561,7 +561,7 @@
       "level": 559,
       "experience": 2891793194,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 5463,
@@ -570,7 +570,7 @@
       "level": 555,
       "experience": 2824447043,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 318610,
@@ -579,7 +579,7 @@
       "level": 538,
       "experience": 2575754205,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4565,
@@ -588,61 +588,61 @@
       "level": 535,
       "experience": 2531512618,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11530,
       "name": "Stenffor",
       "rank": 13,
       "level": 534,
-      "experience": 2512702034,
+      "experience": 2512788723,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263705,
       "name": "papitafrita",
       "rank": 14,
       "level": 526,
-      "experience": 2398063425,
+      "experience": 2399706339,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8659,
       "name": "Wezermoo",
       "rank": 15,
       "level": 511,
-      "experience": 2198553016,
+      "experience": 2200243124,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263704,
       "name": "glad",
       "rank": 16,
       "level": 508,
-      "experience": 2160249343,
+      "experience": 2161836343,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 243315,
       "name": "teilor",
       "rank": 17,
       "level": 505,
-      "experience": 2131413092,
+      "experience": 2132928986,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263710,
       "name": "ajolote",
       "rank": 18,
       "level": 500,
-      "experience": 2066818787,
+      "experience": 2068241202,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14767,
@@ -651,7 +651,7 @@
       "level": 492,
       "experience": 1965763783,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4777,
@@ -660,7 +660,7 @@
       "level": 491,
       "experience": 1952754799,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 256753,
@@ -669,16 +669,16 @@
       "level": 491,
       "experience": 1949933207,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 286578,
       "name": "Tusa",
       "rank": 22,
       "level": 487,
-      "experience": 1910606537,
+      "experience": 1912221621,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 269283,
@@ -687,7 +687,7 @@
       "level": 485,
       "experience": 1889135449,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 265774,
@@ -696,7 +696,7 @@
       "level": 481,
       "experience": 1833376198,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 344475,
@@ -705,7 +705,7 @@
       "level": 476,
       "experience": 1777356662,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248457,
@@ -714,7 +714,7 @@
       "level": 470,
       "experience": 1710209489,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 7063,
@@ -723,7 +723,7 @@
       "level": 469,
       "experience": 1699855151,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4781,
@@ -732,7 +732,7 @@
       "level": 465,
       "experience": 1664161258,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 325430,
@@ -741,16 +741,16 @@
       "level": 451,
       "experience": 1510608916,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333468,
       "name": "jaka",
       "rank": 30,
       "level": 450,
-      "experience": 1501913009,
+      "experience": 1504395283,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 356844,
@@ -759,7 +759,7 @@
       "level": 449,
       "experience": 1493144827,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 255763,
@@ -768,7 +768,7 @@
       "level": 442,
       "experience": 1428096761,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 340696,
@@ -777,7 +777,7 @@
       "level": 442,
       "experience": 1427525998,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 280809,
@@ -786,7 +786,7 @@
       "level": 442,
       "experience": 1422532932,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246166,
@@ -795,7 +795,7 @@
       "level": 440,
       "experience": 1407446327,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 288372,
@@ -804,16 +804,16 @@
       "level": 438,
       "experience": 1388552435,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 348793,
       "name": "īDãrk fåmâ",
       "rank": 37,
       "level": 437,
-      "experience": 1378081696,
+      "experience": 1379953515,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248590,
@@ -822,7 +822,7 @@
       "level": 431,
       "experience": 1324317510,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4755,
@@ -831,7 +831,7 @@
       "level": 431,
       "experience": 1321165671,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 257439,
@@ -840,7 +840,7 @@
       "level": 430,
       "experience": 1308403903,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6109,
@@ -849,7 +849,7 @@
       "level": 429,
       "experience": 1298256482,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4560,
@@ -858,7 +858,7 @@
       "level": 427,
       "experience": 1279540120,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 284765,
@@ -867,7 +867,7 @@
       "level": 425,
       "experience": 1265672935,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6368,
@@ -876,16 +876,16 @@
       "level": 423,
       "experience": 1251252467,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 358274,
       "name": "Pura Adrenalina",
       "rank": 45,
       "level": 423,
-      "experience": 1244976574,
+      "experience": 1248049597,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 279224,
@@ -894,7 +894,7 @@
       "level": 419,
       "experience": 1216944422,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 278698,
@@ -903,7 +903,7 @@
       "level": 418,
       "experience": 1206938046,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246441,
@@ -912,7 +912,7 @@
       "level": 418,
       "experience": 1204777329,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 28538,
@@ -921,7 +921,7 @@
       "level": 415,
       "experience": 1181186140,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 316433,
@@ -930,7 +930,7 @@
       "level": 411,
       "experience": 1144235028,
       "ranking_type": "Experience",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248791,
@@ -939,34 +939,34 @@
       "level": 84,
       "experience": 5958213,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11530,
       "name": "Stenffor",
       "rank": 2,
       "level": 81,
-      "experience": 4488654,
+      "experience": 4488816,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333670,
       "name": "Louco Perigoso",
       "rank": 3,
       "level": 81,
-      "experience": 4241115,
+      "experience": 4242548,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4641,
       "name": "Seyuki",
       "rank": 4,
       "level": 17,
-      "experience": 3875664,
+      "experience": 3875857,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 25730,
@@ -975,7 +975,7 @@
       "level": 78,
       "experience": 3235840,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 262903,
@@ -984,7 +984,7 @@
       "level": 77,
       "experience": 2676663,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4777,
@@ -993,16 +993,16 @@
       "level": 76,
       "experience": 2484036,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 348793,
       "name": "īDãrk fåmâ",
       "rank": 8,
       "level": 73,
-      "experience": 1831313,
+      "experience": 1832776,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 344475,
@@ -1011,7 +1011,7 @@
       "level": 73,
       "experience": 1830509,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4565,
@@ -1020,7 +1020,7 @@
       "level": 16,
       "experience": 1789345,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 325430,
@@ -1029,7 +1029,7 @@
       "level": 71,
       "experience": 1493711,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 351776,
@@ -1038,7 +1038,7 @@
       "level": 70,
       "experience": 1329356,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4655,
@@ -1047,16 +1047,16 @@
       "level": 70,
       "experience": 1327149,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263704,
       "name": "glad",
       "rank": 14,
       "level": 70,
-      "experience": 1273695,
+      "experience": 1274844,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 269283,
@@ -1065,7 +1065,7 @@
       "level": 70,
       "experience": 1221136,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 355591,
@@ -1074,7 +1074,7 @@
       "level": 69,
       "experience": 1167401,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 256753,
@@ -1083,16 +1083,16 @@
       "level": 68,
       "experience": 1008678,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 298742,
       "name": "joseguevami",
       "rank": 18,
       "level": 68,
-      "experience": 982562,
+      "experience": 982746,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 306829,
@@ -1101,7 +1101,7 @@
       "level": 67,
       "experience": 961161,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14767,
@@ -1110,7 +1110,7 @@
       "level": 67,
       "experience": 942530,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 278698,
@@ -1119,7 +1119,7 @@
       "level": 67,
       "experience": 922336,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 337688,
@@ -1128,7 +1128,7 @@
       "level": 67,
       "experience": 908276,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8272,
@@ -1137,7 +1137,7 @@
       "level": 67,
       "experience": 867621,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 426936,
@@ -1146,7 +1146,7 @@
       "level": 66,
       "experience": 788372,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 21610,
@@ -1155,7 +1155,7 @@
       "level": 66,
       "experience": 778191,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 348473,
@@ -1164,7 +1164,7 @@
       "level": 66,
       "experience": 770651,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 235607,
@@ -1173,7 +1173,7 @@
       "level": 65,
       "experience": 740811,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 255026,
@@ -1182,16 +1182,16 @@
       "level": 65,
       "experience": 710197,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4552,
       "name": "Tsukuyomi",
       "rank": 29,
       "level": 28,
-      "experience": 686458,
+      "experience": 686474,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 273287,
@@ -1200,16 +1200,16 @@
       "level": 64,
       "experience": 681946,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263710,
       "name": "ajolote",
       "rank": 31,
       "level": 64,
-      "experience": 649131,
+      "experience": 649650,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 259894,
@@ -1218,7 +1218,7 @@
       "level": 64,
       "experience": 614866,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 352903,
@@ -1227,7 +1227,7 @@
       "level": 63,
       "experience": 599933,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6109,
@@ -1236,7 +1236,7 @@
       "level": 63,
       "experience": 598871,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 255763,
@@ -1245,7 +1245,7 @@
       "level": 63,
       "experience": 587035,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 279224,
@@ -1254,7 +1254,7 @@
       "level": 63,
       "experience": 577285,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 360570,
@@ -1263,7 +1263,7 @@
       "level": 63,
       "experience": 570866,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 235527,
@@ -1272,7 +1272,7 @@
       "level": 63,
       "experience": 557053,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 279130,
@@ -1281,7 +1281,7 @@
       "level": 63,
       "experience": 554590,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 346787,
@@ -1290,7 +1290,7 @@
       "level": 62,
       "experience": 529247,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 256374,
@@ -1299,7 +1299,7 @@
       "level": 62,
       "experience": 494552,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 353942,
@@ -1308,7 +1308,7 @@
       "level": 62,
       "experience": 492914,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 269891,
@@ -1317,7 +1317,7 @@
       "level": 62,
       "experience": 487741,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 7405,
@@ -1326,7 +1326,7 @@
       "level": 61,
       "experience": 480655,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 239203,
@@ -1335,7 +1335,7 @@
       "level": 61,
       "experience": 472329,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 347001,
@@ -1344,7 +1344,7 @@
       "level": 61,
       "experience": 465550,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 288372,
@@ -1353,7 +1353,7 @@
       "level": 61,
       "experience": 461944,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 368269,
@@ -1362,7 +1362,7 @@
       "level": 61,
       "experience": 459288,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 340645,
@@ -1371,7 +1371,7 @@
       "level": 61,
       "experience": 455129,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 354977,
@@ -1380,7 +1380,7 @@
       "level": 61,
       "experience": 439102,
       "ranking_type": "Magic",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 275952,
@@ -1389,16 +1389,16 @@
       "level": 94,
       "experience": 14443663,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4641,
       "name": "Seyuki",
       "rank": 2,
       "level": 92,
-      "experience": 11678396,
+      "experience": 11679903,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4565,
@@ -1407,7 +1407,7 @@
       "level": 81,
       "experience": 3572199,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248907,
@@ -1416,7 +1416,7 @@
       "level": 81,
       "experience": 3406523,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 357844,
@@ -1425,7 +1425,7 @@
       "level": 78,
       "experience": 2449422,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 433367,
@@ -1434,7 +1434,7 @@
       "level": 75,
       "experience": 1859596,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 5463,
@@ -1443,7 +1443,7 @@
       "level": 75,
       "experience": 1836555,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 338677,
@@ -1452,7 +1452,7 @@
       "level": 74,
       "experience": 1636256,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 235261,
@@ -1461,7 +1461,7 @@
       "level": 74,
       "experience": 1579561,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 258500,
@@ -1470,7 +1470,7 @@
       "level": 73,
       "experience": 1517402,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246441,
@@ -1479,7 +1479,7 @@
       "level": 73,
       "experience": 1492070,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 365929,
@@ -1488,7 +1488,7 @@
       "level": 72,
       "experience": 1303845,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14253,
@@ -1497,7 +1497,7 @@
       "level": 71,
       "experience": 1147492,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4560,
@@ -1506,7 +1506,7 @@
       "level": 70,
       "experience": 1023317,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 347251,
@@ -1515,7 +1515,7 @@
       "level": 69,
       "experience": 999001,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6368,
@@ -1524,16 +1524,16 @@
       "level": 69,
       "experience": 941065,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8659,
       "name": "Wezermoo",
       "rank": 17,
       "level": 69,
-      "experience": 901523,
+      "experience": 901698,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 29509,
@@ -1542,7 +1542,7 @@
       "level": 68,
       "experience": 855124,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11924,
@@ -1551,7 +1551,7 @@
       "level": 68,
       "experience": 846252,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 268424,
@@ -1560,16 +1560,16 @@
       "level": 66,
       "experience": 688098,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 317939,
       "name": "DJSG",
       "rank": 21,
       "level": 65,
-      "experience": 620226,
+      "experience": 621369,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 362485,
@@ -1578,16 +1578,16 @@
       "level": 65,
       "experience": 607605,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 240485,
       "name": "shadowIxD",
       "rank": 23,
       "level": 65,
-      "experience": 606942,
+      "experience": 607235,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 320811,
@@ -1596,7 +1596,7 @@
       "level": 65,
       "experience": 585312,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6642,
@@ -1605,7 +1605,7 @@
       "level": 64,
       "experience": 540297,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 317552,
@@ -1614,7 +1614,7 @@
       "level": 64,
       "experience": 511716,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 272793,
@@ -1623,7 +1623,7 @@
       "level": 63,
       "experience": 501424,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 21192,
@@ -1632,7 +1632,7 @@
       "level": 63,
       "experience": 488298,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4782,
@@ -1641,7 +1641,7 @@
       "level": 63,
       "experience": 481301,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 257008,
@@ -1650,7 +1650,7 @@
       "level": 63,
       "experience": 481019,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 10894,
@@ -1659,7 +1659,7 @@
       "level": 63,
       "experience": 462055,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 242656,
@@ -1668,7 +1668,7 @@
       "level": 63,
       "experience": 460333,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 266584,
@@ -1677,7 +1677,7 @@
       "level": 62,
       "experience": 449046,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4800,
@@ -1686,7 +1686,7 @@
       "level": 62,
       "experience": 432888,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 326214,
@@ -1695,16 +1695,16 @@
       "level": 62,
       "experience": 423356,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11712,
       "name": "HaghiaShophia",
       "rank": 36,
       "level": 62,
-      "experience": 420237,
+      "experience": 421052,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 310173,
@@ -1713,7 +1713,7 @@
       "level": 61,
       "experience": 389700,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 238837,
@@ -1722,7 +1722,7 @@
       "level": 61,
       "experience": 383878,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 297229,
@@ -1731,7 +1731,7 @@
       "level": 61,
       "experience": 378695,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 284169,
@@ -1740,7 +1740,7 @@
       "level": 61,
       "experience": 376116,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 370356,
@@ -1749,7 +1749,7 @@
       "level": 61,
       "experience": 374787,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 315466,
@@ -1758,7 +1758,7 @@
       "level": 61,
       "experience": 370669,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 239488,
@@ -1767,7 +1767,7 @@
       "level": 61,
       "experience": 369748,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 249534,
@@ -1776,7 +1776,7 @@
       "level": 60,
       "experience": 357995,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 5358,
@@ -1785,7 +1785,7 @@
       "level": 60,
       "experience": 348458,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 326169,
@@ -1794,7 +1794,7 @@
       "level": 60,
       "experience": 345469,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 279806,
@@ -1803,7 +1803,7 @@
       "level": 60,
       "experience": 334206,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 303873,
@@ -1812,7 +1812,7 @@
       "level": 60,
       "experience": 330358,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 429020,
@@ -1821,7 +1821,7 @@
       "level": 60,
       "experience": 326960,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 283306,
@@ -1830,7 +1830,7 @@
       "level": 60,
       "experience": 323594,
       "ranking_type": "Melee",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4641,
@@ -1839,7 +1839,7 @@
       "level": 79,
       "experience": 6013668,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 275952,
@@ -1848,7 +1848,7 @@
       "level": 79,
       "experience": 5924690,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 357844,
@@ -1857,7 +1857,7 @@
       "level": 76,
       "experience": 4125938,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248791,
@@ -1866,7 +1866,7 @@
       "level": 27,
       "experience": 2705776,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 25730,
@@ -1875,16 +1875,16 @@
       "level": 27,
       "experience": 2615191,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11530,
       "name": "Stenffor",
       "rank": 6,
       "level": 26,
-      "experience": 2315910,
+      "experience": 2316044,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4565,
@@ -1893,16 +1893,16 @@
       "level": 71,
       "experience": 2265829,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333670,
       "name": "Louco Perigoso",
       "rank": 8,
       "level": 26,
-      "experience": 2205836,
+      "experience": 2207864,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248907,
@@ -1911,7 +1911,7 @@
       "level": 70,
       "experience": 2099749,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 262903,
@@ -1920,7 +1920,7 @@
       "level": 26,
       "experience": 1670403,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 338677,
@@ -1929,7 +1929,7 @@
       "level": 68,
       "experience": 1628778,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 365641,
@@ -1938,7 +1938,7 @@
       "level": 26,
       "experience": 1619074,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 433367,
@@ -1947,7 +1947,7 @@
       "level": 68,
       "experience": 1606999,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 5463,
@@ -1956,7 +1956,7 @@
       "level": 67,
       "experience": 1536377,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246441,
@@ -1965,7 +1965,7 @@
       "level": 65,
       "experience": 1215247,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4777,
@@ -1974,7 +1974,7 @@
       "level": 25,
       "experience": 1202904,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 258500,
@@ -1983,7 +1983,7 @@
       "level": 65,
       "experience": 1171214,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14253,
@@ -1992,16 +1992,16 @@
       "level": 64,
       "experience": 1098017,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8659,
       "name": "Wezermoo",
       "rank": 19,
       "level": 64,
-      "experience": 1033393,
+      "experience": 1033658,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 344475,
@@ -2010,7 +2010,7 @@
       "level": 25,
       "experience": 1018654,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4560,
@@ -2019,7 +2019,7 @@
       "level": 62,
       "experience": 872850,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 355591,
@@ -2028,7 +2028,7 @@
       "level": 24,
       "experience": 858734,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6368,
@@ -2037,7 +2037,7 @@
       "level": 62,
       "experience": 829792,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 29509,
@@ -2046,16 +2046,16 @@
       "level": 61,
       "experience": 799661,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 348793,
       "name": "īDãrk fåmâ",
       "rank": 25,
       "level": 24,
-      "experience": 750722,
+      "experience": 751702,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 347251,
@@ -2064,16 +2064,16 @@
       "level": 61,
       "experience": 737077,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 298742,
       "name": "joseguevami",
       "rank": 27,
       "level": 24,
-      "experience": 730899,
+      "experience": 731126,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4655,
@@ -2082,7 +2082,7 @@
       "level": 24,
       "experience": 709391,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 235261,
@@ -2091,7 +2091,7 @@
       "level": 60,
       "experience": 701579,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 325430,
@@ -2100,7 +2100,7 @@
       "level": 24,
       "experience": 670746,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 256753,
@@ -2109,7 +2109,7 @@
       "level": 24,
       "experience": 660457,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 268424,
@@ -2118,7 +2118,7 @@
       "level": 59,
       "experience": 627454,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 269283,
@@ -2127,7 +2127,7 @@
       "level": 23,
       "experience": 583939,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4745,
@@ -2136,25 +2136,25 @@
       "level": 23,
       "experience": 572620,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 240485,
       "name": "shadowIxD",
       "rank": 35,
       "level": 58,
-      "experience": 569508,
+      "experience": 569795,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 317939,
       "name": "DJSG",
       "rank": 36,
       "level": 58,
-      "experience": 549286,
+      "experience": 550254,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14767,
@@ -2163,7 +2163,7 @@
       "level": 23,
       "experience": 538614,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 278698,
@@ -2172,7 +2172,7 @@
       "level": 23,
       "experience": 538302,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263704,
@@ -2181,7 +2181,7 @@
       "level": 23,
       "experience": 526849,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 317552,
@@ -2190,7 +2190,7 @@
       "level": 58,
       "experience": 513149,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 257008,
@@ -2199,7 +2199,7 @@
       "level": 58,
       "experience": 512403,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6109,
@@ -2208,7 +2208,7 @@
       "level": 23,
       "experience": 496890,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 351776,
@@ -2217,7 +2217,7 @@
       "level": 23,
       "experience": 496119,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 21192,
@@ -2226,7 +2226,7 @@
       "level": 57,
       "experience": 482746,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11924,
@@ -2235,7 +2235,7 @@
       "level": 57,
       "experience": 460923,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 21610,
@@ -2244,7 +2244,7 @@
       "level": 23,
       "experience": 447794,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 266584,
@@ -2253,7 +2253,7 @@
       "level": 56,
       "experience": 441717,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 310173,
@@ -2262,7 +2262,7 @@
       "level": 56,
       "experience": 429995,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 272793,
@@ -2271,7 +2271,7 @@
       "level": 56,
       "experience": 423457,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 6642,
@@ -2280,16 +2280,16 @@
       "level": 56,
       "experience": 423404,
       "ranking_type": "Shielding",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4641,
       "name": "Seyuki",
       "rank": 1,
       "level": 82,
-      "experience": 5976311,
+      "experience": 5976949,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248791,
@@ -2298,7 +2298,7 @@
       "level": 65,
       "experience": 927300,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4565,
@@ -2307,16 +2307,16 @@
       "level": 65,
       "experience": 907697,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4552,
       "name": "Tsukuyomi",
       "rank": 4,
       "level": 64,
-      "experience": 843903,
+      "experience": 843912,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248907,
@@ -2325,16 +2325,16 @@
       "level": 64,
       "experience": 834523,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333670,
       "name": "Louco Perigoso",
       "rank": 6,
       "level": 63,
-      "experience": 695426,
+      "experience": 695686,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 344475,
@@ -2343,7 +2343,7 @@
       "level": 63,
       "experience": 684785,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 262903,
@@ -2352,7 +2352,7 @@
       "level": 62,
       "experience": 642599,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 275952,
@@ -2361,7 +2361,7 @@
       "level": 62,
       "experience": 640600,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 5463,
@@ -2370,7 +2370,7 @@
       "level": 62,
       "experience": 622423,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 25730,
@@ -2379,16 +2379,16 @@
       "level": 61,
       "experience": 589559,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11530,
       "name": "Stenffor",
       "rank": 12,
       "level": 61,
-      "experience": 589312,
+      "experience": 589344,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 260671,
@@ -2397,7 +2397,7 @@
       "level": 61,
       "experience": 583602,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246441,
@@ -2406,7 +2406,7 @@
       "level": 61,
       "experience": 561431,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 355073,
@@ -2415,7 +2415,7 @@
       "level": 60,
       "experience": 506229,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 357863,
@@ -2424,7 +2424,7 @@
       "level": 60,
       "experience": 494867,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 347251,
@@ -2433,16 +2433,16 @@
       "level": 59,
       "experience": 475801,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 243315,
       "name": "teilor",
       "rank": 18,
       "level": 59,
-      "experience": 472528,
+      "experience": 473001,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 11924,
@@ -2451,7 +2451,7 @@
       "level": 59,
       "experience": 458293,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 246166,
@@ -2460,7 +2460,7 @@
       "level": 58,
       "experience": 418176,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4777,
@@ -2469,16 +2469,16 @@
       "level": 58,
       "experience": 417314,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263705,
       "name": "papitafrita",
       "rank": 22,
       "level": 58,
-      "experience": 402397,
+      "experience": 402484,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 318610,
@@ -2487,7 +2487,7 @@
       "level": 57,
       "experience": 380361,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 356844,
@@ -2496,7 +2496,7 @@
       "level": 57,
       "experience": 372867,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 256753,
@@ -2505,7 +2505,7 @@
       "level": 57,
       "experience": 369034,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 14253,
@@ -2514,7 +2514,7 @@
       "level": 57,
       "experience": 367920,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 365929,
@@ -2523,7 +2523,7 @@
       "level": 57,
       "experience": 350161,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 316433,
@@ -2532,7 +2532,7 @@
       "level": 56,
       "experience": 337039,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 278698,
@@ -2541,7 +2541,7 @@
       "level": 56,
       "experience": 336440,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 21192,
@@ -2550,34 +2550,34 @@
       "level": 56,
       "experience": 333468,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 298742,
       "name": "joseguevami",
       "rank": 31,
       "level": 56,
-      "experience": 329531,
+      "experience": 329583,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8659,
       "name": "Wezermoo",
       "rank": 32,
       "level": 56,
-      "experience": 328891,
+      "experience": 329004,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 333468,
       "name": "jaka",
       "rank": 33,
       "level": 56,
-      "experience": 327923,
+      "experience": 328497,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4560,
@@ -2586,16 +2586,16 @@
       "level": 56,
       "experience": 327067,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 317939,
       "name": "DJSG",
       "rank": 35,
       "level": 56,
-      "experience": 323521,
+      "experience": 323986,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 331661,
@@ -2604,7 +2604,7 @@
       "level": 56,
       "experience": 316947,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248590,
@@ -2613,7 +2613,7 @@
       "level": 56,
       "experience": 315998,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 362485,
@@ -2622,16 +2622,16 @@
       "level": 56,
       "experience": 310077,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 286578,
       "name": "Tusa",
       "rank": 39,
       "level": 56,
-      "experience": 307554,
+      "experience": 307748,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 248457,
@@ -2640,25 +2640,25 @@
       "level": 56,
       "experience": 305695,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 263704,
       "name": "glad",
       "rank": 41,
       "level": 55,
-      "experience": 303408,
+      "experience": 303606,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 348793,
       "name": "īDãrk fåmâ",
       "rank": 42,
       "level": 55,
-      "experience": 301003,
+      "experience": 301290,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 9662,
@@ -2667,7 +2667,7 @@
       "level": 55,
       "experience": 299396,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4781,
@@ -2676,7 +2676,7 @@
       "level": 55,
       "experience": 296299,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 4745,
@@ -2685,7 +2685,7 @@
       "level": 55,
       "experience": 294849,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 7063,
@@ -2694,7 +2694,7 @@
       "level": 55,
       "experience": 294350,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 22708,
@@ -2703,7 +2703,7 @@
       "level": 55,
       "experience": 287968,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 8272,
@@ -2712,7 +2712,7 @@
       "level": 55,
       "experience": 284966,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 284765,
@@ -2721,7 +2721,7 @@
       "level": 55,
       "experience": 281914,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     },
     {
       "player_id": 325430,
@@ -2730,7 +2730,7 @@
       "level": 55,
       "experience": 277020,
       "ranking_type": "Taming",
-      "collected_at": "2026-07-23T21:00:48"
+      "collected_at": "2026-07-23T21:30:42"
     }
   ],
   "deltas": {
@@ -2739,7 +2739,7 @@
       "rank_delta": 0
     },
     "4552_Distance": {
-      "xp_delta": 34246,
+      "xp_delta": 34275,
       "rank_delta": 0
     },
     "331661_Distance": {
@@ -2747,7 +2747,7 @@
       "rank_delta": 0
     },
     "243315_Distance": {
-      "xp_delta": 9109,
+      "xp_delta": 10733,
       "rank_delta": 0
     },
     "246166_Distance": {
@@ -2755,7 +2755,7 @@
       "rank_delta": 0
     },
     "333468_Distance": {
-      "xp_delta": 1862,
+      "xp_delta": 4268,
       "rank_delta": 0
     },
     "248457_Distance": {
@@ -2775,7 +2775,7 @@
       "rank_delta": 0
     },
     "286578_Distance": {
-      "xp_delta": 1627,
+      "xp_delta": 2445,
       "rank_delta": 0
     },
     "4781_Distance": {
@@ -2787,7 +2787,7 @@
       "rank_delta": 0
     },
     "263705_Distance": {
-      "xp_delta": 1966,
+      "xp_delta": 2358,
       "rank_delta": 0
     },
     "280809_Distance": {
@@ -2815,11 +2815,11 @@
       "rank_delta": 0
     },
     "326676_Distance": {
-      "xp_delta": 6972,
+      "xp_delta": 7197,
       "rank_delta": 0
     },
     "358274_Distance": {
-      "xp_delta": -18566,
+      "xp_delta": -17589,
       "rank_delta": 0
     },
     "340696_Distance": {
@@ -2835,11 +2835,11 @@
       "rank_delta": 0
     },
     "356559_Distance": {
-      "xp_delta": 2007,
+      "xp_delta": 2221,
       "rank_delta": 0
     },
     "9070_Distance": {
-      "xp_delta": 3815,
+      "xp_delta": 4307,
       "rank_delta": 0
     },
     "27448_Distance": {
@@ -2915,7 +2915,7 @@
       "rank_delta": 0
     },
     "429123_Distance": {
-      "xp_delta": 6865,
+      "xp_delta": 7328,
       "rank_delta": 0
     },
     "349511_Distance": {
@@ -2931,11 +2931,11 @@
       "rank_delta": 0
     },
     "4552_Experience": {
-      "xp_delta": 52141817,
+      "xp_delta": 52159067,
       "rank_delta": 0
     },
     "4641_Experience": {
-      "xp_delta": 40340244,
+      "xp_delta": 50108934,
       "rank_delta": 0
     },
     "260671_Experience": {
@@ -2947,7 +2947,7 @@
       "rank_delta": 0
     },
     "333670_Experience": {
-      "xp_delta": 28572097,
+      "xp_delta": 31466928,
       "rank_delta": 0
     },
     "262903_Experience": {
@@ -2979,27 +2979,27 @@
       "rank_delta": 0
     },
     "11530_Experience": {
-      "xp_delta": 8575369,
+      "xp_delta": 8662058,
       "rank_delta": 0
     },
     "263705_Experience": {
-      "xp_delta": 3805544,
+      "xp_delta": 5448458,
       "rank_delta": 0
     },
     "8659_Experience": {
-      "xp_delta": 4095389,
+      "xp_delta": 5785497,
       "rank_delta": 0
     },
     "263704_Experience": {
-      "xp_delta": 8221797,
+      "xp_delta": 9808797,
       "rank_delta": 0
     },
     "243315_Experience": {
-      "xp_delta": 12733341,
+      "xp_delta": 14249235,
       "rank_delta": 0
     },
     "263710_Experience": {
-      "xp_delta": 4031430,
+      "xp_delta": 5453845,
       "rank_delta": 0
     },
     "14767_Experience": {
@@ -3015,7 +3015,7 @@
       "rank_delta": 0
     },
     "286578_Experience": {
-      "xp_delta": 3648849,
+      "xp_delta": 5263933,
       "rank_delta": 0
     },
     "269283_Experience": {
@@ -3047,7 +3047,7 @@
       "rank_delta": 1
     },
     "333468_Experience": {
-      "xp_delta": 2246653,
+      "xp_delta": 4728927,
       "rank_delta": -1
     },
     "356844_Experience": {
@@ -3075,7 +3075,7 @@
       "rank_delta": 0
     },
     "348793_Experience": {
-      "xp_delta": 8553859,
+      "xp_delta": 10425678,
       "rank_delta": 0
     },
     "248590_Experience": {
@@ -3107,7 +3107,7 @@
       "rank_delta": 0
     },
     "358274_Experience": {
-      "xp_delta": 6915925,
+      "xp_delta": 9988948,
       "rank_delta": 0
     },
     "279224_Experience": {
@@ -3131,15 +3131,15 @@
       "rank_delta": 0
     },
     "11530_Magic": {
-      "xp_delta": 3388,
+      "xp_delta": 3550,
       "rank_delta": 0
     },
     "333670_Magic": {
-      "xp_delta": -78923,
+      "xp_delta": -77490,
       "rank_delta": 0
     },
     "4641_Magic": {
-      "xp_delta": 5407,
+      "xp_delta": 5600,
       "rank_delta": 0
     },
     "25730_Magic": {
@@ -3155,7 +3155,7 @@
       "rank_delta": 0
     },
     "348793_Magic": {
-      "xp_delta": 3760,
+      "xp_delta": 5223,
       "rank_delta": 0
     },
     "344475_Magic": {
@@ -3179,7 +3179,7 @@
       "rank_delta": 0
     },
     "263704_Magic": {
-      "xp_delta": 5033,
+      "xp_delta": 6182,
       "rank_delta": 0
     },
     "269283_Magic": {
@@ -3195,7 +3195,7 @@
       "rank_delta": 0
     },
     "298742_Magic": {
-      "xp_delta": 4370,
+      "xp_delta": 4554,
       "rank_delta": 0
     },
     "306829_Magic": {
@@ -3239,7 +3239,7 @@
       "rank_delta": 1
     },
     "4552_Magic": {
-      "xp_delta": 4780,
+      "xp_delta": 4796,
       "rank_delta": 1
     },
     "273287_Magic": {
@@ -3247,7 +3247,7 @@
       "rank_delta": 1
     },
     "263710_Magic": {
-      "xp_delta": 1079,
+      "xp_delta": 1598,
       "rank_delta": 1
     },
     "259894_Magic": {
@@ -3327,7 +3327,7 @@
       "rank_delta": 0
     },
     "4641_Melee": {
-      "xp_delta": 16740,
+      "xp_delta": 18247,
       "rank_delta": 0
     },
     "4565_Melee": {
@@ -3387,7 +3387,7 @@
       "rank_delta": 0
     },
     "8659_Melee": {
-      "xp_delta": 2362,
+      "xp_delta": 2537,
       "rank_delta": 0
     },
     "29509_Melee": {
@@ -3403,7 +3403,7 @@
       "rank_delta": 0
     },
     "317939_Melee": {
-      "xp_delta": 38,
+      "xp_delta": 1181,
       "rank_delta": 0
     },
     "362485_Melee": {
@@ -3411,7 +3411,7 @@
       "rank_delta": 0
     },
     "240485_Melee": {
-      "xp_delta": 5725,
+      "xp_delta": 6018,
       "rank_delta": 0
     },
     "320811_Melee": {
@@ -3463,7 +3463,7 @@
       "rank_delta": 0
     },
     "11712_Melee": {
-      "xp_delta": 8723,
+      "xp_delta": 9538,
       "rank_delta": 0
     },
     "310173_Melee": {
@@ -3543,7 +3543,7 @@
       "rank_delta": 0
     },
     "11530_Shielding": {
-      "xp_delta": 2247,
+      "xp_delta": 2381,
       "rank_delta": 0
     },
     "4565_Shielding": {
@@ -3551,7 +3551,7 @@
       "rank_delta": 0
     },
     "333670_Shielding": {
-      "xp_delta": -29815,
+      "xp_delta": -27787,
       "rank_delta": 0
     },
     "248907_Shielding": {
@@ -3595,7 +3595,7 @@
       "rank_delta": 0
     },
     "8659_Shielding": {
-      "xp_delta": 1586,
+      "xp_delta": 1851,
       "rank_delta": 0
     },
     "344475_Shielding": {
@@ -3619,7 +3619,7 @@
       "rank_delta": 0
     },
     "348793_Shielding": {
-      "xp_delta": 3264,
+      "xp_delta": 4244,
       "rank_delta": 0
     },
     "347251_Shielding": {
@@ -3627,7 +3627,7 @@
       "rank_delta": 0
     },
     "298742_Shielding": {
-      "xp_delta": 3129,
+      "xp_delta": 3356,
       "rank_delta": 0
     },
     "4655_Shielding": {
@@ -3659,11 +3659,11 @@
       "rank_delta": 0
     },
     "240485_Shielding": {
-      "xp_delta": 5568,
+      "xp_delta": 5855,
       "rank_delta": 0
     },
     "317939_Shielding": {
-      "xp_delta": 307,
+      "xp_delta": 1275,
       "rank_delta": 0
     },
     "14767_Shielding": {
@@ -3723,7 +3723,7 @@
       "rank_delta": 0
     },
     "4641_Taming": {
-      "xp_delta": 4147,
+      "xp_delta": 4785,
       "rank_delta": 0
     },
     "248791_Taming": {
@@ -3735,7 +3735,7 @@
       "rank_delta": 0
     },
     "4552_Taming": {
-      "xp_delta": 5378,
+      "xp_delta": 5387,
       "rank_delta": 0
     },
     "248907_Taming": {
@@ -3743,7 +3743,7 @@
       "rank_delta": 0
     },
     "333670_Taming": {
-      "xp_delta": -11782,
+      "xp_delta": -11522,
       "rank_delta": 0
     },
     "344475_Taming": {
@@ -3767,7 +3767,7 @@
       "rank_delta": 0
     },
     "11530_Taming": {
-      "xp_delta": 655,
+      "xp_delta": 687,
       "rank_delta": 0
     },
     "260671_Taming": {
@@ -3791,7 +3791,7 @@
       "rank_delta": 0
     },
     "243315_Taming": {
-      "xp_delta": 2600,
+      "xp_delta": 3073,
       "rank_delta": 0
     },
     "11924_Taming": {
@@ -3807,7 +3807,7 @@
       "rank_delta": 0
     },
     "263705_Taming": {
-      "xp_delta": 774,
+      "xp_delta": 861,
       "rank_delta": 0
     },
     "318610_Taming": {
@@ -3843,15 +3843,15 @@
       "rank_delta": 0
     },
     "298742_Taming": {
-      "xp_delta": 1185,
+      "xp_delta": 1237,
       "rank_delta": 0
     },
     "8659_Taming": {
-      "xp_delta": 1254,
+      "xp_delta": 1367,
       "rank_delta": 0
     },
     "333468_Taming": {
-      "xp_delta": 479,
+      "xp_delta": 1053,
       "rank_delta": 0
     },
     "4560_Taming": {
@@ -3859,7 +3859,7 @@
       "rank_delta": 0
     },
     "317939_Taming": {
-      "xp_delta": 37,
+      "xp_delta": 502,
       "rank_delta": 0
     },
     "331661_Taming": {
@@ -3875,7 +3875,7 @@
       "rank_delta": 0
     },
     "286578_Taming": {
-      "xp_delta": 379,
+      "xp_delta": 573,
       "rank_delta": 0
     },
     "248457_Taming": {
@@ -3883,11 +3883,11 @@
       "rank_delta": 0
     },
     "263704_Taming": {
-      "xp_delta": 1121,
+      "xp_delta": 1319,
       "rank_delta": 0
     },
     "348793_Taming": {
-      "xp_delta": 878,
+      "xp_delta": 1165,
       "rank_delta": 0
     },
     "9662_Taming": {
@@ -4477,7 +4477,7 @@
         {
           "date": "2026-07-23",
           "rank": 1,
-          "experience": 6254383384,
+          "experience": 6254400634,
           "level": 723
         }
       ]
@@ -4849,7 +4849,7 @@
         {
           "date": "2026-07-23",
           "rank": 29,
-          "experience": 686458,
+          "experience": 686474,
           "level": 28
         }
       ]
@@ -5407,7 +5407,7 @@
         {
           "date": "2026-07-23",
           "rank": 2,
-          "experience": 4882363,
+          "experience": 4882392,
           "level": 89
         }
       ]
@@ -5965,7 +5965,7 @@
         {
           "date": "2026-07-23",
           "rank": 4,
-          "experience": 843903,
+          "experience": 843912,
           "level": 64
         }
       ]
@@ -17047,7 +17047,7 @@
         {
           "date": "2026-07-23",
           "rank": 17,
-          "experience": 2131413092,
+          "experience": 2132928986,
           "level": 505
         }
       ]
@@ -17605,7 +17605,7 @@
         {
           "date": "2026-07-23",
           "rank": 4,
-          "experience": 2102418,
+          "experience": 2104042,
           "level": 81
         }
       ]
@@ -18163,7 +18163,7 @@
         {
           "date": "2026-07-23",
           "rank": 18,
-          "experience": 472528,
+          "experience": 473001,
           "level": 59
         }
       ]
@@ -27883,7 +27883,7 @@
         {
           "date": "2026-07-23",
           "rank": 22,
-          "experience": 1910606537,
+          "experience": 1912221621,
           "level": 487
         }
       ]
@@ -28441,7 +28441,7 @@
         {
           "date": "2026-07-23",
           "rank": 11,
-          "experience": 1647815,
+          "experience": 1648633,
           "level": 79
         }
       ]
@@ -28573,7 +28573,7 @@
         {
           "date": "2026-07-23",
           "rank": 39,
-          "experience": 307554,
+          "experience": 307748,
           "level": 56
         }
       ]
@@ -28909,7 +28909,7 @@
         {
           "date": "2026-07-23",
           "rank": 30,
-          "experience": 1501913009,
+          "experience": 1504395283,
           "level": 450
         }
       ]
@@ -29467,7 +29467,7 @@
         {
           "date": "2026-07-23",
           "rank": 6,
-          "experience": 1845164,
+          "experience": 1847570,
           "level": 80
         }
       ]
@@ -29605,7 +29605,7 @@
         {
           "date": "2026-07-23",
           "rank": 33,
-          "experience": 327923,
+          "experience": 328497,
           "level": 56
         }
       ]
@@ -43873,7 +43873,7 @@
         {
           "date": "2026-07-23",
           "rank": 26,
-          "experience": 778425,
+          "experience": 778639,
           "level": 72
         }
       ]
@@ -48379,7 +48379,7 @@
         {
           "date": "2026-07-23",
           "rank": 2,
-          "experience": 5657132000,
+          "experience": 5666900690,
           "level": 699
         }
       ]
@@ -48937,7 +48937,7 @@
         {
           "date": "2026-07-23",
           "rank": 2,
-          "experience": 11678396,
+          "experience": 11679903,
           "level": 92
         }
       ]
@@ -50053,7 +50053,7 @@
         {
           "date": "2026-07-23",
           "rank": 4,
-          "experience": 3875664,
+          "experience": 3875857,
           "level": 17
         }
       ]
@@ -50611,7 +50611,7 @@
         {
           "date": "2026-07-23",
           "rank": 1,
-          "experience": 5976311,
+          "experience": 5976949,
           "level": 82
         }
       ]
@@ -70087,7 +70087,7 @@
         {
           "date": "2026-07-23",
           "rank": 5,
-          "experience": 3973534264,
+          "experience": 3976429095,
           "level": 622
         }
       ]
@@ -70645,7 +70645,7 @@
         {
           "date": "2026-07-23",
           "rank": 8,
-          "experience": 2205836,
+          "experience": 2207864,
           "level": 26
         }
       ]
@@ -71203,7 +71203,7 @@
         {
           "date": "2026-07-23",
           "rank": 3,
-          "experience": 4241115,
+          "experience": 4242548,
           "level": 81
         }
       ]
@@ -71761,7 +71761,7 @@
         {
           "date": "2026-07-23",
           "rank": 6,
-          "experience": 695426,
+          "experience": 695686,
           "level": 63
         }
       ]
@@ -77563,7 +77563,7 @@
         {
           "date": "2026-07-23",
           "rank": 13,
-          "experience": 2512702034,
+          "experience": 2512788723,
           "level": 534
         }
       ]
@@ -78121,7 +78121,7 @@
         {
           "date": "2026-07-23",
           "rank": 6,
-          "experience": 2315910,
+          "experience": 2316044,
           "level": 26
         }
       ]
@@ -78679,7 +78679,7 @@
         {
           "date": "2026-07-23",
           "rank": 2,
-          "experience": 4488654,
+          "experience": 4488816,
           "level": 81
         }
       ]
@@ -79237,7 +79237,7 @@
         {
           "date": "2026-07-23",
           "rank": 12,
-          "experience": 589312,
+          "experience": 589344,
           "level": 61
         }
       ]
@@ -83113,7 +83113,7 @@
         {
           "date": "2026-07-23",
           "rank": 14,
-          "experience": 2398063425,
+          "experience": 2399706339,
           "level": 526
         }
       ]
@@ -83647,7 +83647,7 @@
         {
           "date": "2026-07-23",
           "rank": 14,
-          "experience": 1417111,
+          "experience": 1417503,
           "level": 77
         }
       ]
@@ -84115,7 +84115,7 @@
         {
           "date": "2026-07-23",
           "rank": 22,
-          "experience": 402397,
+          "experience": 402484,
           "level": 58
         }
       ]
@@ -97711,7 +97711,7 @@
         {
           "date": "2026-07-23",
           "rank": 27,
-          "experience": 730899,
+          "experience": 731126,
           "level": 24
         }
       ]
@@ -98269,7 +98269,7 @@
         {
           "date": "2026-07-23",
           "rank": 18,
-          "experience": 982562,
+          "experience": 982746,
           "level": 68
         }
       ]
@@ -98725,7 +98725,7 @@
         {
           "date": "2026-07-23",
           "rank": 31,
-          "experience": 329531,
+          "experience": 329583,
           "level": 56
         }
       ]
@@ -133093,7 +133093,7 @@
         {
           "date": "2026-07-23",
           "rank": 23,
-          "experience": 606942,
+          "experience": 607235,
           "level": 65
         }
       ]
@@ -133651,7 +133651,7 @@
         {
           "date": "2026-07-23",
           "rank": 35,
-          "experience": 569508,
+          "experience": 569795,
           "level": 58
         }
       ]
@@ -139069,7 +139069,7 @@
         {
           "date": "2026-07-23",
           "rank": 15,
-          "experience": 2198553016,
+          "experience": 2200243124,
           "level": 511
         }
       ]
@@ -139627,7 +139627,7 @@
         {
           "date": "2026-07-23",
           "rank": 17,
-          "experience": 901523,
+          "experience": 901698,
           "level": 69
         }
       ]
@@ -140149,7 +140149,7 @@
         {
           "date": "2026-07-23",
           "rank": 19,
-          "experience": 1033393,
+          "experience": 1033658,
           "level": 64
         }
       ]
@@ -140563,7 +140563,7 @@
         {
           "date": "2026-07-23",
           "rank": 32,
-          "experience": 328891,
+          "experience": 329004,
           "level": 56
         }
       ]
@@ -147853,7 +147853,7 @@
         {
           "date": "2026-07-23",
           "rank": 16,
-          "experience": 2160249343,
+          "experience": 2161836343,
           "level": 508
         }
       ]
@@ -148669,7 +148669,7 @@
         {
           "date": "2026-07-23",
           "rank": 14,
-          "experience": 1273695,
+          "experience": 1274844,
           "level": 70
         }
       ]
@@ -148957,7 +148957,7 @@
         {
           "date": "2026-07-23",
           "rank": 41,
-          "experience": 303408,
+          "experience": 303606,
           "level": 55
         }
       ]
@@ -152839,7 +152839,7 @@
         {
           "date": "2026-07-23",
           "rank": 21,
-          "experience": 1140299,
+          "experience": 1140524,
           "level": 75
         }
       ]
@@ -156703,7 +156703,7 @@
         {
           "date": "2026-07-23",
           "rank": 18,
-          "experience": 2066818787,
+          "experience": 2068241202,
           "level": 500
         }
       ]
@@ -156997,7 +156997,7 @@
         {
           "date": "2026-07-23",
           "rank": 31,
-          "experience": 649131,
+          "experience": 649650,
           "level": 64
         }
       ]
@@ -159217,7 +159217,7 @@
         {
           "date": "2026-07-23",
           "rank": 37,
-          "experience": 1378081696,
+          "experience": 1379953515,
           "level": 437
         }
       ]
@@ -159553,7 +159553,7 @@
         {
           "date": "2026-07-23",
           "rank": 25,
-          "experience": 750722,
+          "experience": 751702,
           "level": 24
         }
       ]
@@ -160009,7 +160009,7 @@
         {
           "date": "2026-07-23",
           "rank": 8,
-          "experience": 1831313,
+          "experience": 1832776,
           "level": 73
         }
       ]
@@ -160129,7 +160129,7 @@
         {
           "date": "2026-07-23",
           "rank": 42,
-          "experience": 301003,
+          "experience": 301290,
           "level": 55
         }
       ]
@@ -167251,7 +167251,7 @@
         {
           "date": "2026-07-23",
           "rank": 45,
-          "experience": 1244976574,
+          "experience": 1248049597,
           "level": 423
         }
       ]
@@ -167575,7 +167575,7 @@
         {
           "date": "2026-07-23",
           "rank": 22,
-          "experience": 1036703,
+          "experience": 1037680,
           "level": 74
         }
       ]
@@ -170017,7 +170017,7 @@
         {
           "date": "2026-07-23",
           "rank": 21,
-          "experience": 620226,
+          "experience": 621369,
           "level": 65
         }
       ]
@@ -170155,7 +170155,7 @@
         {
           "date": "2026-07-23",
           "rank": 36,
-          "experience": 549286,
+          "experience": 550254,
           "level": 58
         }
       ]
@@ -170341,7 +170341,7 @@
         {
           "date": "2026-07-23",
           "rank": 35,
-          "experience": 323521,
+          "experience": 323986,
           "level": 56
         }
       ]
@@ -172027,7 +172027,7 @@
         {
           "date": "2026-07-23",
           "rank": 27,
-          "experience": 772343,
+          "experience": 772835,
           "level": 72
         }
       ]
@@ -172105,7 +172105,7 @@
         {
           "date": "2026-07-23",
           "rank": 36,
-          "experience": 420237,
+          "experience": 421052,
           "level": 62
         }
       ]
@@ -172171,7 +172171,7 @@
         {
           "date": "2026-07-23",
           "rank": 46,
-          "experience": 553298,
+          "experience": 553761,
           "level": 69
         }
       ]
@@ -172267,7 +172267,7 @@
         {
           "date": "2026-07-23",
           "rank": 50,
-          "experience": 490993,
+          "experience": 492161,
           "level": 68
         }
       ]
@@ -172278,20 +172278,20 @@
       {
         "name": "Tsukuyomi",
         "rank": 1,
-        "xp_day": 52141817,
-        "label": "52.14M"
+        "xp_day": 52159067,
+        "label": "52.16M"
       },
       {
         "name": "Seyuki",
         "rank": 2,
-        "xp_day": 40340244,
-        "label": "40.34M"
+        "xp_day": 50108934,
+        "label": "50.11M"
       },
       {
         "name": "Louco Perigoso",
         "rank": 5,
-        "xp_day": 28572097,
-        "label": "28.57M"
+        "xp_day": 31466928,
+        "label": "31.47M"
       },
       {
         "name": "Rott",
@@ -172324,6 +172324,12 @@
         "label": "15.84M"
       },
       {
+        "name": "teilor",
+        "rank": 17,
+        "xp_day": 14249235,
+        "label": "14.25M"
+      },
+      {
         "name": "Demonix",
         "rank": 7,
         "xp_day": 13898004,
@@ -172342,10 +172348,10 @@
         "label": "13.36M"
       },
       {
-        "name": "teilor",
-        "rank": 17,
-        "xp_day": 12733341,
-        "label": "12.73M"
+        "name": "īDãrk fåmâ",
+        "rank": 37,
+        "xp_day": 10425678,
+        "label": "10.43M"
       },
       {
         "name": "Rellikk",
@@ -172354,16 +172360,10 @@
         "label": "10.06M"
       },
       {
-        "name": "Stenffor",
-        "rank": 13,
-        "xp_day": 8575369,
-        "label": "8.58M"
-      },
-      {
-        "name": "īDãrk fåmâ",
-        "rank": 37,
-        "xp_day": 8553859,
-        "label": "8.55M"
+        "name": "Pura Adrenalina",
+        "rank": 45,
+        "xp_day": 9988948,
+        "label": "9.99M"
       }
     ],
     "Melee": [
@@ -172376,8 +172376,8 @@
       {
         "name": "Seyuki",
         "rank": 2,
-        "xp_day": 16740,
-        "label": "16.7K"
+        "xp_day": 18247,
+        "label": "18.2K"
       },
       {
         "name": "NIÑO GUERRERO",
@@ -172398,16 +172398,16 @@
         "label": "12.2K"
       },
       {
+        "name": "HaghiaShophia",
+        "rank": 36,
+        "xp_day": 9538,
+        "label": "9.5K"
+      },
+      {
         "name": "milhouseblac",
         "rank": 20,
         "xp_day": 8878,
         "label": "8.9K"
-      },
-      {
-        "name": "HaghiaShophia",
-        "rank": 36,
-        "xp_day": 8723,
-        "label": "8.7K"
       },
       {
         "name": "DAYA",
@@ -172424,8 +172424,8 @@
       {
         "name": "shadowIxD",
         "rank": 23,
-        "xp_day": 5725,
-        "label": "5.7K"
+        "xp_day": 6018,
+        "label": "6.0K"
       },
       {
         "name": "LIRǟnzɛsLIxD",
@@ -172442,20 +172442,20 @@
       {
         "name": "Wezermoo",
         "rank": 17,
-        "xp_day": 2362,
-        "label": "2.4K"
+        "xp_day": 2537,
+        "label": "2.5K"
+      },
+      {
+        "name": "DJSG",
+        "rank": 21,
+        "xp_day": 1181,
+        "label": "1.2K"
       },
       {
         "name": "te comi",
         "rank": 7,
         "xp_day": 377,
         "label": "377"
-      },
-      {
-        "name": "DJSG",
-        "rank": 21,
-        "xp_day": 38,
-        "label": "38"
       }
     ],
     "Shielding": [
@@ -172502,16 +172502,16 @@
         "label": "6.1K"
       },
       {
+        "name": "shadowIxD",
+        "rank": 35,
+        "xp_day": 5855,
+        "label": "5.9K"
+      },
+      {
         "name": "LouisTW",
         "rank": 13,
         "xp_day": 5735,
         "label": "5.7K"
-      },
-      {
-        "name": "shadowIxD",
-        "rank": 35,
-        "xp_day": 5568,
-        "label": "5.6K"
       },
       {
         "name": "LIRǟnzɛsLIxD",
@@ -172520,28 +172520,28 @@
         "label": "4.6K"
       },
       {
+        "name": "īDãrk fåmâ",
+        "rank": 25,
+        "xp_day": 4244,
+        "label": "4.2K"
+      },
+      {
         "name": "YISÚS",
         "rank": 22,
         "xp_day": 3959,
         "label": "4.0K"
       },
       {
-        "name": "īDãrk fåmâ",
-        "rank": 25,
-        "xp_day": 3264,
-        "label": "3.3K"
-      },
-      {
         "name": "joseguevami",
         "rank": 27,
-        "xp_day": 3129,
-        "label": "3.1K"
+        "xp_day": 3356,
+        "label": "3.4K"
       },
       {
         "name": "Stenffor",
         "rank": 6,
-        "xp_day": 2247,
-        "label": "2.2K"
+        "xp_day": 2381,
+        "label": "2.4K"
       },
       {
         "name": "GANDALFFF",
@@ -172594,6 +172594,12 @@
         "label": "7.7K"
       },
       {
+        "name": "glad",
+        "rank": 14,
+        "xp_day": 6182,
+        "label": "6.2K"
+      },
+      {
         "name": "Pyroh",
         "rank": 11,
         "xp_day": 5731,
@@ -172602,8 +172608,8 @@
       {
         "name": "Seyuki",
         "rank": 4,
-        "xp_day": 5407,
-        "label": "5.4K"
+        "xp_day": 5600,
+        "label": "5.6K"
       },
       {
         "name": "Uss samsomp",
@@ -172612,15 +172618,15 @@
         "label": "5.4K"
       },
       {
-        "name": "glad",
-        "rank": 14,
-        "xp_day": 5033,
-        "label": "5.0K"
+        "name": "īDãrk fåmâ",
+        "rank": 8,
+        "xp_day": 5223,
+        "label": "5.2K"
       },
       {
         "name": "Tsukuyomi",
         "rank": 29,
-        "xp_day": 4780,
+        "xp_day": 4796,
         "label": "4.8K"
       },
       {
@@ -172630,24 +172636,18 @@
         "label": "4.6K"
       },
       {
-        "name": "XxGodlikexX",
-        "rank": 30,
-        "xp_day": 4458,
-        "label": "4.5K"
-      },
-      {
         "name": "joseguevami",
         "rank": 18,
-        "xp_day": 4370,
-        "label": "4.4K"
+        "xp_day": 4554,
+        "label": "4.6K"
       }
     ],
     "Distance": [
       {
         "name": "Tsukuyomi",
         "rank": 2,
-        "xp_day": 34246,
-        "label": "34.2K"
+        "xp_day": 34275,
+        "label": "34.3K"
       },
       {
         "name": "Dex",
@@ -172676,8 +172676,8 @@
       {
         "name": "teilor",
         "rank": 4,
-        "xp_day": 9109,
-        "label": "9.1K"
+        "xp_day": 10733,
+        "label": "10.7K"
       },
       {
         "name": "zaray",
@@ -172686,27 +172686,27 @@
         "label": "8.1K"
       },
       {
+        "name": "Huker",
+        "rank": 46,
+        "xp_day": 7328,
+        "label": "7.3K"
+      },
+      {
+        "name": "Paladino of Poder",
+        "rank": 21,
+        "xp_day": 7197,
+        "label": "7.2K"
+      },
+      {
         "name": "anialex",
         "rank": 15,
         "xp_day": 7059,
         "label": "7.1K"
       },
       {
-        "name": "Paladino of Poder",
-        "rank": 21,
-        "xp_day": 6972,
-        "label": "7.0K"
-      },
-      {
         "name": "Killer Archer",
         "rank": 23,
         "xp_day": 6931,
-        "label": "6.9K"
-      },
-      {
-        "name": "Huker",
-        "rank": 46,
-        "xp_day": 6865,
         "label": "6.9K"
       },
       {
@@ -172716,36 +172716,36 @@
         "label": "4.7K"
       },
       {
+        "name": "J o k e r",
+        "rank": 27,
+        "xp_day": 4307,
+        "label": "4.3K"
+      },
+      {
+        "name": "jaka",
+        "rank": 6,
+        "xp_day": 4268,
+        "label": "4.3K"
+      },
+      {
         "name": "skiees",
         "rank": 32,
         "xp_day": 4067,
         "label": "4.1K"
-      },
-      {
-        "name": "DARiL DIXON",
-        "rank": 33,
-        "xp_day": 3900,
-        "label": "3.9K"
-      },
-      {
-        "name": "J o k e r",
-        "rank": 27,
-        "xp_day": 3815,
-        "label": "3.8K"
       }
     ],
     "Taming": [
       {
         "name": "Tsukuyomi",
         "rank": 4,
-        "xp_day": 5378,
+        "xp_day": 5387,
         "label": "5.4K"
       },
       {
         "name": "Seyuki",
         "rank": 1,
-        "xp_day": 4147,
-        "label": "4.1K"
+        "xp_day": 4785,
+        "label": "4.8K"
       },
       {
         "name": "Ozloka",
@@ -172756,8 +172756,8 @@
       {
         "name": "teilor",
         "rank": 18,
-        "xp_day": 2600,
-        "label": "2.6K"
+        "xp_day": 3073,
+        "label": "3.1K"
       },
       {
         "name": "DAYA",
@@ -172784,15 +172784,21 @@
         "label": "1.4K"
       },
       {
-        "name": "Rellikk",
-        "rank": 13,
-        "xp_day": 1259,
+        "name": "Wezermoo",
+        "rank": 32,
+        "xp_day": 1367,
+        "label": "1.4K"
+      },
+      {
+        "name": "glad",
+        "rank": 41,
+        "xp_day": 1319,
         "label": "1.3K"
       },
       {
-        "name": "Wezermoo",
-        "rank": 32,
-        "xp_day": 1254,
+        "name": "Rellikk",
+        "rank": 13,
+        "xp_day": 1259,
         "label": "1.3K"
       },
       {
@@ -172802,28 +172808,22 @@
         "label": "1.3K"
       },
       {
+        "name": "joseguevami",
+        "rank": 31,
+        "xp_day": 1237,
+        "label": "1.2K"
+      },
+      {
         "name": "reymonjsc",
         "rank": 28,
         "xp_day": 1234,
         "label": "1.2K"
       },
       {
-        "name": "joseguevami",
-        "rank": 31,
-        "xp_day": 1185,
+        "name": "īDãrk fåmâ",
+        "rank": 42,
+        "xp_day": 1165,
         "label": "1.2K"
-      },
-      {
-        "name": "glad",
-        "rank": 41,
-        "xp_day": 1121,
-        "label": "1.1K"
-      },
-      {
-        "name": "GANDALFFF",
-        "rank": 25,
-        "xp_day": 972,
-        "label": "972"
       }
     ]
   }
